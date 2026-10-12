@@ -18,75 +18,10 @@ const STORAGE_KEYS = {
 export const DEFAULT_ADMIN_USER = 'saultula';
 export const DEFAULT_ADMIN_PASS = 'Sanjuan3:16#*$';
 
-// Datos iniciales de demostración para radios de ejemplo con cuentas
-const INITIAL_CLIENTS = [
-  {
-    id: 'cli-001',
-    radio_name: 'Radio Urbana 94.7 FM',
-    owner_name: 'Alejandro Morales',
-    phone: '5491145678901',
-    email: 'contacto@radiourbana947.com',
-    username: 'urbana947',
-    password: 'ksm123',
-    must_change_password: true,
-    plan: 'Plan Pro con Dominio',
-    monthly_fee: 10000,
-    signup_date: '2026-01-15',
-    due_day: 5,
-    status: 'al_dia', // 'al_dia' | 'proximo_a_vencer' | 'vencido' | 'pago_reportado'
-    last_payment_date: '2026-10-02',
-    notes: 'Transmisión 24hs con SonicPanel activo.',
-  },
-  {
-    id: 'cli-002',
-    radio_name: 'FM Horizonte 101.3',
-    owner_name: 'Beatriz Gómez',
-    phone: '5491156789012',
-    email: 'admin@fmhorizonte.com.ar',
-    username: 'horizonte101',
-    password: 'ksm123',
-    must_change_password: true,
-    plan: 'Plan Básico',
-    monthly_fee: 8000,
-    signup_date: '2026-03-10',
-    due_day: 5,
-    status: 'proximo_a_vencer',
-    last_payment_date: '2026-09-04',
-    notes: 'Avisar siempre el día 3 por WhatsApp.',
-  },
-  {
-    id: 'cli-003',
-    radio_name: 'Radio Impacto Digital',
-    owner_name: 'Martín Cabrera',
-    phone: '5491167890123',
-    email: 'martin@radioimpacto.net',
-    username: 'impactodigital',
-    password: 'ksm123',
-    must_change_password: true,
-    plan: 'Plan Pro + App Android',
-    monthly_fee: 10000,
-    signup_date: '2026-02-01',
-    due_day: 5,
-    status: 'vencido',
-    last_payment_date: '2026-08-30',
-    notes: 'Tiene pendiente la cuota del mes en curso.',
-  },
-];
-
-const INITIAL_PAYMENTS = [
-  {
-    id: 'pay-001',
-    client_id: 'cli-001',
-    radio_name: 'Radio Urbana 94.7 FM',
-    amount: 10000,
-    payment_date: '2026-10-02',
-    method: 'Mercado Pago',
-    receipt_number: 'REC-2026-0104',
-    transaction_ref: 'MP-893471029',
-    period: 'Octubre 2026',
-    status: 'aprobado',
-  },
-];
+// Lista inicial vacía — los clientes reales se cargan desde Supabase
+// o se crean desde el Panel de Administración.
+const INITIAL_CLIENTS = [];
+const INITIAL_PAYMENTS = [];
 
 const DEFAULT_SUPABASE_URL = 'https://ojzueojgmjysufobdutm.supabase.co';
 const DEFAULT_SUPABASE_KEY = 'sb_publishable_Aq_eNVcGeUEOILhWkTwKlg_byCeH_Da';
@@ -155,6 +90,21 @@ function logAuthEvent(eventType, identifier) {
       user_agent_hint: navigator?.userAgent?.split(' ').pop() || 'unknown',
     },
   }).catch(() => { /* silencioso — no interrumpir auth por fallo de log */ });
+}
+
+// ==========================================
+// UTILIDADES DE LIMPIEZA Y MANTENIMIENTO
+// ==========================================
+
+/**
+ * Borra todos los datos demo del localStorage.
+ * Llamar desde DevTools o desde el panel de Supabase
+ * cuando se pase de demo a producción real.
+ */
+export function clearDemoData() {
+  localStorage.removeItem(STORAGE_KEYS.CLIENTS);
+  localStorage.removeItem(STORAGE_KEYS.PAYMENTS);
+  console.info('[KSM] Datos demo eliminados del localStorage. Recargando datos desde Supabase...');
 }
 
 // ==========================================
@@ -239,6 +189,20 @@ export async function deleteClient(clientId) {
     method: 'DELETE',
     query: `?id=eq.${clientId}`,
   });
+
+  // Limpiar pagos huérfanos asociados a este cliente en localStorage
+  try {
+    const payments = await getPayments();
+    const remainingPayments = payments.filter((p) => p.client_id !== clientId);
+    localStorage.setItem(STORAGE_KEYS.PAYMENTS, JSON.stringify(remainingPayments));
+    await fetchSupabase('payments', {
+      method: 'DELETE',
+      query: `?client_id=eq.${clientId}`,
+    });
+  } catch (err) {
+    console.warn('[KSM] Error limpiando pagos del cliente eliminado:', err);
+  }
+
   return true;
 }
 
@@ -262,10 +226,20 @@ export async function getPayments() {
   }
 }
 
-export async function recordPayment({ clientId, radioName, amount, method, transactionRef, period }) {
+export async function recordPayment({
+  clientId,
+  radioName,
+  amount,
+  method,
+  transactionRef,
+  period,
+  status = 'aprobado',
+}) {
   const payments = await getPayments();
   const today = new Date().toISOString().split('T')[0];
   const receiptNum = `REC-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+  const paymentStatus = status === 'pendiente_verificacion' ? 'pendiente_verificacion' : 'aprobado';
 
   const newPayment = {
     id: `pay-${Date.now()}`,
@@ -277,7 +251,7 @@ export async function recordPayment({ clientId, radioName, amount, method, trans
     receipt_number: receiptNum,
     transaction_ref: transactionRef || `REF-${Date.now().toString().slice(-6)}`,
     period: period || 'Cuota Actual',
-    status: 'aprobado',
+    status: paymentStatus,
   };
 
   const updatedPayments = [newPayment, ...payments];
@@ -289,32 +263,117 @@ export async function recordPayment({ clientId, radioName, amount, method, trans
     body: newPayment,
   });
 
-  // Actualizar estado del cliente a "al_dia"
+  // Si el pago es aprobado inmediatamente (cargado por el admin), el cliente pasa a "al_dia"
+  // Si fue reportado por el cliente, pasa a "pago_reportado" para que el admin lo verifique
+  const newClientStatus = paymentStatus === 'aprobado' ? 'al_dia' : 'pago_reportado';
+
   const clients = await getClients();
   const updatedClients = clients.map((c) => {
-    if (c.id === clientId || c.radio_name.toLowerCase() === radioName.toLowerCase()) {
+    if (c.id === clientId || c.radio_name?.toLowerCase() === radioName?.toLowerCase()) {
       return {
         ...c,
-        status: 'al_dia',
-        last_payment_date: today,
+        status: newClientStatus,
+        ...(paymentStatus === 'aprobado' ? { last_payment_date: today } : {}),
       };
     }
     return c;
   });
   localStorage.setItem(STORAGE_KEYS.CLIENTS, JSON.stringify(updatedClients));
 
+  const clientPatchBody = paymentStatus === 'aprobado'
+    ? { status: 'al_dia', last_payment_date: today }
+    : { status: 'pago_reportado' };
+
   await fetchSupabase('clients', {
     method: 'PATCH',
     query: `?id=eq.${clientId}`,
-    body: { status: 'al_dia', last_payment_date: today },
+    body: clientPatchBody,
   });
 
   return newPayment;
 }
 
-// ==========================================
-// SEGURIDAD / AUTENTICACIÓN ADMINISTRADOR (saultula)
-// ==========================================
+export async function getPaymentsByClient(clientId) {
+  const all = await getPayments();
+  return all.filter((p) => p.client_id === clientId);
+}
+
+export async function approvePayment(paymentId, clientId, radioName) {
+  // Admin confirma un pago reportado por el cliente tras revisar el home banking/Mercado Pago
+  const payments = await getPayments();
+  const updatedPayments = payments.map((p) =>
+    p.id === paymentId ? { ...p, status: 'aprobado' } : p
+  );
+  localStorage.setItem(STORAGE_KEYS.PAYMENTS, JSON.stringify(updatedPayments));
+
+  await fetchSupabase('payments', {
+    method: 'PATCH',
+    query: `?id=eq.${paymentId}`,
+    body: { status: 'aprobado' },
+  });
+
+  // Actualizar estado del cliente a al_dia y registrar última fecha de pago
+  const today = new Date().toISOString().split('T')[0];
+  const clients = await getClients();
+  const updatedClients = clients.map((c) => {
+    const isMatch = (clientId && c.id === clientId) ||
+      (radioName && c.radio_name?.toLowerCase() === radioName?.toLowerCase());
+    return isMatch ? { ...c, status: 'al_dia', last_payment_date: today } : c;
+  });
+  localStorage.setItem(STORAGE_KEYS.CLIENTS, JSON.stringify(updatedClients));
+
+  if (clientId) {
+    await fetchSupabase('clients', {
+      method: 'PATCH',
+      query: `?id=eq.${clientId}`,
+      body: { status: 'al_dia', last_payment_date: today },
+    });
+  }
+
+  return true;
+}
+
+export async function deletePayment(paymentId) {
+  // Elimina un pago o factura de prueba/huérfana
+  const payments = await getPayments();
+  const updatedPayments = payments.filter((p) => p.id !== paymentId);
+  localStorage.setItem(STORAGE_KEYS.PAYMENTS, JSON.stringify(updatedPayments));
+
+  await fetchSupabase('payments', {
+    method: 'DELETE',
+    query: `?id=eq.${paymentId}`,
+  });
+  return true;
+}
+
+export async function purgeOrphanPayments() {
+  // Elimina pagos cuyos clientes ya no existen en el sistema
+  const [clients, payments] = await Promise.all([getClients(), getPayments()]);
+  const clientIds = new Set(clients.map((c) => c.id));
+  const clientNames = new Set(clients.map((c) => c.radio_name?.toLowerCase().trim()));
+
+  const validPayments = payments.filter((p) =>
+    (p.client_id && clientIds.has(p.client_id)) ||
+    (p.radio_name && clientNames.has(p.radio_name?.toLowerCase().trim()))
+  );
+
+  const orphanPayments = payments.filter((p) =>
+    !((p.client_id && clientIds.has(p.client_id)) ||
+    (p.radio_name && clientNames.has(p.radio_name?.toLowerCase().trim())))
+  );
+
+  localStorage.setItem(STORAGE_KEYS.PAYMENTS, JSON.stringify(validPayments));
+
+  for (const orphan of orphanPayments) {
+    await fetchSupabase('payments', {
+      method: 'DELETE',
+      query: `?id=eq.${orphan.id}`,
+    });
+  }
+
+  return { purgedCount: orphanPayments.length, remainingCount: validPayments.length };
+}
+
 
 export async function verifyAdminCredentials(username, password) {
   const cleanUser = String(username).trim();

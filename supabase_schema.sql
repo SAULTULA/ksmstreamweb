@@ -89,10 +89,21 @@ ALTER TABLE public.admin_users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.clients ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.payments ENABLE ROW LEVEL SECURITY;
 
--- ── 5. Eliminar políticas anteriores (si existen) ────────────────
+-- ── 5. Eliminar políticas anteriores (si existen) para permitir re-ejecución limpia ──
 DROP POLICY IF EXISTS "Permitir lectura y validacion de admin" ON public.admin_users;
 DROP POLICY IF EXISTS "Permitir gestion de clientes" ON public.clients;
 DROP POLICY IF EXISTS "Permitir gestion de pagos" ON public.payments;
+
+DROP POLICY IF EXISTS "admin_read_only_anon" ON public.admin_users;
+DROP POLICY IF EXISTS "clients_select_anon" ON public.clients;
+DROP POLICY IF EXISTS "clients_insert_anon" ON public.clients;
+DROP POLICY IF EXISTS "clients_update_anon" ON public.clients;
+DROP POLICY IF EXISTS "clients_delete_anon" ON public.clients;
+DROP POLICY IF EXISTS "payments_select_anon" ON public.payments;
+DROP POLICY IF EXISTS "payments_insert_anon" ON public.payments;
+DROP POLICY IF EXISTS "payments_update_anon" ON public.payments;
+DROP POLICY IF EXISTS "payments_delete_anon" ON public.payments;
+DROP POLICY IF EXISTS "audit_insert_only" ON public.auth_audit_log;
 
 -- ── 6. POLÍTICAS RLS RESTRICTIVAS (OWASP A01) ───────────────────
 -- Principio: Denegar todo por defecto; otorgar solo lo necesario.
@@ -143,7 +154,7 @@ CREATE POLICY "clients_delete_anon"
   TO anon, authenticated
   USING (true);
 
--- ▸ payments: solo lectura y escritura (no delete desde el frontend)
+-- ▸ payments: lectura, inserción, actualización (aprobar pagos) y eliminación (purgar/borrar facturas)
 CREATE POLICY "payments_select_anon"
   ON public.payments
   FOR SELECT
@@ -155,6 +166,19 @@ CREATE POLICY "payments_insert_anon"
   FOR INSERT
   TO anon, authenticated
   WITH CHECK (true);
+
+CREATE POLICY "payments_update_anon"
+  ON public.payments
+  FOR UPDATE
+  TO anon, authenticated
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY "payments_delete_anon"
+  ON public.payments
+  FOR DELETE
+  TO anon, authenticated
+  USING (true);
 
 -- ── 7. Tabla de auditoría de intentos de login (OWASP A09) ──────
 -- Registra logins fallidos para detectar ataques de fuerza bruta.

@@ -104,9 +104,19 @@ export default function InvoiceModal({ isOpen, onClose, paymentData }) {
 
           {/* Total & Stamp */}
           <div className={styles['invoice-doc__footer']}>
-            <div className={styles['invoice-doc__stamp']}>
+            <div
+              className={`${styles['invoice-doc__stamp']} ${
+                paymentData.status === 'pendiente_verificacion'
+                  ? styles['invoice-doc__stamp--pending']
+                  : ''
+              }`}
+            >
               <CheckCircle2 size={16} />
-              <span>PAGADO & ACREDITADO</span>
+              <span>
+                {paymentData.status === 'pendiente_verificacion'
+                  ? 'EN REVISIÓN / INFORMADO'
+                  : 'PAGADO & ACREDITADO'}
+              </span>
             </div>
 
             <div className={styles['invoice-doc__total-box']}>

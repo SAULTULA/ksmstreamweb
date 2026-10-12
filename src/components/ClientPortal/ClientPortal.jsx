@@ -140,10 +140,11 @@ export default function ClientPortal({ isOpen, onClose, initialRadioName, onOpen
         method,
         transactionRef: refCode || `TR-${Date.now().toString().slice(-6)}`,
         period: 'Cuota Mensual',
+        status: 'pendiente_verificacion',
       });
       setPaymentSuccess(payment);
       setRefCode('');
-      setLoggedClient((prev) => ({ ...prev, status: 'al_dia' }));
+      setLoggedClient((prev) => ({ ...prev, status: 'pago_reportado' }));
     } catch (err) {
       console.error(err);
       alert('Hubo un error al registrar el pago. Intenta nuevamente.');
@@ -358,7 +359,7 @@ export default function ClientPortal({ isOpen, onClose, initialRadioName, onOpen
                   <p className={styles['client-portal__owner']}>Titular: {currentClient.owner_name}</p>
                 </div>
                 <div>
-                  {currentClient.status === 'al_dia' ? (
+                  {currentClient.status === 'al_dia' && (
                     <span
                       style={{
                         display: 'inline-flex',
@@ -376,7 +377,27 @@ export default function ClientPortal({ isOpen, onClose, initialRadioName, onOpen
                       <CheckCircle2 size={14} />
                       <span>SERVICIO AL DÍA</span>
                     </span>
-                  ) : (
+                  )}
+                  {currentClient.status === 'pago_reportado' && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        padding: '0.3rem 0.75rem',
+                        borderRadius: '999px',
+                        background: 'rgba(245, 158, 11, 0.15)',
+                        border: '1px solid rgba(245, 158, 11, 0.4)',
+                        color: 'var(--color-warning)',
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                      }}
+                    >
+                      <AlertCircle size={14} />
+                      <span>PAGO EN VERIFICACIÓN</span>
+                    </span>
+                  )}
+                  {currentClient.status !== 'al_dia' && currentClient.status !== 'pago_reportado' && (
                     <span
                       style={{
                         display: 'inline-flex',
@@ -416,25 +437,25 @@ export default function ClientPortal({ isOpen, onClose, initialRadioName, onOpen
               </div>
             </div>
 
-            {/* Mensaje de Pago Exitoso */}
+            {/* Mensaje de Pago Informado */}
             {paymentSuccess && (
               <div
                 style={{
                   padding: '1rem',
                   borderRadius: '8px',
-                  background: 'rgba(16, 185, 129, 0.15)',
-                  border: '1px solid rgba(16, 185, 129, 0.4)',
+                  background: 'rgba(245, 158, 11, 0.12)',
+                  border: '1px solid rgba(245, 158, 11, 0.4)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.5rem',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-success)', fontWeight: 800 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#f59e0b', fontWeight: 800 }}>
                   <CheckCircle2 size={18} />
-                  <span>¡Pago procesado! Comprobante N° {paymentSuccess.receipt_number}</span>
+                  <span>¡Comprobante informado con éxito! (N° {paymentSuccess.receipt_number})</span>
                 </div>
                 <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
-                  Tu cuenta ya está al día. El registro impactó automáticamente en el sistema KSM.
+                  Registramos tu pago con referencia <strong>{paymentSuccess.transaction_ref}</strong>. La administración de KSM verificará la acreditación y tu factura quedará sellada definitivamente.
                 </p>
                 <button
                   type="button"
@@ -443,7 +464,7 @@ export default function ClientPortal({ isOpen, onClose, initialRadioName, onOpen
                   style={{ alignSelf: 'flex-start', marginTop: '0.3rem' }}
                 >
                   <FileText size={16} />
-                  <span>Ver y Descargar Mi Factura Oficial</span>
+                  <span>Ver Comprobante Provisorio</span>
                 </button>
               </div>
             )}

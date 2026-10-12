@@ -26,6 +26,9 @@ import {
   deleteClient,
   getPayments,
   recordPayment,
+  approvePayment,
+  deletePayment,
+  purgeOrphanPayments,
   getSupabaseConfig,
   saveSupabaseConfig,
   getNoticeMessage,
@@ -40,6 +43,7 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
   const [payments, setPayments] = useState([]);
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('todos');
+  const [paymentFilter, setPaymentFilter] = useState('todos'); // 'todos' | 'pendiente_verificacion' | 'aprobado'
   const [loading, setLoading] = useState(true);
 
   // WhatsApp dropdown abierto para un cliente específico
@@ -91,6 +95,7 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
   const warningClients = clients.filter((c) => c.status === 'proximo_a_vencer').length;
   const overdueClients = clients.filter((c) => c.status === 'vencido').length;
   const totalRevenue = clients.reduce((acc, c) => acc + Number(c.monthly_fee || 0), 0);
+  const pendingPaymentsCount = payments.filter((p) => p.status === 'pendiente_verificacion').length;
 
   // Filtrado de clientes
   const filteredClients = clients.filter((c) => {
@@ -100,6 +105,14 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
       (c.phone && c.phone.includes(search));
     const matchesFilter = filterStatus === 'todos' || c.status === filterStatus;
     return matchesSearch && matchesFilter;
+  });
+
+  // Filtrado de pagos
+  const filteredPayments = payments.filter((p) => {
+    if (paymentFilter === 'todos') return true;
+    if (paymentFilter === 'pendiente_verificacion') return p.status === 'pendiente_verificacion';
+    if (paymentFilter === 'aprobado') return p.status === 'aprobado' || !p.status;
+    return true;
   });
 
   const handleOpenNew = () => {
@@ -189,6 +202,25 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
     if (onOpenInvoice) {
       onOpenInvoice(payment);
     }
+  };
+
+  const handleApprovePayment = async (payment) => {
+    if (!window.confirm(`¿Aprobar y acreditar el pago de ${payment.radio_name} por $${Number(payment.amount).toLocaleString('es-AR')}?`)) return;
+    await approvePayment(payment.id, payment.client_id, payment.radio_name);
+    loadData();
+  };
+
+  const handleDeletePayment = async (paymentId) => {
+    if (!window.confirm('¿Deseas eliminar este comprobante de pago del historial?')) return;
+    await deletePayment(paymentId);
+    loadData();
+  };
+
+  const handlePurgeOrphans = async () => {
+    if (!window.confirm('¿Deseas buscar y eliminar las facturas de radios que ya no existen en tu lista de clientes?')) return;
+    const res = await purgeOrphanPayments();
+    alert(`Se eliminaron ${res.purgedCount} factura(s) huérfana(s).`);
+    loadData();
   };
 
   const handleSaveSupabase = (e) => {
@@ -352,6 +384,11 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
           >
             <CreditCard size={16} />
             <span>Control de Pagos & Facturas ({payments.length})</span>
+            {pendingPaymentsCount > 0 && (
+              <span className={styles['admin-panel__badge-counter']}>
+                {pendingPaymentsCount} por revisar
+              </span>
+            )}
           </button>
 
           <button
@@ -629,67 +666,148 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
 
         {/* TAB 2: HISTORIAL DE PAGOS */}
         {activeTab === 'pagos' && (
-          <div className={styles['admin-panel__table-wrapper']}>
-            <table className={styles['admin-panel__table']}>
-              <thead>
-                <tr>
-                  <th className={styles['admin-panel__th']}>N° Comprobante</th>
-                  <th className={styles['admin-panel__th']}>Emisora</th>
-                  <th className={styles['admin-panel__th']}>Fecha</th>
-                  <th className={styles['admin-panel__th']}>Método</th>
-                  <th className={styles['admin-panel__th']}>Referencia</th>
-                  <th className={styles['admin-panel__th']}>Monto Abonado</th>
-                  <th className={styles['admin-panel__th']}>Factura</th>
-                </tr>
-              </thead>
-              <tbody>
-                {payments.map((p) => (
-                  <tr key={p.id} className={styles['admin-panel__tr']}>
-                    <td className={styles['admin-panel__td']}>
-                      <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 700 }}>
-                        {p.receipt_number}
-                      </span>
-                    </td>
-                    <td className={styles['admin-panel__td']}>
-                      <strong>{p.radio_name}</strong>
-                    </td>
-                    <td className={styles['admin-panel__td']}>{p.payment_date}</td>
-                    <td className={styles['admin-panel__td']}>
-                      <span className={styles['admin-panel__cloud-badge']}>{p.method}</span>
-                    </td>
-                    <td className={styles['admin-panel__td']}>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--color-text-dim)' }}>
-                        {p.transaction_ref}
-                      </span>
-                    </td>
-                    <td className={styles['admin-panel__td']}>
-                      <span className={styles['admin-panel__fee']}>
-                        ${Number(p.amount).toLocaleString('es-AR')}
-                      </span>
-                    </td>
-                    <td className={styles['admin-panel__td']}>
-                      <button
-                        type="button"
-                        className={styles['admin-panel__btn-tool']}
-                        onClick={() => onOpenInvoice && onOpenInvoice(p)}
-                        title="Ver e Imprimir Factura Oficial"
-                      >
-                        <FileText size={14} />
-                        <span>Ver Factura</span>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {payments.length === 0 && (
-              <div className={styles['admin-panel__empty']}>
-                <CreditCard size={36} />
-                <p>Aún no se han registrado pagos en el sistema.</p>
+          <>
+            <div className={styles['admin-panel__controls']}>
+              <div className={styles['admin-panel__filter-group']}>
+                <button
+                  type="button"
+                  className={`${styles['admin-panel__filter-btn']} ${
+                    paymentFilter === 'todos' ? styles['admin-panel__filter-btn--active'] : ''
+                  }`}
+                  onClick={() => setPaymentFilter('todos')}
+                >
+                  Todos ({payments.length})
+                </button>
+                <button
+                  type="button"
+                  className={`${styles['admin-panel__filter-btn']} ${
+                    paymentFilter === 'pendiente_verificacion' ? styles['admin-panel__filter-btn--active'] : ''
+                  }`}
+                  onClick={() => setPaymentFilter('pendiente_verificacion')}
+                >
+                  ⏳ Por Verificar ({pendingPaymentsCount})
+                </button>
+                <button
+                  type="button"
+                  className={`${styles['admin-panel__filter-btn']} ${
+                    paymentFilter === 'aprobado' ? styles['admin-panel__filter-btn--active'] : ''
+                  }`}
+                  onClick={() => setPaymentFilter('aprobado')}
+                >
+                  ● Acreditados ({payments.length - pendingPaymentsCount})
+                </button>
               </div>
-            )}
-          </div>
+
+              <button
+                type="button"
+                className={styles['admin-panel__btn-tool']}
+                onClick={handlePurgeOrphans}
+                title="Elimina facturas de emisoras eliminadas que hayan quedado huérfanas"
+              >
+                <Trash2 size={14} />
+                <span>Limpiar Facturas Huérfanas</span>
+              </button>
+            </div>
+
+            <div className={styles['admin-panel__table-wrapper']}>
+              <table className={styles['admin-panel__table']}>
+                <thead>
+                  <tr>
+                    <th className={styles['admin-panel__th']}>N° Comprobante</th>
+                    <th className={styles['admin-panel__th']}>Emisora</th>
+                    <th className={styles['admin-panel__th']}>Fecha</th>
+                    <th className={styles['admin-panel__th']}>Método</th>
+                    <th className={styles['admin-panel__th']}>Referencia</th>
+                    <th className={styles['admin-panel__th']}>Monto</th>
+                    <th className={styles['admin-panel__th']}>Estado</th>
+                    <th className={styles['admin-panel__th']}>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredPayments.map((p) => {
+                    const isPending = p.status === 'pendiente_verificacion';
+                    return (
+                      <tr key={p.id} className={styles['admin-panel__tr']}>
+                        <td className={styles['admin-panel__td']}>
+                          <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 700 }}>
+                            {p.receipt_number}
+                          </span>
+                        </td>
+                        <td className={styles['admin-panel__td']}>
+                          <strong>{p.radio_name}</strong>
+                        </td>
+                        <td className={styles['admin-panel__td']}>{p.payment_date}</td>
+                        <td className={styles['admin-panel__td']}>
+                          <span className={styles['admin-panel__cloud-badge']}>{p.method}</span>
+                        </td>
+                        <td className={styles['admin-panel__td']}>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-dim)' }}>
+                            {p.transaction_ref}
+                          </span>
+                        </td>
+                        <td className={styles['admin-panel__td']}>
+                          <span className={styles['admin-panel__fee']}>
+                            ${Number(p.amount).toLocaleString('es-AR')}
+                          </span>
+                        </td>
+                        <td className={styles['admin-panel__td']}>
+                          <span
+                            className={`${styles['admin-panel__status-badge']} ${
+                              isPending
+                                ? styles['admin-panel__status-badge--pendiente_verificacion']
+                                : styles['admin-panel__status-badge--aprobado']
+                            }`}
+                          >
+                            {isPending ? '⏳ Por Verificar' : '● Acreditado'}
+                          </span>
+                        </td>
+                        <td className={styles['admin-panel__td']}>
+                          <div className={styles['admin-panel__actions-cell']}>
+                            {isPending && (
+                              <button
+                                type="button"
+                                className={`${styles['admin-panel__btn-action']} ${styles['admin-panel__btn-action--approve']}`}
+                                onClick={() => handleApprovePayment(p)}
+                                title="Aprobar pago y acreditar al cliente"
+                              >
+                                <CheckCircle2 size={15} />
+                              </button>
+                            )}
+
+                            <button
+                              type="button"
+                              className={styles['admin-panel__btn-tool']}
+                              onClick={() => onOpenInvoice && onOpenInvoice(p)}
+                              title="Ver e Imprimir Factura Oficial"
+                            >
+                              <FileText size={14} />
+                              <span>Ver Factura</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              className={`${styles['admin-panel__btn-action']} ${styles['admin-panel__btn-action--danger']}`}
+                              onClick={() => handleDeletePayment(p.id)}
+                              title="Eliminar este comprobante / factura"
+                            >
+                              <Trash2 size={15} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+
+              {filteredPayments.length === 0 && (
+                <div className={styles['admin-panel__empty']}>
+                  <CreditCard size={36} />
+                  <p>No hay comprobantes en esta categoría.</p>
+                </div>
+              )}
+            </div>
+          </>
         )}
 
         {/* TAB 3: SUPABASE CONFIG */}

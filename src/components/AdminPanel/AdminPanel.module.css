@@ -487,6 +487,31 @@
   color: var(--color-primary);
 }
 
+.admin-panel__status-badge--aprobado {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: var(--color-success);
+}
+
+.admin-panel__status-badge--pendiente_verificacion {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--color-warning);
+}
+
+.admin-panel__badge-counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: #f59e0b;
+  color: #07090e;
+  margin-left: 0.25rem;
+}
+
 /* WhatsApp dropdown buttons */
 .admin-panel__actions-cell {
   display: flex;
@@ -604,6 +629,18 @@
 .admin-panel__btn-action--danger:hover {
   color: var(--color-danger);
   border-color: var(--color-danger);
+}
+
+.admin-panel__btn-action--approve {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: var(--color-success);
+}
+
+.admin-panel__btn-action--approve:hover {
+  background: var(--color-success);
+  color: #07090e;
+  border-color: var(--color-success);
 }
 
 .admin-panel__btn-action--reset {

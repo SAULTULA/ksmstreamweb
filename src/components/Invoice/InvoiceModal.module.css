@@ -226,6 +226,11 @@
   text-transform: uppercase;
 }
 
+.invoice-doc__stamp--pending {
+  border-color: #f59e0b;
+  color: #d97706;
+}
+
 .invoice-doc__total-box {
   display: flex;
   align-items: baseline;
