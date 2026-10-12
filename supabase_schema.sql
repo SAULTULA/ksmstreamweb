@@ -84,10 +84,34 @@ CREATE TABLE IF NOT EXISTS public.payments (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- ── 3.1. Tabla de Solicitudes de Alta (Fichas Internas) ─────────
+CREATE TABLE IF NOT EXISTS public.service_requests (
+  id TEXT PRIMARY KEY,
+  radio_name TEXT NOT NULL,
+  owner_name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  email TEXT,
+  city TEXT,
+  province TEXT,
+  plan TEXT NOT NULL,
+  stream_url TEXT,
+  domain TEXT,
+  advance_financing TEXT,
+  has_android BOOLEAN DEFAULT FALSE,
+  android_financing TEXT,
+  total_initial_estimated NUMERIC,
+  status TEXT NOT NULL DEFAULT 'pendiente'
+    CHECK (status IN ('pendiente', 'contactada', 'en_proceso', 'aprobada', 'completada', 'rechazada')),
+  notes TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- ── 4. Habilitar Row Level Security (OWASP A01) ──────────────────
 ALTER TABLE public.admin_users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.clients ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.payments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.service_requests ENABLE ROW LEVEL SECURITY;
 
 -- ── 5. Eliminar políticas anteriores (si existen) para permitir re-ejecución limpia ──
 DROP POLICY IF EXISTS "Permitir lectura y validacion de admin" ON public.admin_users;
@@ -103,6 +127,10 @@ DROP POLICY IF EXISTS "payments_select_anon" ON public.payments;
 DROP POLICY IF EXISTS "payments_insert_anon" ON public.payments;
 DROP POLICY IF EXISTS "payments_update_anon" ON public.payments;
 DROP POLICY IF EXISTS "payments_delete_anon" ON public.payments;
+DROP POLICY IF EXISTS "service_requests_select_anon" ON public.service_requests;
+DROP POLICY IF EXISTS "service_requests_insert_anon" ON public.service_requests;
+DROP POLICY IF EXISTS "service_requests_update_anon" ON public.service_requests;
+DROP POLICY IF EXISTS "service_requests_delete_anon" ON public.service_requests;
 DROP POLICY IF EXISTS "audit_insert_only" ON public.auth_audit_log;
 
 -- ── 6. POLÍTICAS RLS RESTRICTIVAS (OWASP A01) ───────────────────
@@ -176,6 +204,32 @@ CREATE POLICY "payments_update_anon"
 
 CREATE POLICY "payments_delete_anon"
   ON public.payments
+  FOR DELETE
+  TO anon, authenticated
+  USING (true);
+
+-- ▸ service_requests: inserción pública de fichas de alta y gestión desde admin
+CREATE POLICY "service_requests_select_anon"
+  ON public.service_requests
+  FOR SELECT
+  TO anon, authenticated
+  USING (true);
+
+CREATE POLICY "service_requests_insert_anon"
+  ON public.service_requests
+  FOR INSERT
+  TO anon, authenticated
+  WITH CHECK (true);
+
+CREATE POLICY "service_requests_update_anon"
+  ON public.service_requests
+  FOR UPDATE
+  TO anon, authenticated
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY "service_requests_delete_anon"
+  ON public.service_requests
   FOR DELETE
   TO anon, authenticated
   USING (true);

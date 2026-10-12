@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, XCircle, Zap, Star, MessageCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle2, XCircle, Zap, Star, Sparkles, MessageCircle, ArrowRight } from 'lucide-react';
 import styles from './Pricing.module.css';
 
 const BASIC_FEATURES = [
@@ -28,8 +28,22 @@ const PRO_FEATURES = [
   { text: 'Vigencia del dominio por 1 año incluida', ok: true },
 ];
 
+const ADVANCE_FEATURES = [
+  { text: 'Streaming Audio HD 128 kbps (MP3 / AAC+)', ok: true },
+  { text: 'Oyentes Simultáneos Ilimitados', ok: true },
+  { text: 'Servidor Icecast / Shoutcast SonicPanel', ok: true },
+  { text: 'Creación de Web con Funciones Avanzadas a Medida', ok: true },
+  { text: 'Dominio propio registrado a tu nombre', ok: true },
+  { text: 'Vigencia del dominio por 1 año incluida', ok: true },
+  { text: 'Estadísticas Gráficas en tiempo real', ok: true },
+  { text: 'Transferencia mensual ilimitada + SSL Seguro', ok: true },
+  { text: 'Opción de prorratear desarrollo en la cuota mensual', ok: true },
+  { text: 'Soporte Técnico Prioritario vía WhatsApp', ok: true },
+];
+
 const WA_MSG_BASIC = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan BÁSICO de Streaming de Radio Online por $15.000 ARS. ¿Me pueden ayudar?');
 const WA_MSG_PRO = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan PRO de Streaming de Radio Online por $25.000 ARS. ¿Me pueden ayudar?');
+const WA_MSG_ADVANCE = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan ADVANCE con Web de Funciones Avanzadas por $150.000 ARS de desarrollo y $12.500/mes. ¿Me pueden asesorar?');
 const WA_BASE = 'https://wa.me/5491100000000?text=';
 
 export default function Pricing() {
@@ -144,6 +158,55 @@ export default function Pricing() {
             >
               <ArrowRight size={17} />
               <span>Contratar Plan Pro</span>
+            </a>
+          </article>
+
+          {/* ===== PLAN ADVANCE ===== */}
+          <article className={`${styles['pricing__card']} ${styles['pricing__card--advance']}`}>
+            <div className={styles['pricing__advance-badge']}>
+              <Sparkles size={12} fill="currentColor" />
+              <span>Web Avanzada</span>
+            </div>
+
+            <div>
+              <p className={`${styles['pricing__plan-name']} ${styles['pricing__plan-name--advance']}`}>Plan Advance</p>
+              <p className={styles['pricing__plan-desc']}>Sitio web profesional con funciones avanzadas a medida y máxima potencia.</p>
+            </div>
+
+            <div className={styles['pricing__price-block']}>
+              <p className={styles['pricing__first-payment-label']}>Desarrollo Web Avanzada + Alta</p>
+              <div className={styles['pricing__first-payment-amount']}>
+                <span className={styles['pricing__currency']}>$</span>
+                <span className={styles['pricing__amount']}>150.000</span>
+              </div>
+              <p className={styles['pricing__period']}>ARS · desarrollo web (opción prorrateable en cuotas)</p>
+
+              <hr className={styles['pricing__divider']} />
+
+              <p className={styles['pricing__monthly-label']}>Abono mensual (desde el mes 2)</p>
+              <div className={styles['pricing__monthly-row']}>
+                <span className={styles['pricing__monthly-amount']}>$12.500 ARS</span>
+              </div>
+              <p className={styles['pricing__monthly-note']}>Vencimiento del 1 al 5 de cada mes</p>
+            </div>
+
+            <ul className={styles['pricing__feature-list']}>
+              {ADVANCE_FEATURES.map((f, i) => (
+                <li key={i} className={styles['pricing__feature-item']}>
+                  <CheckCircle2 size={16} className={styles['pricing__feature-icon']} />
+                  <span>{f.text}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={`${WA_BASE}${WA_MSG_ADVANCE}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles['pricing__cta']} ${styles['pricing__cta--advance']}`}
+            >
+              <Sparkles size={17} />
+              <span>Contratar Plan Advance</span>
             </a>
           </article>
         </div>

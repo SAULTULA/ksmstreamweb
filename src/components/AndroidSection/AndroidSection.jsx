@@ -6,11 +6,11 @@ const appFeatures = [
   'Diseño completamente personalizado con la identidad de tu radio',
   'Reproductor integrado con carátula, artista y título del programa',
   'Entrega de APK funcional en 3 días hábiles (listo para instalar y usar)',
-  'Gestión y publicación oficial en Google Play Store',
-  'Fase reglamentaria de prueba cerrada de Google Play (14–15 días con lista de testers)',
+  'Instalación directa en cualquier celular Android mediante archivo APK',
+  'Sin cuotas mensuales adicionales por la aplicación móvil',
 ];
 
-const WA_MSG = encodeURIComponent('Hola KSM Servicios! Me interesa agregar la App Android Dedicada por $100.000 ARS. ¿Me podés dar más información?');
+const WA_MSG = encodeURIComponent('Hola KSM Servicios! Me interesa agregar la App Android Dedicada ($100.000 ARS - Instalación APK). ¿Me podés dar más información?');
 
 export default function AndroidSection() {
   return (
@@ -29,15 +29,15 @@ export default function AndroidSection() {
           </h2>
 
           <p className={styles['android__desc']}>
-            Llevá tu radio al bolsillo de tus oyentes con una aplicación propia publicada en
-            Google Play Store. Completamente personalizada con tu logo, colores y nombre de emisora.
+            Llevá tu radio al bolsillo de tus oyentes con una aplicación propia instalable
+            directamente mediante archivo APK. Completamente personalizada con tu logo, colores y nombre de emisora.
           </p>
 
           <div className={styles['android__price-box']}>
             <div className={styles['android__price-row']}>
               <div className={styles['android__price-label']}>
-                <span className={styles['android__price-badge']}>Desarrollo + Publicación</span>
-                <span className={styles['android__price-sublabel']}>Pago único. Sin cuotas ocultas.</span>
+                <span className={styles['android__price-badge']}>Desarrollo App Android (Instalación APK)</span>
+                <span className={styles['android__price-sublabel']}>Pago único de desarrollo. Luego abono habitual del plan de streaming.</span>
               </div>
               <span className={styles['android__price-value']}>$100.000 ARS</span>
             </div>
@@ -47,8 +47,8 @@ export default function AndroidSection() {
             <div className={styles['android__financing']}>
               <Banknote size={20} className={styles['android__financing-icon']} />
               <p className={styles['android__financing-text']}>
-                <strong>Financiación disponible:</strong> podés coordinar el pago único al contratar,
-                o bien prorratearlo e incluirlo como un valor negociado dentro de tu cuota mensual del plan de streaming.
+                <strong>Financiación y Abono:</strong> podés coordinar el pago único al contratar,
+                o bien prorratear el desarrollo e incluirlo dentro de tu cuota mensual. Recordá que el abono mensual de streaming continúa en su valor habitual (ej: $10.000 ARS/mes en Plan Pro) a partir del mes 2.
               </p>
             </div>
           </div>

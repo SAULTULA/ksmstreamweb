@@ -69,14 +69,16 @@
 
 /* Pricing box */
 .android__price-box {
-  background: var(--color-bg-card);
-  border: 1px solid rgba(157, 78, 221, 0.35);
-  border-radius: var(--radius-xl);
+  background: rgba(28, 20, 45, 0.7);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(191, 90, 242, 0.4);
+  border-radius: 24px;
   padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  box-shadow: var(--shadow-glow-purple);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.55), 0 0 35px rgba(191, 90, 242, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .android__price-row {
@@ -122,8 +124,9 @@
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-sm);
-  background: rgba(157, 78, 221, 0.07);
-  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
   padding: var(--spacing-md);
 }
 
@@ -170,20 +173,20 @@
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
-  padding: 0.9rem 1.8rem;
-  border-radius: var(--radius-full);
+  padding: 0.95rem 1.85rem;
+  border-radius: 14px;
   font-size: var(--font-size-base);
   font-weight: 700;
-  background: linear-gradient(135deg, var(--color-secondary), #e879f9);
-  color: var(--color-text-main);
+  background: linear-gradient(180deg, #bf5af2 0%, #a855f7 100%);
+  color: #ffffff;
   transition: all var(--transition-base);
   align-self: flex-start;
-  box-shadow: var(--shadow-glow-purple);
+  box-shadow: 0 4px 18px rgba(191, 90, 242, 0.45);
 }
 
 .android__cta:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 0 40px rgba(157, 78, 221, 0.55);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 28px rgba(191, 90, 242, 0.6);
 }
 
 /* Media */
@@ -198,10 +201,10 @@
   position: relative;
   width: 100%;
   max-width: 360px;
-  border-radius: var(--radius-xl);
+  border-radius: 26px;
   overflow: hidden;
-  border: 1px solid rgba(157, 78, 221, 0.35);
-  box-shadow: var(--shadow-lg), var(--shadow-glow-purple);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   aspect-ratio: 3 / 4;
 }
 
@@ -222,17 +225,19 @@
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-  background: rgba(14, 18, 28, 0.92);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(157, 78, 221, 0.4);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-full);
+  background: rgba(26, 22, 42, 0.85);
+  backdrop-filter: blur(22px) saturate(190%);
+  -webkit-backdrop-filter: blur(22px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.55rem 1.1rem;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: var(--font-size-xs);
   font-weight: 700;
   color: #c084fc;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 @media (max-width: 960px) {

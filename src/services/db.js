@@ -10,8 +10,10 @@
 const STORAGE_KEYS = {
   CLIENTS: 'ksm_clients_data',
   PAYMENTS: 'ksm_payments_data',
+  SERVICE_REQUESTS: 'ksm_service_requests_data',
   ADMIN_AUTH: 'ksm_admin_credentials',
   SUPABASE_CONFIG: 'ksm_supabase_config',
+  TELEGRAM_CONFIG: 'ksm_telegram_config',
 };
 
 // Credenciales oficiales del Administrador de KSM Servicios
@@ -572,4 +574,203 @@ O transferí al alias/CBU de KSM y respondé a este mensaje con tu comprobante. 
   }
 
   return '';
+}
+
+// ==========================================
+// TELEGRAM NOTIFICATIONS
+// ==========================================
+
+export function getTelegramConfig() {
+  const envToken = import.meta.env?.VITE_TELEGRAM_BOT_TOKEN;
+  const envChatId = import.meta.env?.VITE_TELEGRAM_CHAT_ID;
+  if (envToken && envChatId) {
+    return { botToken: envToken, chatId: envChatId, isFromEnv: true };
+  }
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.TELEGRAM_CONFIG);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return {
+        botToken: parsed.botToken || envToken || '',
+        chatId: parsed.chatId || envChatId || '',
+        isFromEnv: false,
+      };
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return { botToken: envToken || '', chatId: envChatId || '', isFromEnv: !!envToken };
+}
+
+export function saveTelegramConfig(botToken, chatId) {
+  localStorage.setItem(
+    STORAGE_KEYS.TELEGRAM_CONFIG,
+    JSON.stringify({ botToken: botToken.trim(), chatId: chatId.trim(), isFromEnv: false })
+  );
+}
+
+export async function sendTelegramNotification(htmlMessage) {
+  const { botToken, chatId } = getTelegramConfig();
+  if (!botToken || !chatId) {
+    console.info('[Telegram] Bot Token o Chat ID no configurado. Se omite notificación.');
+    return { sent: false, reason: 'unconfigured' };
+  }
+
+  try {
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: htmlMessage,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      }),
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      console.warn('[Telegram Error]', data.description);
+      return { sent: false, error: data.description };
+    }
+    return { sent: true };
+  } catch (error) {
+    console.warn('[Telegram Network Error]', error);
+    return { sent: false, error: error.message };
+  }
+}
+
+export async function testTelegramNotification() {
+  const time = new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+  const msg = `⚡ <b>KSM STREAMING — PRUEBA DE CONEXIÓN TELEGRAM</b>
+━━━━━━━━━━━━━━━━━━━━
+✅ Tu bot de Telegram está configurado y funcionando perfectamente.
+⏰ Hora del test: <code>${time}</code>
+
+A partir de ahora recibirás aquí cada nueva <b>Ficha de Alta de Servicio</b> en tiempo real sin depender de WhatsApp.`;
+  return await sendTelegramNotification(msg);
+}
+
+// ==========================================
+// SOLICITUDES DE ALTA (FICHAS INTERNAS)
+// ==========================================
+
+export async function getServiceRequests() {
+  const supaData = await fetchSupabase('service_requests', { query: '?select=*&order=created_at.desc' });
+  if (supaData && Array.isArray(supaData)) {
+    return supaData;
+  }
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.SERVICE_REQUESTS);
+    if (raw) return JSON.parse(raw);
+    return [];
+  } catch (e) {
+    return [];
+  }
+}
+
+export async function createServiceRequest(requestData) {
+  const requests = await getServiceRequests();
+  const id = `sol-${Date.now()}`;
+  const now = new Date().toISOString();
+
+  let planName = 'Plan Pro';
+  if (requestData.plan === 'basic') planName = 'Plan Básico';
+  else if (requestData.plan === 'advance') planName = 'Plan Advance';
+  else if (requestData.plan) planName = requestData.plan;
+
+  const newRequest = {
+    id,
+    radio_name: requestData.emisora || requestData.radio_name || 'Sin nombre',
+    owner_name: requestData.titular || requestData.owner_name || 'Sin titular',
+    phone: requestData.telefono || requestData.phone || '',
+    email: requestData.email || '',
+    city: requestData.ciudad || requestData.city || '',
+    plan: planName,
+    domain: requestData.dominio || requestData.domain || '',
+    advance_financing: requestData.advanceFinanciacion || requestData.advance_financing || '',
+    has_android: requestData.android === 'si' || !!requestData.has_android,
+    android_financing: requestData.androidFinanciacion || requestData.android_financing || '',
+    total_initial_estimated: Number(requestData.totalEstimated || requestData.total_initial_estimated || 0),
+    status: 'pendiente',
+    notes: requestData.notes || '',
+    created_at: now,
+    updated_at: now,
+  };
+
+  const updatedRequests = [newRequest, ...requests];
+  localStorage.setItem(STORAGE_KEYS.SERVICE_REQUESTS, JSON.stringify(updatedRequests));
+
+  // Enviar a Supabase
+  await fetchSupabase('service_requests', {
+    method: 'POST',
+    body: newRequest,
+  });
+
+  // Enviar notificación a Telegram
+  const totalFmt = Number(newRequest.total_initial_estimated).toLocaleString('es-AR');
+  const androidTxt = newRequest.has_android
+    ? `Sí (${newRequest.android_financing === 'unico' ? 'Pago único $100.000' : 'Financiado en cuota'} - APK Directo)`
+    : 'No';
+
+  const tgMessage = `🔔 <b>NUEVA SOLICITUD DE ALTA - KSM STREAMING</b>
+━━━━━━━━━━━━━━━━━━━━
+📻 <b>Emisora:</b> <code>${newRequest.radio_name}</code>
+👤 <b>Titular:</b> ${newRequest.owner_name}
+📱 <b>WhatsApp:</b> <a href="https://wa.me/${String(newRequest.phone).replace(/\D/g, '')}">${newRequest.phone}</a>
+✉️ <b>Email:</b> ${newRequest.email || 'No especificado'}
+📍 <b>Ciudad:</b> ${newRequest.city || 'No especificada'}
+
+📦 <b>Plan:</b> <b>${newRequest.plan}</b>${newRequest.advance_financing ? ` (${newRequest.advance_financing === 'unico' ? 'Desarrollo pago único' : 'Desarrollo prorrateado'})` : ''}
+${newRequest.domain ? `🌐 <b>Dominio:</b> www.${newRequest.domain}.com\n` : ''}📱 <b>App Android:</b> ${androidTxt}
+💰 <b>Primer pago estimado:</b> <b>$${totalFmt} ARS</b>
+━━━━━━━━━━━━━━━━━━━━
+👉 <i>Ingresá a tu Panel de Gestión KSM para revisar la ficha y dar de alta el servidor.</i>`;
+
+  sendTelegramNotification(tgMessage).catch(() => {});
+
+  return newRequest;
+}
+
+export async function updateServiceRequestStatus(id, newStatus, notes) {
+  const requests = await getServiceRequests();
+  const now = new Date().toISOString();
+  const updatedRequests = requests.map((r) => {
+    if (r.id === id) {
+      return {
+        ...r,
+        status: newStatus,
+        notes: notes !== undefined ? notes : r.notes,
+        updated_at: now,
+      };
+    }
+    return r;
+  });
+  localStorage.setItem(STORAGE_KEYS.SERVICE_REQUESTS, JSON.stringify(updatedRequests));
+
+  const patchBody = {
+    status: newStatus,
+    updated_at: now,
+    ...(notes !== undefined ? { notes } : {}),
+  };
+
+  await fetchSupabase('service_requests', {
+    method: 'PATCH',
+    query: `?id=eq.${id}`,
+    body: patchBody,
+  });
+
+  return true;
+}
+
+export async function deleteServiceRequest(id) {
+  const requests = await getServiceRequests();
+  const updatedRequests = requests.filter((r) => r.id !== id);
+  localStorage.setItem(STORAGE_KEYS.SERVICE_REQUESTS, JSON.stringify(updatedRequests));
+
+  await fetchSupabase('service_requests', {
+    method: 'DELETE',
+    query: `?id=eq.${id}`,
+  });
+  return true;
 }

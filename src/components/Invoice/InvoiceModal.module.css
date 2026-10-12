@@ -2,9 +2,9 @@
   position: fixed;
   inset: 0;
   z-index: 1100;
-  background: rgba(3, 5, 8, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 8, 20, 0.55);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,9 +29,9 @@
   max-width: 680px;
   background: #ffffff;
   color: #111827;
-  border-radius: var(--radius-lg);
+  border-radius: 24px;
   padding: var(--spacing-2xl);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
@@ -53,19 +53,22 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.5rem 1rem;
-  background: #111827;
+  padding: 0.55rem 1.1rem;
+  background: #007aff;
   color: #ffffff;
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: 10px;
   font-size: var(--font-size-xs);
   font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 122, 255, 0.35);
   transition: all var(--transition-fast);
 }
 
 .invoice-modal__btn-print:hover {
-  background: #374151;
+  background: #0062cc;
+  box-shadow: 0 6px 20px rgba(0, 122, 255, 0.5);
+  transform: translateY(-1px);
 }
 
 .invoice-modal__btn-close {
@@ -79,6 +82,12 @@
   border: 1px solid #e5e7eb;
   color: #4b5563;
   cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.invoice-modal__btn-close:hover {
+  background: #e5e7eb;
+  color: #111827;
 }
 
 /* Printable Document Area */

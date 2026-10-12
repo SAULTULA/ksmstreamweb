@@ -54,16 +54,18 @@
 /* Cards grid */
 .summary__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-lg);
-  max-width: 1100px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  max-width: 1280px;
   margin: 0 auto;
 }
 
 .summary__card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  background: rgba(24, 21, 38, 0.65);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 24px;
   padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
@@ -71,22 +73,23 @@
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 
 .summary__card--highlight {
-  border-color: rgba(16, 185, 129, 0.4);
-  box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
+  border-color: rgba(48, 209, 88, 0.45);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5), 0 0 30px rgba(48, 209, 88, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .summary__card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-card);
-  border-color: var(--color-border-hover);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .summary__card--highlight:hover {
-  border-color: rgba(16, 185, 129, 0.6);
-  box-shadow: 0 0 40px rgba(16, 185, 129, 0.18), var(--shadow-card);
+  border-color: rgba(48, 209, 88, 0.7);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(48, 209, 88, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .summary__card-header {
@@ -120,6 +123,12 @@
   background: rgba(0, 240, 255, 0.15);
   border: 1px solid rgba(0, 240, 255, 0.35);
   color: var(--color-primary);
+}
+
+.summary__card-icon--advance {
+  background: rgba(157, 78, 221, 0.15);
+  border: 1px solid rgba(157, 78, 221, 0.35);
+  color: #c084fc;
 }
 
 .summary__card-icon--bundle {
@@ -202,7 +211,18 @@
   background: var(--color-primary);
 }
 
-@media (max-width: 860px) {
+.summary__includes-dot--purple {
+  background: #c084fc;
+}
+
+@media (max-width: 1120px) {
+  .summary__grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 640px) {
   .summary__grid {
     grid-template-columns: 1fr;
     max-width: 480px;

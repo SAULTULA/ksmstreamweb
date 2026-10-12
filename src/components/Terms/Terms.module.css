@@ -1,6 +1,6 @@
 .terms {
-  padding: var(--spacing-2xl) var(--spacing-lg);
-  background: rgba(14, 18, 28, 0.5);
+  padding: var(--spacing-3xl) var(--spacing-lg);
+  background: transparent;
 }
 
 .terms__container {
@@ -16,16 +16,17 @@
 }
 
 .terms__icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(0, 240, 255, 0.1);
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  border-radius: var(--radius-md);
+  width: 44px;
+  height: 44px;
+  background: rgba(10, 132, 255, 0.15);
+  border: 1px solid rgba(10, 132, 255, 0.32);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-primary);
   flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(10, 132, 255, 0.2);
 }
 
 .terms__title {
@@ -47,28 +48,33 @@
   align-items: flex-start;
   gap: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-lg);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  transition: border-color var(--transition-fast);
+  background: rgba(24, 21, 38, 0.65);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: all var(--transition-base);
 }
 
 .terms__item:hover {
-  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .terms__item-number {
-  width: 28px;
-  height: 28px;
-  background: rgba(0, 240, 255, 0.1);
-  border: 1px solid rgba(0, 240, 255, 0.25);
-  border-radius: var(--radius-full);
+  width: 32px;
+  height: 32px;
+  background: rgba(10, 132, 255, 0.16);
+  border: 1px solid rgba(10, 132, 255, 0.35);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-xs);
   font-weight: 800;
-  color: var(--color-primary);
+  color: #38bdf8;
   flex-shrink: 0;
   font-family: var(--font-family-mono);
 }

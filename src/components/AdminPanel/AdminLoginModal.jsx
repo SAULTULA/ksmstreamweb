@@ -114,9 +114,9 @@ export default function AdminLoginModal({ isOpen, onClose, onSuccess }) {
           <div className={styles['admin-modal__icon-box']}>
             <ShieldCheck size={28} />
           </div>
-          <h2 className={styles['admin-modal__title']}>Acceso KSM Administración</h2>
+          <h2 className={styles['admin-modal__title']}>KSM Servicios</h2>
           <p className={styles['admin-modal__subtitle']}>
-            Panel privado — restringido al titular de KSM Servicios.
+            Acceso Restringido · Panel de Gestión
           </p>
         </div>
 
@@ -203,8 +203,8 @@ export default function AdminLoginModal({ isOpen, onClose, onSuccess }) {
               <span>Bloqueado ({lockCountdown}s)</span>
             ) : (
               <>
+                <Lock size={16} />
                 <span>Ingresar al Panel</span>
-                <ArrowRight size={18} />
               </>
             )}
           </button>

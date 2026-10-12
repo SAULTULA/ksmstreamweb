@@ -15,6 +15,7 @@ import AdminLoginModal from './components/AdminPanel/AdminLoginModal';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import ClientPortal from './components/ClientPortal/ClientPortal';
 import InvoiceModal from './components/Invoice/InvoiceModal';
+import { getClients, recordPayment } from './services/db';
 
 import './index.css';
 
@@ -36,7 +37,6 @@ export default function App() {
       if ((mpStatus === 'approved' || mpStatus === 'success') && clientId) {
         (async () => {
           try {
-            const { getClients, recordPayment } = await import('./services/db');
             const clients = await getClients();
             const targetClient = clients.find((c) => c.id === clientId);
 

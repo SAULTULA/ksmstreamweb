@@ -42,16 +42,19 @@
   right: calc(100% + 12px);
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(14, 18, 28, 0.95);
-  border: 1px solid rgba(37, 211, 102, 0.4);
-  border-radius: var(--radius-md);
-  padding: 0.4rem 0.8rem;
+  background: rgba(22, 18, 38, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.5rem 0.9rem;
   white-space: nowrap;
   font-size: var(--font-size-xs);
   font-weight: 700;
-  color: #fff;
+  color: #ffffff;
   pointer-events: none;
   opacity: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transition: opacity var(--transition-fast);
 }
 
