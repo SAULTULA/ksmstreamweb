@@ -2,11 +2,12 @@
   position: fixed;
   inset: 0;
   z-index: 999;
-  background-color: var(--color-bg-base);
+  background-color: #07090e;  /* Fondo 100% sólido, sin transparencia */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   animation: panelSlideIn 0.25s ease-out;
+  isolation: isolate; /* Contexto de apilamiento propio */
 }
 
 @keyframes panelSlideIn {
@@ -25,9 +26,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background-color: rgba(7, 9, 14, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: #07090e; /* Sólido para que no se filtre el contenido */
   border-bottom: 1px solid var(--color-border);
   padding: var(--spacing-sm) var(--spacing-xl);
   display: flex;
