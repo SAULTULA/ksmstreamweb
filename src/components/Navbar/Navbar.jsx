@@ -2,11 +2,19 @@ import React from 'react';
 import { Radio, MessageCircle, Sparkles, FileText, Smartphone } from 'lucide-react';
 import styles from './Navbar.module.css';
 
-export default function Navbar() {
+export default function Navbar({ onOpenAdmin, onOpenClientPortal }) {
   return (
     <header className={styles.navbar}>
       <div className={styles['navbar__container']}>
-        <a href="#inicio" className={styles['navbar__brand']}>
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={onOpenAdmin}
+          onKeyDown={(e) => e.key === 'Enter' && onOpenAdmin()}
+          className={styles['navbar__brand']}
+          title="KSM Streaming — Clic en el logo para Panel de Administración"
+          style={{ cursor: 'pointer' }}
+        >
           <img src="/logo.png" alt="KSM Logo" className={styles['navbar__brand-img']} />
           <span className={styles['navbar__brand-text']}>
             KSM <span className={styles['navbar__brand-highlight']}>Streaming</span>
@@ -15,7 +23,7 @@ export default function Navbar() {
             <span className={styles['navbar__badge-dot']} />
             <span>EN VIVO</span>
           </div>
-        </a>
+        </div>
 
         <nav className={styles['navbar__nav']}>
           <ul className={styles['navbar__list']}>
@@ -38,6 +46,16 @@ export default function Navbar() {
         </nav>
 
         <div className={styles['navbar__actions']}>
+          <button
+            type="button"
+            className={`${styles['navbar__btn']} ${styles['navbar__btn--client']}`}
+            onClick={onOpenClientPortal}
+            title="Acceso para clientes: pagar y descargar factura"
+          >
+            <FileText size={15} />
+            <span>Área Clientes</span>
+          </button>
+
           <a
             href="https://wa.me/5491100000000?text=Hola%20KSM%20Servicios,%20quiero%20consultar%20sobre%20el%20Streaming%20de%20Radio%20Online"
             target="_blank"

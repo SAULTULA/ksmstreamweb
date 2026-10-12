@@ -78,13 +78,18 @@ const SERVICE_LINKS = [
 
 const currentYear = new Date().getFullYear();
 
-export default function Footer() {
+export default function Footer({ onOpenClientPortal }) {
   return (
     <footer className={styles.footer}>
       <div className={styles['footer__container']}>
         {/* Brand */}
         <div className={styles['footer__brand']}>
-          <div className={styles['footer__logo']}>
+          <div
+            className={styles['footer__logo']}
+            onClick={onOpenClientPortal}
+            style={{ cursor: 'pointer' }}
+            title="Área de Clientes"
+          >
             <img src="/logo.png" alt="KSM Logo" className={styles['footer__logo-img']} />
             <span className={styles['footer__logo-text']}>
               KSM <span className={styles['footer__logo-highlight']}>Streaming</span>

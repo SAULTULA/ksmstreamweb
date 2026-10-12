@@ -151,6 +151,20 @@
   box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
 }
 
+.navbar__btn--client {
+  background: var(--color-bg-elevated);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.navbar__btn--client:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
 .navbar__mobile-toggle {
   display: none;
   color: var(--color-text-main);

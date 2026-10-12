@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
@@ -9,14 +9,67 @@ import SignupForm from './components/SignupForm/SignupForm';
 import Terms from './components/Terms/Terms';
 import Footer from './components/Footer/Footer';
 import WhatsAppFAB from './components/WhatsAppFAB/WhatsAppFAB';
+
+// Nuevos componentes de Gestión y Pagos
+import AdminLoginModal from './components/AdminPanel/AdminLoginModal';
+import AdminPanel from './components/AdminPanel/AdminPanel';
+import ClientPortal from './components/ClientPortal/ClientPortal';
+import InvoiceModal from './components/Invoice/InvoiceModal';
+
 import './index.css';
 
 export default function App() {
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
+  const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
+  const [isClientPortalOpen, setIsClientPortalOpen] = useState(false);
+  const [portalRadioParam, setPortalRadioParam] = useState('');
+  const [invoiceData, setInvoiceData] = useState(null);
+
+  // Detectar si el usuario o cliente entró mediante un enlace directo de cobro (?portal=1 o ?radio=...)
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('portal') || params.get('radio')) {
+        setIsClientPortalOpen(true);
+        setPortalRadioParam(params.get('radio') || '');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  // Al hacer clic en el logo de KSM
+  const handleOpenAdmin = () => {
+    const isAuth = sessionStorage.getItem('ksm_admin_authenticated') === 'true';
+    if (isAuth) {
+      setIsAdminPanelOpen(true);
+    } else {
+      setIsAdminLoginOpen(true);
+    }
+  };
+
+  const handleAdminLoginSuccess = () => {
+    setIsAdminLoginOpen(false);
+    setIsAdminPanelOpen(true);
+  };
+
+  const handleOpenClientPortal = (radioName = '') => {
+    setPortalRadioParam(radioName);
+    setIsClientPortalOpen(true);
+  };
+
+  const handleOpenInvoice = (payment) => {
+    setInvoiceData(payment);
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar
+        onOpenAdmin={handleOpenAdmin}
+        onOpenClientPortal={() => handleOpenClientPortal()}
+      />
       <main>
-        <Hero />
+        <Hero onOpenClientPortal={() => handleOpenClientPortal()} />
         <Features />
         <Pricing />
         <Summary />
@@ -24,8 +77,38 @@ export default function App() {
         <SignupForm />
         <Terms />
       </main>
-      <Footer />
+      <Footer onOpenClientPortal={() => handleOpenClientPortal()} />
       <WhatsAppFAB />
+
+      {/* Modal de Login de Administrador */}
+      <AdminLoginModal
+        isOpen={isAdminLoginOpen}
+        onClose={() => setIsAdminLoginOpen(false)}
+        onSuccess={handleAdminLoginSuccess}
+      />
+
+      {/* Panel Completo de Administración */}
+      <AdminPanel
+        isOpen={isAdminPanelOpen}
+        onClose={() => setIsAdminPanelOpen(false)}
+        onOpenInvoice={handleOpenInvoice}
+      />
+
+      {/* Portal de Acceso a Clientes (Pagos y Facturas) */}
+      <ClientPortal
+        isOpen={isClientPortalOpen}
+        onClose={() => setIsClientPortalOpen(false)}
+        initialRadioName={portalRadioParam}
+        onOpenInvoice={handleOpenInvoice}
+      />
+
+      {/* Modal / Comprobante de Factura Imprimible */}
+      <InvoiceModal
+        isOpen={!!invoiceData}
+        paymentData={invoiceData}
+        onClose={() => setInvoiceData(null)}
+      />
     </>
   );
 }
+
