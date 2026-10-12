@@ -15,6 +15,7 @@ import AdminLoginModal from './components/AdminPanel/AdminLoginModal';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import ClientPortal from './components/ClientPortal/ClientPortal';
 import InvoiceModal from './components/Invoice/InvoiceModal';
+import CookieNotice from './components/CookieNotice/CookieNotice';
 import { getClients, recordPayment } from './services/db';
 
 import './index.css';
@@ -118,6 +119,7 @@ export default function App() {
       </main>
       <Footer onOpenClientPortal={() => handleOpenClientPortal()} />
       <WhatsAppFAB />
+      <CookieNotice />
 
       {/* Modal de Login de Administrador */}
       <AdminLoginModal

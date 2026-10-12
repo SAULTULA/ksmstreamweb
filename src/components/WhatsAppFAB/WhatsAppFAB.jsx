@@ -8,7 +8,7 @@ export default function WhatsAppFAB() {
   return (
     <a
       id="wa-fab"
-      href={`https://wa.me/5491100000000?text=${WA_MSG}`}
+      href={`https://wa.me/5491166508379?text=${WA_MSG}`}
       target="_blank"
       rel="noopener noreferrer"
       className={styles['wa-fab']}

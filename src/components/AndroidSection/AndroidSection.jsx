@@ -63,7 +63,7 @@ export default function AndroidSection() {
           </ul>
 
           <a
-            href={`https://wa.me/5491100000000?text=${WA_MSG}`}
+            href={`https://wa.me/5491166508379?text=${WA_MSG}`}
             target="_blank"
             rel="noopener noreferrer"
             className={styles['android__cta']}

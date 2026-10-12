@@ -44,7 +44,7 @@ const ADVANCE_FEATURES = [
 const WA_MSG_BASIC = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan BÁSICO de Streaming de Radio Online por $15.000 ARS. ¿Me pueden ayudar?');
 const WA_MSG_PRO = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan PRO de Streaming de Radio Online por $25.000 ARS. ¿Me pueden ayudar?');
 const WA_MSG_ADVANCE = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan ADVANCE con Web de Funciones Avanzadas por $150.000 ARS de desarrollo y $12.500/mes. ¿Me pueden asesorar?');
-const WA_BASE = 'https://wa.me/5491100000000?text=';
+const WA_BASE = 'https://wa.me/5491166508379?text=';
 
 export default function Pricing() {
   return (

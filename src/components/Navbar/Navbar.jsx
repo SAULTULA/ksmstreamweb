@@ -57,7 +57,7 @@ export default function Navbar({ onOpenAdmin, onOpenClientPortal }) {
           </button>
 
           <a
-            href="https://wa.me/5491100000000?text=Hola%20KSM%20Servicios,%20quiero%20consultar%20sobre%20el%20Streaming%20de%20Radio%20Online"
+            href="https://wa.me/5491166508379?text=Hola%20KSM%20Servicios,%20quiero%20consultar%20sobre%20el%20Streaming%20de%20Radio%20Online"
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles['navbar__btn']} ${styles['navbar__btn--cta']}`}
