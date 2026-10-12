@@ -1,0 +1,247 @@
+.android {
+  padding: var(--spacing-3xl) var(--spacing-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.android::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 50%, rgba(157, 78, 221, 0.07) 0%, transparent 55%),
+    radial-gradient(circle at 10% 50%, rgba(0, 240, 255, 0.04) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.android__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  align-items: center;
+  gap: var(--spacing-3xl);
+}
+
+/* Content */
+.android__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  z-index: 2;
+}
+
+.android__tag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: rgba(157, 78, 221, 0.12);
+  border: 1px solid rgba(157, 78, 221, 0.3);
+  color: #c084fc;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.android__title {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  color: var(--color-text-main);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.android__title-gradient {
+  background: linear-gradient(135deg, var(--color-secondary), #f43f5e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.android__desc {
+  font-size: var(--font-size-md);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+/* Pricing box */
+.android__price-box {
+  background: var(--color-bg-card);
+  border: 1px solid rgba(157, 78, 221, 0.35);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  box-shadow: var(--shadow-glow-purple);
+}
+
+.android__price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.android__price-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.android__price-badge {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary);
+}
+
+.android__price-sublabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+}
+
+.android__price-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--color-text-main);
+  white-space: nowrap;
+}
+
+.android__divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+.android__financing {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  background: rgba(157, 78, 221, 0.07);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+}
+
+.android__financing-icon {
+  color: var(--color-secondary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.android__financing-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.android__financing-text strong {
+  color: var(--color-text-main);
+  font-weight: 700;
+}
+
+/* Feature list */
+.android__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  list-style: none;
+}
+
+.android__feature-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.android__feature-icon {
+  color: var(--color-secondary);
+  flex-shrink: 0;
+}
+
+/* CTA */
+.android__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 0.9rem 1.8rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-secondary), #e879f9);
+  color: var(--color-text-main);
+  transition: all var(--transition-base);
+  align-self: flex-start;
+  box-shadow: var(--shadow-glow-purple);
+}
+
+.android__cta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 40px rgba(157, 78, 221, 0.55);
+}
+
+/* Media */
+.android__media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.android__image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(157, 78, 221, 0.35);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-purple);
+  aspect-ratio: 3 / 4;
+}
+
+.android__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.android__image-wrapper:hover .android__image {
+  transform: scale(1.05);
+}
+
+.android__delivery-chip {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: rgba(14, 18, 28, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(157, 78, 221, 0.4);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: #c084fc;
+}
+
+@media (max-width: 960px) {
+  .android__container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+
+  .android__media {
+    order: -1;
+  }
+}
