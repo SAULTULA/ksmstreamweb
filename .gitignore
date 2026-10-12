@@ -13,6 +13,13 @@ dist
 dist-ssr
 *.local
 
+# SECURITY: Variables de entorno — NUNCA commitear al repo
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+
 # Editor directories and system files
 .vscode/*
 !.vscode/extensions.json
