@@ -310,3 +310,96 @@
   color: #07090e;
   box-shadow: var(--shadow-glow-cyan);
 }
+
+/* ── AUTH SCREENS (Login / Change Password) ─────────────────────────────── */
+.client-portal__auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.client-portal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.client-portal__label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.client-portal__pass-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.client-portal__pass-wrapper .client-portal__input {
+  width: 100%;
+  padding-right: 2.8rem;
+}
+
+.client-portal__pass-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text-dim);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.client-portal__pass-toggle:hover {
+  color: var(--color-primary);
+}
+
+.client-portal__error {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: var(--radius-sm);
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.client-portal__hint {
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Logout button en el header del dashboard */
+.client-portal__btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.client-portal__btn-logout:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+  background: rgba(239, 68, 68, 0.08);
+}

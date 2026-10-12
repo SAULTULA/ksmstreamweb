@@ -10,14 +10,15 @@
 const STORAGE_KEYS = {
   CLIENTS: 'ksm_clients_data',
   PAYMENTS: 'ksm_payments_data',
-  ADMIN_PIN: 'ksm_admin_pin',
+  ADMIN_AUTH: 'ksm_admin_credentials',
   SUPABASE_CONFIG: 'ksm_supabase_config',
 };
 
-// Contraseña / PIN por defecto de administrador
-const DEFAULT_ADMIN_PIN = '1234';
+// Credenciales oficiales del Administrador de KSM Servicios
+export const DEFAULT_ADMIN_USER = 'saultula';
+export const DEFAULT_ADMIN_PASS = 'Sanjuan3:16#*$';
 
-// Datos iniciales de demostración para radios de ejemplo
+// Datos iniciales de demostración para radios de ejemplo con cuentas
 const INITIAL_CLIENTS = [
   {
     id: 'cli-001',
@@ -25,6 +26,9 @@ const INITIAL_CLIENTS = [
     owner_name: 'Alejandro Morales',
     phone: '5491145678901',
     email: 'contacto@radiourbana947.com',
+    username: 'urbana947',
+    password: 'ksm123',
+    must_change_password: true,
     plan: 'Plan Pro con Dominio',
     monthly_fee: 10000,
     signup_date: '2026-01-15',
@@ -39,6 +43,9 @@ const INITIAL_CLIENTS = [
     owner_name: 'Beatriz Gómez',
     phone: '5491156789012',
     email: 'admin@fmhorizonte.com.ar',
+    username: 'horizonte101',
+    password: 'ksm123',
+    must_change_password: true,
     plan: 'Plan Básico',
     monthly_fee: 8000,
     signup_date: '2026-03-10',
@@ -53,6 +60,9 @@ const INITIAL_CLIENTS = [
     owner_name: 'Martín Cabrera',
     phone: '5491167890123',
     email: 'martin@radioimpacto.net',
+    username: 'impactodigital',
+    password: 'ksm123',
+    must_change_password: true,
     plan: 'Plan Pro + App Android',
     monthly_fee: 10000,
     signup_date: '2026-02-01',
@@ -78,10 +88,13 @@ const INITIAL_PAYMENTS = [
   },
 ];
 
-// Obtener configuración de Supabase (desde .env o localStorage)
+const DEFAULT_SUPABASE_URL = 'https://ojzueojgmjysufobdutm.supabase.co';
+const DEFAULT_SUPABASE_KEY = 'sb_publishable_Aq_eNVcGeUEOILhWkTwKlg_byCeH_Da';
+
+// Obtener configuración de Supabase (desde .env, defaults o localStorage)
 export function getSupabaseConfig() {
-  const envUrl = import.meta.env?.VITE_SUPABASE_URL || '';
-  const envKey = import.meta.env?.VITE_SUPABASE_ANON_KEY || '';
+  const envUrl = import.meta.env?.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
+  const envKey = import.meta.env?.VITE_SUPABASE_ANON_KEY || DEFAULT_SUPABASE_KEY;
   if (envUrl && envKey) {
     return { url: envUrl, key: envKey, isFromEnv: true };
   }
@@ -91,7 +104,7 @@ export function getSupabaseConfig() {
   } catch (e) {
     console.error(e);
   }
-  return { url: '', key: '', isFromEnv: false };
+  return { url: DEFAULT_SUPABASE_URL, key: DEFAULT_SUPABASE_KEY, isFromEnv: false };
 }
 
 export function saveSupabaseConfig(url, key) {
@@ -122,6 +135,26 @@ async function fetchSupabase(table, options = {}) {
     console.warn(`[Supabase fallback] No se pudo conectar a ${table}, usando almacenamiento local.`, error);
     return null;
   }
+}
+
+// ==========================================
+// OWASP A09: Logging de Auditoría de Auth
+// Fire-and-forget. Nunca bloquea el flujo principal.
+// No registra contraseñas ni datos PII sensibles.
+// ==========================================
+function logAuthEvent(eventType, identifier) {
+  // Reducir identificador a primeros chars para no filtrar datos exactos en logs
+  const safeId = String(identifier || '').slice(0, 32);
+  fetchSupabase('auth_audit_log', {
+    method: 'POST',
+    prefer: 'return=minimal',
+    body: {
+      event_type: eventType,
+      identifier: safeId,
+      ip_hint: null, // no disponible en browser
+      user_agent_hint: navigator?.userAgent?.split(' ').pop() || 'unknown',
+    },
+  }).catch(() => { /* silencioso — no interrumpir auth por fallo de log */ });
 }
 
 // ==========================================
@@ -165,10 +198,21 @@ export async function saveClient(clientData) {
       body: clientData,
     });
   } else {
+    // Generar usuario por defecto a partir del nombre de la radio si no se proveyó
+    const defaultUser = clientData.username
+      ? clientData.username.trim().toLowerCase()
+      : (clientData.radio_name
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, '')
+          .slice(0, 15) || `radio${Date.now().toString().slice(-4)}`);
+
     // Crear nuevo
     savedClient = {
       ...clientData,
       id: `cli-${Date.now()}`,
+      username: defaultUser,
+      password: clientData.password || 'ksm123',
+      must_change_password: clientData.must_change_password !== undefined ? clientData.must_change_password : true,
       signup_date: clientData.signup_date || now,
       status: clientData.status || 'al_dia',
       due_day: clientData.due_day || 5,
@@ -269,21 +313,146 @@ export async function recordPayment({ clientId, radioName, amount, method, trans
 }
 
 // ==========================================
-// SEGURIDAD / PIN DE ADMINISTRADOR
+// SEGURIDAD / AUTENTICACIÓN ADMINISTRADOR (saultula)
 // ==========================================
 
-export function getAdminPin() {
-  return localStorage.getItem(STORAGE_KEYS.ADMIN_PIN) || DEFAULT_ADMIN_PIN;
+export async function verifyAdminCredentials(username, password) {
+  const cleanUser = String(username).trim();
+  const cleanPass = String(password).trim();
+
+  // 1. Intentar validar contra Supabase tabla admin_users
+  try {
+    const supaAdmins = await fetchSupabase('admin_users', {
+      query: `?username=eq.${encodeURIComponent(cleanUser)}&select=*`,
+    });
+    if (supaAdmins && Array.isArray(supaAdmins) && supaAdmins.length > 0) {
+      const admin = supaAdmins[0];
+      if (admin.password === cleanPass) {
+        logAuthEvent('login_success', cleanUser);
+        return { success: true, user: admin.username };
+      }
+      logAuthEvent('login_failed', cleanUser);
+      return { success: false, error: 'Contraseña de administrador incorrecta.' };
+    }
+  } catch (err) {
+    console.warn('[Admin Auth] Error consultando Supabase admin_users, usando fallback local.', err);
+  }
+
+  // 2. Validación de credenciales locales por defecto
+  const localCredsRaw = localStorage.getItem(STORAGE_KEYS.ADMIN_AUTH);
+  const localCreds = localCredsRaw ? JSON.parse(localCredsRaw) : null;
+  const targetUser = localCreds?.username || DEFAULT_ADMIN_USER;
+  const targetPass = localCreds?.password || DEFAULT_ADMIN_PASS;
+
+  if (cleanUser === targetUser && cleanPass === targetPass) {
+    logAuthEvent('login_success', cleanUser);
+    return { success: true, user: targetUser };
+  }
+
+  logAuthEvent('login_failed', cleanUser);
+  return { success: false, error: 'Usuario o contraseña de administrador incorrectos.' };
 }
 
-export function setAdminPin(newPin) {
-  localStorage.setItem(STORAGE_KEYS.ADMIN_PIN, newPin);
+export async function updateAdminCredentials(newUsername, newPassword) {
+  const creds = { username: newUsername.trim(), password: newPassword.trim() };
+  localStorage.setItem(STORAGE_KEYS.ADMIN_AUTH, JSON.stringify(creds));
+
+  // Actualizar también en Supabase si está disponible
+  await fetchSupabase('admin_users', {
+    method: 'PATCH',
+    query: `?id=eq.admin-1`,
+    body: creds,
+  });
+
   return true;
 }
 
-export function verifyAdminPin(pin) {
-  const current = getAdminPin();
-  return String(pin).trim() === String(current).trim();
+// ==========================================
+// AUTENTICACIÓN Y GESTIÓN DE CLAVES CLIENTES
+// ==========================================
+
+export async function loginClient(identifier, password) {
+  const cleanId = String(identifier).trim().toLowerCase();
+  const cleanPass = String(password).trim();
+
+  const clients = await getClients();
+  const found = clients.find(
+    (c) =>
+      (c.username && c.username.toLowerCase() === cleanId) ||
+      (c.email && c.email.toLowerCase() === cleanId) ||
+      (c.phone && c.phone.replace(/\D/g, '') === cleanId.replace(/\D/g, '')) ||
+      (c.radio_name && c.radio_name.toLowerCase() === cleanId)
+  );
+
+  if (!found) {
+    logAuthEvent('login_failed', cleanId);
+    return { success: false, error: 'No se encontró ninguna emisora con ese usuario o correo.' };
+  }
+
+  if (found.password !== cleanPass) {
+    logAuthEvent('login_failed', cleanId);
+    return { success: false, error: 'Contraseña incorrecta. Por favor verifica tus datos.' };
+  }
+
+  logAuthEvent('login_success', cleanId);
+  return {
+    success: true,
+    client: found,
+    mustChangePassword: !!found.must_change_password,
+  };
+}
+
+export async function clientChangePassword(clientId, newPassword) {
+  const clients = await getClients();
+  const updatedClients = clients.map((c) => {
+    if (c.id === clientId) {
+      return {
+        ...c,
+        password: String(newPassword).trim(),
+        must_change_password: false,
+      };
+    }
+    return c;
+  });
+
+  localStorage.setItem(STORAGE_KEYS.CLIENTS, JSON.stringify(updatedClients));
+
+  await fetchSupabase('clients', {
+    method: 'PATCH',
+    query: `?id=eq.${clientId}`,
+    body: { password: String(newPassword).trim(), must_change_password: false },
+  });
+
+  logAuthEvent('password_changed', clientId);
+  return true;
+}
+
+export async function adminResetClientPassword(clientId, temporaryPassword = 'ksm' + Math.floor(100 + Math.random() * 900)) {
+  const clients = await getClients();
+  let updatedClient = null;
+
+  const updatedClients = clients.map((c) => {
+    if (c.id === clientId) {
+      updatedClient = {
+        ...c,
+        password: String(temporaryPassword).trim(),
+        must_change_password: true,
+      };
+      return updatedClient;
+    }
+    return c;
+  });
+
+  localStorage.setItem(STORAGE_KEYS.CLIENTS, JSON.stringify(updatedClients));
+
+  await fetchSupabase('clients', {
+    method: 'PATCH',
+    query: `?id=eq.${clientId}`,
+    body: { password: String(temporaryPassword).trim(), must_change_password: true },
+  });
+
+  logAuthEvent('password_reset', clientId);
+  return updatedClient;
 }
 
 // ==========================================

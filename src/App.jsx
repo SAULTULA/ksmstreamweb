@@ -38,12 +38,19 @@ export default function App() {
     }
   }, []);
 
-  // Al hacer clic en el logo de KSM
+  // OWASP A07: Validar sesión con TTL de 2h antes de abrir el panel
   const handleOpenAdmin = () => {
     const isAuth = sessionStorage.getItem('ksm_admin_authenticated') === 'true';
-    if (isAuth) {
+    const expiresAt = Number(sessionStorage.getItem('ksm_admin_expires') || 0);
+    const sessionValid = isAuth && Date.now() < expiresAt;
+
+    if (sessionValid) {
       setIsAdminPanelOpen(true);
     } else {
+      // Limpiar sesión vencida
+      sessionStorage.removeItem('ksm_admin_authenticated');
+      sessionStorage.removeItem('ksm_admin_expires');
+      sessionStorage.removeItem('ksm_admin_user');
       setIsAdminLoginOpen(true);
     }
   };

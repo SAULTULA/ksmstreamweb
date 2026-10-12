@@ -30,6 +30,7 @@ import {
   saveSupabaseConfig,
   getNoticeMessage,
   buildWhatsAppLink,
+  adminResetClientPassword,
 } from '../../services/db';
 import styles from './AdminPanel.module.css';
 
@@ -43,6 +44,9 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
 
   // WhatsApp dropdown abierto para un cliente específico
   const [openWaMenuId, setOpenWaMenuId] = useState(null);
+
+  // Reset de contraseña de cliente (en proceso)
+  const [resettingClientId, setResettingClientId] = useState(null);
 
   // Modal para nuevo/editar cliente
   const [editingClient, setEditingClient] = useState(null);
@@ -141,6 +145,27 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
     loadData();
   };
 
+  const handleResetPassword = async (client) => {
+    if (!window.confirm(`¿Resetear la contraseña de ${client.radio_name}? Se generará una clave temporal.`)) return;
+    setResettingClientId(client.id);
+    try {
+      const updated = await adminResetClientPassword(client.id);
+      if (updated) {
+        window.alert(
+          `✅ Contraseña restablecida para: ${updated.radio_name}\n` +
+          `🔑 Nueva clave temporal: ${updated.password}\n` +
+          `\nEl cliente deberá cambiarla en su próximo inicio de sesión.`
+        );
+        loadData();
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error al resetear la contraseña. Intenta de nuevo.');
+    } finally {
+      setResettingClientId(null);
+    }
+  };
+
   const handleOpenPay = (client) => {
     setPayingClient(client);
     setPayAmount(String(client.monthly_fee || 10000));
@@ -179,6 +204,8 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
 
   const handleLogout = () => {
     sessionStorage.removeItem('ksm_admin_authenticated');
+    sessionStorage.removeItem('ksm_admin_expires');
+    sessionStorage.removeItem('ksm_admin_user');
     onClose();
   };
 
@@ -566,6 +593,16 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
 
                             <button
                               type="button"
+                              className={`${styles['admin-panel__btn-action']} ${styles['admin-panel__btn-action--reset']}`}
+                              onClick={() => handleResetPassword(client)}
+                              title="Resetear contraseña de acceso del cliente"
+                              disabled={resettingClientId === client.id}
+                            >
+                              <ShieldCheck size={15} />
+                            </button>
+
+                            <button
+                              type="button"
                               className={`${styles['admin-panel__btn-action']} ${styles['admin-panel__btn-action--danger']}`}
                               onClick={() => handleDelete(client.id)}
                               title="Eliminar radio"
@@ -847,6 +884,40 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
                   className={styles['admin-form-modal__input']}
                 />
               </div>
+
+              {/* Credenciales de acceso al portal de clientes */}
+              {!editingClient.id && (
+                <>
+                  <div className={styles['admin-form-modal__field']}>
+                    <label className={styles['admin-form-modal__label']}>
+                      🔐 Usuario de Acceso al Portal
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Se auto-genera del nombre de la radio si lo dejás vacío"
+                      value={editingClient.username || ''}
+                      onChange={(e) => setEditingClient({ ...editingClient, username: e.target.value })}
+                      className={styles['admin-form-modal__input']}
+                    />
+                  </div>
+
+                  <div className={styles['admin-form-modal__field']}>
+                    <label className={styles['admin-form-modal__label']}>
+                      🔑 Contraseña Inicial (predeterminado: ksm123)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="ksm123"
+                      value={editingClient.password || ''}
+                      onChange={(e) => setEditingClient({ ...editingClient, password: e.target.value })}
+                      className={styles['admin-form-modal__input']}
+                    />
+                    <span style={{ fontSize: '0.7rem', color: 'var(--color-text-dim)' }}>
+                      El cliente deberá cambiarla en su primer inicio de sesión.
+                    </span>
+                  </div>
+                </>
+              )}
 
               <div className={`${styles['admin-form-modal__footer']} ${styles['admin-form-modal__field--full']}`}>
                 <button
