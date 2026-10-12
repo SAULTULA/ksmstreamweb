@@ -90,7 +90,7 @@ export default function Summary() {
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Todo lo del Plan Pro', 'App Android dedicada personalizada', 'Publicación en Google Play Store', 'Entrega en 3–7 días hábiles', 'Sin cuotas adicionales por la App'].map((item, i) => (
+              {['Todo lo del Plan Pro', 'App Android dedicada personalizada', 'APK funcional en 3 días hábiles', 'Gestión de publicación en Google Play', 'Sin cuotas adicionales por la App'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={styles['summary__includes-dot']} />
                   {item}

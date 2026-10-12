@@ -89,4 +89,4 @@ Marque con una **X** la opción elegida:
 
 2. **Dominio Propio (Plan Pro):** El registro del dominio queda a nombre del cliente y posee vigencia de 1 año.
 
-3. **Desarrollo de App Android:** Requiere un tiempo estimado de entrega de 3 a 7 días hábiles tras recibir el logo y material gráfico de la radio.
+3. **Desarrollo y Publicación de App Android:** El archivo APK funcional se entrega en 3 días hábiles tras recibir el logo y material gráfico para su uso inmediato. La publicación final en Google Play Store requiere un plazo adicional de 14 a 15 días correspondiente a la fase reglamentaria de prueba cerrada con usuarios/testers exigida por Google Play.

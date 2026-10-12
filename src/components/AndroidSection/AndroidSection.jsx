@@ -3,11 +3,11 @@ import { Smartphone, CheckCircle2, Clock, Banknote, Play, MessageCircle } from '
 import styles from './AndroidSection.module.css';
 
 const appFeatures = [
-  'App nativa Android publicada en Google Play Store',
   'Diseño completamente personalizado con la identidad de tu radio',
   'Reproductor integrado con carátula, artista y título del programa',
-  'Notificaciones push para eventos en vivo',
-  'Tiempo de entrega: 3 a 7 días hábiles tras recibir logo y material gráfico',
+  'Entrega de APK funcional en 3 días hábiles (listo para instalar y usar)',
+  'Gestión y publicación oficial en Google Play Store',
+  'Fase reglamentaria de prueba cerrada de Google Play (14–15 días con lista de testers)',
 ];
 
 const WA_MSG = encodeURIComponent('Hola KSM Servicios! Me interesa agregar la App Android Dedicada por $100.000 ARS. ¿Me podés dar más información?');
@@ -84,7 +84,7 @@ export default function AndroidSection() {
             />
             <div className={styles['android__delivery-chip']}>
               <Clock size={14} />
-              <span>Entrega en 3 a 7 días hábiles</span>
+              <span>APK funcional en 3 días hábiles</span>
             </div>
           </div>
         </div>

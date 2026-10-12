@@ -12,8 +12,8 @@ const TERMS = [
     desc: 'El registro del dominio queda a nombre del cliente y posee vigencia de 1 año desde la fecha de alta. La renovación anual corre por cuenta del titular.'
   },
   {
-    title: 'Desarrollo de App Android',
-    desc: 'Requiere un tiempo estimado de entrega de 3 a 7 días hábiles tras recibir el logo y material gráfico de la radio en alta resolución.'
+    title: 'Desarrollo y Publicación de App Android',
+    desc: 'El archivo APK funcional se entrega en 3 días hábiles tras recibir el material gráfico para su uso inmediato. La disponibilidad pública en Google Play Store requiere un plazo adicional de 14 a 15 días correspondiente a la fase reglamentaria de prueba cerrada con usuarios/testers exigida por Google Play.'
   },
 ];
 
