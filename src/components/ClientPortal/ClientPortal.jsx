@@ -43,6 +43,8 @@ export default function ClientPortal({ isOpen, onClose, initialRadioName, onOpen
   const [refCode, setRefCode] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCreatingPreference, setIsCreatingPreference] = useState(false);
+  const [mpError, setMpError] = useState('');
 
   // Reset all state when modal closes
   useEffect(() => {
@@ -150,6 +152,40 @@ export default function ClientPortal({ isOpen, onClose, initialRadioName, onOpen
       alert('Hubo un error al registrar el pago. Intenta nuevamente.');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handlePayWithMercadoPago = async () => {
+    if (!loggedClient) return;
+    setIsCreatingPreference(true);
+    setMpError('');
+
+    try {
+      const res = await fetch('/api/create-preference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          clientId: loggedClient.id,
+          radioName: loggedClient.radio_name,
+          ownerName: loggedClient.owner_name,
+          email: loggedClient.email,
+          amount: loggedClient.monthly_fee,
+          origin: window.location.origin,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.init_point) {
+        throw new Error(data.error || 'No se pudo generar el enlace de pago de Mercado Pago.');
+      }
+
+      // Redirigir de inmediato al Checkout Pro de Mercado Pago
+      window.location.href = data.init_point;
+    } catch (err) {
+      console.error('[MP error]', err);
+      setMpError(err.message || 'Error al conectar con Mercado Pago. Podés transferir por Alias o intentar nuevamente.');
+    } finally {
+      setIsCreatingPreference(false);
     }
   };
 
@@ -474,6 +510,39 @@ export default function ClientPortal({ isOpen, onClose, initialRadioName, onOpen
               <div className={styles['client-portal__pay-title']}>
                 <CreditCard size={18} style={{ color: 'var(--color-primary)' }} />
                 <span>Medios de Pago Habilitados para tu Abono</span>
+              </div>
+
+              {/* Opción 1: Pago Online Inmediato con Mercado Pago */}
+              <div className={styles['client-portal__mp-box']}>
+                <div className={styles['client-portal__mp-badge-tag']}>
+                  <span>⚡ Acreditación Automática en el Acto</span>
+                </div>
+                <button
+                  type="button"
+                  className={styles['client-portal__btn-mp']}
+                  onClick={handlePayWithMercadoPago}
+                  disabled={isCreatingPreference}
+                >
+                  <CreditCard size={18} />
+                  <span>
+                    {isCreatingPreference
+                      ? 'Conectando con Mercado Pago...'
+                      : `Pagar $${feeFormatted} ARS con Mercado Pago`}
+                  </span>
+                </button>
+                <span className={styles['client-portal__mp-caption']}>
+                  Tarjetas de débito, crédito, dinero en cuenta de Mercado Pago o transferencia bancaria instantánea.
+                </span>
+                {mpError && (
+                  <div className={styles['client-portal__error']}>
+                    <AlertCircle size={14} />
+                    <span>{mpError}</span>
+                  </div>
+                )}
+              </div>
+
+              <div className={styles['client-portal__divider']}>
+                <span>o bien realizá una transferencia manual por CBU/Alias</span>
               </div>
 
               <div className={styles['client-portal__bank-card']}>

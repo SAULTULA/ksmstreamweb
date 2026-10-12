@@ -25,11 +25,43 @@ export default function App() {
   const [portalRadioParam, setPortalRadioParam] = useState('');
   const [invoiceData, setInvoiceData] = useState(null);
 
-  // Detectar si el usuario o cliente entró mediante un enlace directo de cobro (?portal=1 o ?radio=...)
+  // Detectar retorno de pago desde Mercado Pago o enlace directo (?portal=1 o ?radio=...)
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      if (params.get('portal') || params.get('radio')) {
+      const mpStatus = params.get('mp_status') || params.get('collection_status') || params.get('status');
+      const clientId = params.get('client_id') || params.get('external_reference');
+      const paymentId = params.get('payment_id') || params.get('collection_id');
+
+      if ((mpStatus === 'approved' || mpStatus === 'success') && clientId) {
+        (async () => {
+          try {
+            const { getClients, recordPayment } = await import('./services/db');
+            const clients = await getClients();
+            const targetClient = clients.find((c) => c.id === clientId);
+
+            if (targetClient) {
+              const payment = await recordPayment({
+                clientId: targetClient.id,
+                radioName: targetClient.radio_name,
+                amount: targetClient.monthly_fee,
+                method: 'Mercado Pago',
+                transactionRef: paymentId ? `MP-${paymentId}` : `MP-${Date.now().toString().slice(-6)}`,
+                period: 'Cuota Mensual',
+                status: 'aprobado',
+              });
+
+              // Abrir automáticamente la factura aprobada
+              setInvoiceData(payment);
+            }
+          } catch (err) {
+            console.error('[App MP auto-confirm error]', err);
+          } finally {
+            // Limpiar la URL sin recargar
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }
+        })();
+      } else if (params.get('portal') || params.get('radio')) {
         setIsClientPortalOpen(true);
         setPortalRadioParam(params.get('radio') || '');
       }
