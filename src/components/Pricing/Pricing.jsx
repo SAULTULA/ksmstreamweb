@@ -11,7 +11,7 @@ const BASIC_FEATURES = [
   { text: 'Transferencia mensual ilimitada', ok: true },
   { text: 'Soporte Técnico vía WhatsApp', ok: true },
   { text: 'SSL Seguro (HTTPS)', ok: true },
-  { text: 'Dominio propio (.com / .com.ar)', ok: false },
+  { text: 'Dominio propio (.com.ar)', ok: false },
   { text: 'Reproductor Web Personalizado a Medida', ok: false },
 ];
 
@@ -41,8 +41,8 @@ const ADVANCE_FEATURES = [
   { text: 'Soporte Técnico Prioritario vía WhatsApp', ok: true },
 ];
 
-const WA_MSG_BASIC = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan BÁSICO de Streaming de Radio Online por $15.000 ARS. ¿Me pueden ayudar?');
-const WA_MSG_PRO = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan PRO de Streaming de Radio Online por $25.000 ARS. ¿Me pueden ayudar?');
+const WA_MSG_BASIC = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan BÁSICO de Streaming de Radio Online por $8.000 ARS/mes. ¿Me pueden ayudar?');
+const WA_MSG_PRO = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan PRO de Streaming + Web App personalizada + Dominio .com.ar por $25.000 ARS. ¿Me pueden ayudar?');
 const WA_MSG_ADVANCE = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan ADVANCE con Web de Funciones Avanzadas por $150.000 ARS de desarrollo y $12.500/mes. ¿Me pueden asesorar?');
 const WA_BASE = 'https://wa.me/5491166508379?text=';
 
@@ -73,19 +73,12 @@ export default function Pricing() {
             </div>
 
             <div className={styles['pricing__price-block']}>
-              <p className={styles['pricing__first-payment-label']}>Pago Inicial (Alta + Mes 1)</p>
+              <p className={styles['pricing__first-payment-label']}>Precio del Streaming</p>
               <div className={styles['pricing__first-payment-amount']}>
                 <span className={styles['pricing__currency']}>$</span>
-                <span className={styles['pricing__amount']}>15.000</span>
+                <span className={styles['pricing__amount']}>8.000</span>
               </div>
-              <p className={styles['pricing__period']}>ARS · pago único de activación</p>
-
-              <hr className={styles['pricing__divider']} />
-
-              <p className={styles['pricing__monthly-label']}>Abono mensual (desde el mes 2)</p>
-              <div className={styles['pricing__monthly-row']}>
-                <span className={styles['pricing__monthly-amount']}>$8.000 ARS</span>
-              </div>
+              <p className={styles['pricing__period']}>ARS / mes · sin costo de alta</p>
               <p className={styles['pricing__monthly-note']}>Vencimiento del 1 al 5 de cada mes</p>
             </div>
 
@@ -125,12 +118,12 @@ export default function Pricing() {
             </div>
 
             <div className={styles['pricing__price-block']}>
-              <p className={styles['pricing__first-payment-label']}>Pago Inicial (Alta + Mes 1 + Dominio)</p>
+              <p className={styles['pricing__first-payment-label']}>Pago único (Dominio .com.ar + Web App)</p>
               <div className={styles['pricing__first-payment-amount']}>
                 <span className={styles['pricing__currency']}>$</span>
                 <span className={styles['pricing__amount']}>25.000</span>
               </div>
-              <p className={styles['pricing__period']}>ARS · incluye dominio .com / .com.ar</p>
+              <p className={styles['pricing__period']}>ARS · gestión del dominio .com.ar + desarrollo de la web app</p>
 
               <hr className={styles['pricing__divider']} />
 
