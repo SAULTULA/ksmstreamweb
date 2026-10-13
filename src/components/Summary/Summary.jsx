@@ -38,7 +38,7 @@ export default function Summary() {
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Streaming desde el día 1', 'Configuración del servidor', 'Reproductor HTML5 Estándar', 'Soporte vía WhatsApp'].map((item, i) => (
+              {['Streaming desde el día 1', 'Configuración del servidor', 'Reproductor HTML5 Estándar', 'Reproductor tipo App Web instalable (PWA)', 'Soporte vía WhatsApp'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={`${styles['summary__includes-dot']} ${styles['summary__includes-dot--cyan']}`} />
                   {item}
@@ -64,7 +64,7 @@ export default function Summary() {
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Alta del servicio', 'Primer mes de abono', 'Dominio propio (.com.ar)', 'Reproductor personalizado a medida', 'Vigencia del dominio por 1 año'].map((item, i) => (
+              {['Alta del servicio', 'Primer mes de abono', 'Dominio propio (.com.ar)', 'Reproductor personalizado a medida', 'Reproductor tipo App Web instalable (PWA)', 'Vigencia del dominio por 1 año'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={`${styles['summary__includes-dot']} ${styles['summary__includes-dot--cyan']}`} />
                   {item}
@@ -90,7 +90,7 @@ export default function Summary() {
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Todo lo del Plan Pro', 'Web con funciones avanzadas a medida', 'Dominio propio por 1 año', 'Opción de prorratear desarrollo', 'Soporte prioritario'].map((item, i) => (
+              {['Todo lo del Plan Pro', 'Web con funciones avanzadas a medida', 'Reproductor tipo App Web instalable (PWA)', 'Dominio propio por 1 año', 'Opción de prorratear desarrollo', 'Soporte prioritario'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={`${styles['summary__includes-dot']} ${styles['summary__includes-dot--purple']}`} />
                   {item}
@@ -116,7 +116,7 @@ export default function Summary() {
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Todo lo del Plan Pro', 'App Android dedicada personalizada', 'Entrega de APK funcional en 3 días hábiles', 'Instalación directa vía archivo APK', 'Streaming: $10.000 / mes desde mes 2', 'Sin cuotas adicionales por la App'].map((item, i) => (
+              {['Todo lo del Plan Pro', 'App Android dedicada personalizada', 'Reproductor tipo App Web instalable (PWA)', 'Entrega de APK funcional en 3 días hábiles', 'Instalación directa vía archivo APK', 'Streaming: $10.000 / mes desde mes 2', 'Sin cuotas adicionales por la App'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={styles['summary__includes-dot']} />
                   {item}
