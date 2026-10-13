@@ -37,7 +37,7 @@ export default function SignupForm() {
   const calculateNumericTotal = () => {
     let base = 0;
     if (form.plan === 'basic') {
-      base = PLAN_PRICES.basic.alta;
+      base = PLAN_PRICES.basic.mensual; // Sin alta, se paga solo el primer mes
     } else if (form.plan === 'pro') {
       base = PLAN_PRICES.pro.alta;
     } else if (form.plan === 'advance') {
@@ -477,7 +477,7 @@ export default function SignupForm() {
                     ? `Plan Advance (${form.advanceFinanciacion === 'unico' ? 'Pago único desarrollo' : 'Prorrateado en cuota mensual'})`
                     : form.plan === 'pro'
                     ? 'Plan Pro'
-                    : 'Plan Básico'}
+                    : 'Plan Básico · Primer mes de streaming'}
                   {form.android === 'si' && form.androidFinanciacion === 'unico' ? ' + App Android' : ''}
                 </p>
               </div>
