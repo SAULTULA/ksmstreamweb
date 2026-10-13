@@ -16,7 +16,7 @@ export default function Summary() {
             <span className={styles['summary__title-gradient']}>primer día?</span>
           </h2>
           <p className={styles['summary__subtitle']}>
-            Arrancás con un solo pago que cubre el alta, el primer mes y (en el Plan Pro) tu dominio propio.
+            El Plan Básico arranca directo desde $8.000/mes sin costo de alta. El Pro incluye dominio .com.ar y web app.
           </p>
         </div>
 
@@ -31,14 +31,14 @@ export default function Summary() {
             </div>
             <hr className={styles['summary__card-divider']} />
             <div className={styles['summary__amount-row']}>
-              <span className={styles['summary__amount-label']}>Primer Pago Total</span>
-              <span className={styles['summary__amount']}>$15.000 ARS</span>
-              <span className={styles['summary__amount-sub']}>Luego $8.000 / mes desde el mes 2</span>
+              <span className={styles['summary__amount-label']}>Precio del Streaming</span>
+              <span className={styles['summary__amount']}>$8.000 ARS / mes</span>
+              <span className={styles['summary__amount-sub']}>Sin costo de alta · desde el primer mes</span>
             </div>
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Alta del servicio', 'Primer mes de abono', 'Configuración del servidor', 'Reproductor HTML5 Estándar'].map((item, i) => (
+              {['Streaming desde el día 1', 'Configuración del servidor', 'Reproductor HTML5 Estándar', 'Soporte vía WhatsApp'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={`${styles['summary__includes-dot']} ${styles['summary__includes-dot--cyan']}`} />
                   {item}
@@ -57,14 +57,14 @@ export default function Summary() {
             </div>
             <hr className={styles['summary__card-divider']} />
             <div className={styles['summary__amount-row']}>
-              <span className={styles['summary__amount-label']}>Primer Pago Total</span>
+              <span className={styles['summary__amount-label']}>Pago único (Dominio .com.ar + Web App)</span>
               <span className={styles['summary__amount']}>$25.000 ARS</span>
-              <span className={styles['summary__amount-sub']}>Luego $10.000 / mes desde el mes 2</span>
+              <span className={styles['summary__amount-sub']}>Gestión del dominio .com.ar + desarrollo de la web app · Luego $10.000 / mes</span>
             </div>
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Alta del servicio', 'Primer mes de abono', 'Dominio propio (.com / .com.ar)', 'Reproductor personalizado a medida', 'Vigencia del dominio por 1 año'].map((item, i) => (
+              {['Alta del servicio', 'Primer mes de abono', 'Dominio propio (.com.ar)', 'Reproductor personalizado a medida', 'Vigencia del dominio por 1 año'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={`${styles['summary__includes-dot']} ${styles['summary__includes-dot--cyan']}`} />
                   {item}

@@ -4,7 +4,7 @@ import { createServiceRequest } from '../../services/db';
 import styles from './SignupForm.module.css';
 
 const PLAN_PRICES = {
-  basic: { alta: 15000, mensual: 8000 },
+  basic: { alta: 0, mensual: 8000 },
   pro: { alta: 25000, mensual: 10000 },
   advance: { alta: 150000, mensual: 12500 },
 };
@@ -53,7 +53,7 @@ export default function SignupForm() {
 
   const getPlanLabel = () => {
     if (form.plan === 'basic') {
-      return 'Plan Básico ($15.000 ARS alta · $8.000/mes)';
+      return 'Plan Básico ($8.000 ARS/mes · sin costo de alta)';
     } else if (form.plan === 'pro') {
       return 'Plan Pro ($25.000 ARS alta con Dominio · $10.000/mes)';
     } else if (form.plan === 'advance') {
@@ -78,7 +78,7 @@ export default function SignupForm() {
       `*Ciudad/Provincia:* ${form.ciudad || '—'}`,
       ``,
       `*Plan elegido:* ${planLabel}`,
-      (form.plan === 'pro' || form.plan === 'advance') && form.dominio ? `*Dominio deseado:* www.${form.dominio}.com / .com.ar` : null,
+      (form.plan === 'pro' || form.plan === 'advance') && form.dominio ? `*Dominio deseado:* www.${form.dominio}.com.ar` : null,
       ``,
       `*App Android:* ${androidLabel}`,
       ``,
@@ -163,7 +163,7 @@ export default function SignupForm() {
                 {form.dominio && (
                   <div className={styles['signup__success-row']}>
                     <span className={styles['signup__success-row-label']}>Dominio:</span>
-                    <span className={styles['signup__success-row-val']}>www.{form.dominio}.com</span>
+                    <span className={styles['signup__success-row-val']}>www.{form.dominio}.com.ar</span>
                   </div>
                 )}
                 <div className={styles['signup__success-row']}>
@@ -297,7 +297,7 @@ export default function SignupForm() {
                 />
                 <label htmlFor="plan-basic" className={styles['signup__plan-label']}>
                   <span className={styles['signup__plan-name']}>Plan Básico</span>
-                  <span className={styles['signup__plan-price']}>Alta: $15.000 ARS · Mensual: $8.000 ARS</span>
+                  <span className={styles['signup__plan-price']}>$8.000 ARS / mes · Sin costo de alta</span>
                 </label>
               </div>
 
@@ -387,7 +387,7 @@ export default function SignupForm() {
                       value={form.dominio}
                       onChange={handleChange}
                     />
-                    <span className={styles['signup__domain-suffix']}>.com / .com.ar</span>
+                    <span className={styles['signup__domain-suffix']}>.com.ar</span>
                   </div>
                 </div>
               </div>
