@@ -124,7 +124,7 @@ export default function Terms() {
               <div className={styles['terms__section']}>
                 <h4 className={styles['terms__section-title']}>5. Plan Advance (Desarrollo Web con Funciones Avanzadas)</h4>
                 <p className={styles['terms__text']}>
-                  El Plan Advance incluye el diseño y desarrollo de una plataforma web integral con funciones avanzadas por un arancel de desarrollo de $150.000 ARS (con opción de abonarse en un único pago o prorratearse en cuotas mensuales acordadas). A partir del segundo mes, el abono mensual de streaming de audio HD y mantenimiento técnico asciende a $12.500 ARS.
+                  El Plan Advance incluye el diseño y desarrollo de una plataforma web integral con funciones avanzadas por un arancel de desarrollo de $250.000 ARS (con opción de abonarse en un único pago o prorratearse en cuotas mensuales acordadas). A partir del segundo mes, el abono mensual de streaming de audio HD y mantenimiento técnico asciende a $12.500 ARS.
                 </p>
               </div>
 

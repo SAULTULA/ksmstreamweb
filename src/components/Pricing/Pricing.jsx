@@ -46,7 +46,7 @@ const ADVANCE_FEATURES = [
 
 const WA_MSG_BASIC = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan BÁSICO de Streaming de Radio Online por $8.000 ARS/mes. ¿Me pueden ayudar?');
 const WA_MSG_PRO = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan PRO de Streaming + Web App personalizada + Dominio .com.ar por $25.000 ARS. ¿Me pueden ayudar?');
-const WA_MSG_ADVANCE = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan ADVANCE con Web de Funciones Avanzadas por $150.000 ARS de desarrollo y $12.500/mes. ¿Me pueden asesorar?');
+const WA_MSG_ADVANCE = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan ADVANCE con Web de Funciones Avanzadas por $250.000 ARS de desarrollo y $12.500/mes. ¿Me pueden asesorar?');
 const WA_BASE = 'https://wa.me/5491166508379?text=';
 
 export default function Pricing() {
@@ -173,7 +173,7 @@ export default function Pricing() {
               <p className={styles['pricing__first-payment-label']}>Desarrollo Web Avanzada + Alta</p>
               <div className={styles['pricing__first-payment-amount']}>
                 <span className={styles['pricing__currency']}>$</span>
-                <span className={styles['pricing__amount']}>150.000</span>
+                <span className={styles['pricing__amount']}>250.000</span>
               </div>
               <p className={styles['pricing__period']}>ARS · desarrollo web (opción prorrateable en cuotas)</p>
 

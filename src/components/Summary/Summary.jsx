@@ -84,7 +84,7 @@ export default function Summary() {
             <hr className={styles['summary__card-divider']} />
             <div className={styles['summary__amount-row']}>
               <span className={styles['summary__amount-label']}>Desarrollo Web Avanzada</span>
-              <span className={styles['summary__amount']}>$150.000 ARS</span>
+              <span className={styles['summary__amount']}>$250.000 ARS</span>
               <span className={styles['summary__amount-sub']}>Opción prorrateable · Luego $12.500 / mes desde mes 2</span>
             </div>
             <hr className={styles['summary__card-divider']} />

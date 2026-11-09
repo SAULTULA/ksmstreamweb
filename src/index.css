@@ -83,3 +83,41 @@ img {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
+
+/* ── 3D Global Keyframes ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(0.4deg); }
+  66%       { transform: translateY(-5px) rotate(-0.3deg); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-18px) scale(1.02); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.08); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400% center; }
+  100% { background-position: 400% center; }
+}
+
+@keyframes spin3d {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── 3D Perspective utilities (aplicadas via JS en cada card) ── */
+.card-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+}

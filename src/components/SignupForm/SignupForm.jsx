@@ -6,7 +6,7 @@ import styles from './SignupForm.module.css';
 const PLAN_PRICES = {
   basic: { alta: 0, mensual: 8000 },
   pro: { alta: 25000, mensual: 10000 },
-  advance: { alta: 150000, mensual: 12500 },
+  advance: { alta: 250000, mensual: 12500 },
 };
 
 const ANDROID_PRICE = 100000;
@@ -57,7 +57,7 @@ export default function SignupForm() {
     } else if (form.plan === 'pro') {
       return 'Plan Pro ($25.000 ARS alta con Dominio · $10.000/mes)';
     } else if (form.plan === 'advance') {
-      return `Plan Advance ($150.000 ARS desarrollo [${form.advanceFinanciacion === 'unico' ? 'Pago único' : 'Prorrateado en cuota'}] · $12.500/mes desde mes 2)`;
+      return `Plan Advance ($250.000 ARS desarrollo [${form.advanceFinanciacion === 'unico' ? 'Pago único' : 'Prorrateado en cuota'}] · $12.500/mes desde mes 2)`;
     }
     return form.plan;
   };
@@ -329,14 +329,14 @@ export default function SignupForm() {
                 />
                 <label htmlFor="plan-advance" className={`${styles['signup__plan-label']} ${styles['signup__plan-label--advance']}`}>
                   <span className={styles['signup__plan-name']}>Plan Advance 🚀</span>
-                  <span className={styles['signup__plan-price']}>Desarrollo: $150.000 ARS · Mensual: $12.500 ARS</span>
+                  <span className={styles['signup__plan-price']}>Desarrollo: $250.000 ARS · Mensual: $12.500 ARS</span>
                 </label>
               </div>
             </div>
 
             {form.plan === 'advance' && (
               <div className={styles['signup__suboptions']}>
-                <span className={styles['signup__suboptions-title']}>Modalidad de Pago del Desarrollo Web ($150.000 ARS)</span>
+                <span className={styles['signup__suboptions-title']}>Modalidad de Pago del Desarrollo Web ($250.000 ARS)</span>
                 <div className={styles['signup__android-option']}>
                   <input
                     type="radio"
@@ -349,7 +349,7 @@ export default function SignupForm() {
                   />
                   <label htmlFor="advance-unico" className={styles['signup__android-label']}>
                     <span className={styles['signup__android-radio-indicator']} />
-                    Pago único de desarrollo al contratar ($150.000 ARS)
+                    Pago único de desarrollo al contratar ($250.000 ARS)
                   </label>
                 </div>
                 <div className={styles['signup__android-option']}>

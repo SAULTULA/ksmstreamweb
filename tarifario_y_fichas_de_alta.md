@@ -8,7 +8,7 @@ A continuación se detallan los planes mensuales de streaming disponibles y los 
 
 | Característica / Plan | Plan Básico | Plan Pro | Plan Advance |
 | ----- | ----- | ----- | ----- |
-| **Pago Inicial (Desarrollo / Alta)** | **$15.000 ARS** | **$25.000 ARS** | **$150.000 ARS** *(Prorrateable en cuotas)* |
+| **Pago Inicial (Desarrollo / Alta)** | **$15.000 ARS** | **$25.000 ARS** | **$250.000 ARS** *(Prorrateable en cuotas)* |
 | **Abono Mensual (A partir del Mes 2)** | **$8.000 ARS** | **$10.000 ARS** | **$12.500 ARS** |
 | **Streaming Audio HD (Servidor)** | Sí | Sí | Sí |
 | **Sitio / Reproductor Web** | Estándar HTML5 | Personalizado a Medida | Creación de Web con Funciones Avanzadas |
@@ -31,7 +31,7 @@ La app para Android se ofrece como un desarrollo opcional e independiente del ab
 
 * **Plan Pro:** **$25.000 ARS** *(Alta + Primer Mes + Registro de Dominio Propio)*. Luego $10.000 ARS/mes desde el mes 2.
 
-* **Plan Advance:** **$150.000 ARS** *(Desarrollo Web con funciones avanzadas + Alta + Primer Mes + Dominio Propio)*. Luego $12.500 ARS/mes desde el mes 2. *(Opción de prorratear el costo de desarrollo en la cuota mensual)*.
+* **Plan Advance:** **$250.000 ARS** *(Desarrollo Web con funciones avanzadas + Alta + Primer Mes + Dominio Propio)*. Luego $12.500 ARS/mes desde el mes 2. *(Opción de prorratear el costo de desarrollo en la cuota mensual)*.
 
 * **Plan Pro + App Android:** **$125.000 ARS** *(Plan Pro + App Android de pago único)*. Luego **$10.000 ARS/mes** desde el mes 2.
 
@@ -65,7 +65,7 @@ Marque con una **X** la opción elegida:
   * *Dominio deseado:* `www.`______________________`.com / .com.ar`
 
 * [ ] **PLAN ADVANCE (Web Funciones Avanzadas + Dominio)**
-  * Desarrollo Web Avanzada: $150.000 ARS
+  * Desarrollo Web Avanzada: $250.000 ARS
     * [ ] Pago único de desarrollo al iniciar
     * [ ] Prorratear/financiar desarrollo en cuota mensual acordada
   * Abono Mensual (Mes 2 en adelante): $12.500 ARS
@@ -81,7 +81,7 @@ Marque con una **X** la opción elegida:
 
 ### RESUMEN DEL PRIMER PAGO A CANCELAR
 
-1. Pago Inicial del Plan Elegido (Básico $15.000 / Pro $25.000 / Advance $150.000): $ \__________\_ ARS
+1. Pago Inicial del Plan Elegido (Básico $15.000 / Pro $25.000 / Advance $250.000): $ \__________\_ ARS
 
 2. Adicional App Android (Si aplica pago único $100.000): $ \__________\_ ARS
 
@@ -95,4 +95,4 @@ Marque con una **X** la opción elegida:
 
 3. **Desarrollo de App Android (Instalación APK):** El archivo APK funcional se entrega en 3 días hábiles tras recibir el logo y material gráfico para su instalación directa. No requiere publicación en tienda ni abonos de mantenimiento extra.
 
-4. **Desarrollo Web Avanzada (Plan Advance):** El valor de desarrollo es de $150.000 ARS (con opción de pago único o prorrateado en la cuota mensual). El abono mensual a partir del mes 2 es de $12.500 ARS.
+4. **Desarrollo Web Avanzada (Plan Advance):** El valor de desarrollo es de $250.000 ARS (con opción de pago único o prorrateado en la cuota mensual). El abono mensual a partir del mes 2 es de $12.500 ARS.

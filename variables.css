@@ -77,6 +77,10 @@
   --shadow-glow-cyan: 0 0 35px rgba(0, 240, 255, 0.28);
   --shadow-glow-purple: 0 0 35px rgba(157, 78, 221, 0.28);
   --shadow-card: 0 12px 36px -10px rgba(0, 0, 0, 0.7);
+  --shadow-3d-primary: 0 28px 60px -10px rgba(10, 132, 255, 0.35), 0 0 0 1px rgba(10,132,255,0.15);
+  --shadow-3d-accent: 0 28px 60px -10px rgba(255, 159, 10, 0.35), 0 0 0 1px rgba(255,159,10,0.15);
+  --shadow-3d-success: 0 28px 60px -10px rgba(48, 209, 88, 0.3), 0 0 0 1px rgba(48,209,88,0.15);
+  --shadow-3d-purple: 0 28px 60px -10px rgba(191, 90, 242, 0.3), 0 0 0 1px rgba(191,90,242,0.15);
 
   /* Transitions */
   --transition-fast: 0.15s ease-out;
