@@ -54,9 +54,9 @@
 /* Cards grid */
 .summary__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
-  max-width: 1280px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
@@ -123,12 +123,6 @@
   background: rgba(0, 240, 255, 0.15);
   border: 1px solid rgba(0, 240, 255, 0.35);
   color: var(--color-primary);
-}
-
-.summary__card-icon--advance {
-  background: rgba(157, 78, 221, 0.15);
-  border: 1px solid rgba(157, 78, 221, 0.35);
-  color: #c084fc;
 }
 
 .summary__card-icon--bundle {
@@ -209,10 +203,6 @@
 
 .summary__includes-dot--cyan {
   background: var(--color-primary);
-}
-
-.summary__includes-dot--purple {
-  background: #c084fc;
 }
 
 @media (max-width: 1120px) {

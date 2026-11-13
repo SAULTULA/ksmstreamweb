@@ -1,5 +1,5 @@
 import React from 'react';
-import { DollarSign, Star, Sparkles, Package } from 'lucide-react';
+import { DollarSign, Star, Package } from 'lucide-react';
 import styles from './Summary.module.css';
 
 export default function Summary() {
@@ -16,7 +16,7 @@ export default function Summary() {
             <span className={styles['summary__title-gradient']}>primer día?</span>
           </h2>
           <p className={styles['summary__subtitle']}>
-            El Plan Básico arranca directo desde $8.000/mes sin costo de alta. El Pro incluye dominio .com.ar y web app.
+            El Plan Básico arranca directo desde $8.000/mes y el Plan Pro desde $15.000/mes sin costo de alta.
           </p>
         </div>
 
@@ -57,42 +57,16 @@ export default function Summary() {
             </div>
             <hr className={styles['summary__card-divider']} />
             <div className={styles['summary__amount-row']}>
-              <span className={styles['summary__amount-label']}>Pago único (Dominio .com.ar + Web App)</span>
-              <span className={styles['summary__amount']}>$25.000 ARS</span>
-              <span className={styles['summary__amount-sub']}>Gestión del dominio .com.ar + desarrollo de la web app · Luego $10.000 / mes</span>
+              <span className={styles['summary__amount-label']}>Precio del Streaming Pro</span>
+              <span className={styles['summary__amount']}>$15.000 ARS / mes</span>
+              <span className={styles['summary__amount-sub']}>Sin costo de alta · desde el primer mes</span>
             </div>
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Alta del servicio', 'Primer mes de abono', 'Dominio propio (.com.ar)', 'Reproductor personalizado a medida', 'Reproductor tipo App Web instalable (PWA)', 'Vigencia del dominio por 1 año'].map((item, i) => (
+              {['Streaming HD desde el día 1', 'Configuración del servidor y SonicPanel', 'Reproductor personalizado a medida', 'Reproductor tipo App Web instalable (PWA)', 'Estadísticas gráficas en tiempo real', 'Soporte técnico prioritario'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={`${styles['summary__includes-dot']} ${styles['summary__includes-dot--cyan']}`} />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Plan Advance */}
-          <div className={styles['summary__card']}>
-            <div className={styles['summary__card-header']}>
-              <h3 className={styles['summary__card-plan']}>Plan Advance</h3>
-              <div className={`${styles['summary__card-icon']} ${styles['summary__card-icon--advance']}`}>
-                <Sparkles size={20} />
-              </div>
-            </div>
-            <hr className={styles['summary__card-divider']} />
-            <div className={styles['summary__amount-row']}>
-              <span className={styles['summary__amount-label']}>Desarrollo Web Avanzada</span>
-              <span className={styles['summary__amount']}>$250.000 ARS</span>
-              <span className={styles['summary__amount-sub']}>Opción prorrateable · Luego $12.500 / mes desde mes 2</span>
-            </div>
-            <hr className={styles['summary__card-divider']} />
-            <p className={styles['summary__includes-label']}>Incluye:</p>
-            <ul className={styles['summary__includes-list']}>
-              {['Todo lo del Plan Pro', 'Web con funciones avanzadas a medida', 'Reproductor tipo App Web instalable (PWA)', 'Dominio propio por 1 año', 'Opción de prorratear desarrollo', 'Soporte prioritario'].map((item, i) => (
-                <li key={i} className={styles['summary__includes-item']}>
-                  <span className={`${styles['summary__includes-dot']} ${styles['summary__includes-dot--purple']}`} />
                   {item}
                 </li>
               ))}
@@ -110,13 +84,13 @@ export default function Summary() {
             <hr className={styles['summary__card-divider']} />
             <div className={styles['summary__amount-row']}>
               <span className={styles['summary__amount-label']}>Pago Inicial</span>
-              <span className={`${styles['summary__amount']} ${styles['summary__amount--accent']}`}>$125.000 ARS</span>
-              <span className={styles['summary__amount-sub']}>Plan Pro + App Android de pago único, luego $10.000 desde el mes 2</span>
+              <span className={`${styles['summary__amount']} ${styles['summary__amount--accent']}`}>$115.000 ARS</span>
+              <span className={styles['summary__amount-sub']}>Plan Pro ($15.000) + App Android ($100.000 promo), luego $15.000/mes desde mes 2</span>
             </div>
             <hr className={styles['summary__card-divider']} />
             <p className={styles['summary__includes-label']}>Incluye:</p>
             <ul className={styles['summary__includes-list']}>
-              {['Todo lo del Plan Pro', 'App Android dedicada personalizada', 'Reproductor tipo App Web instalable (PWA)', 'Entrega de APK funcional en 3 días hábiles', 'Instalación directa vía archivo APK', 'Streaming: $10.000 / mes desde mes 2', 'Sin cuotas adicionales por la App'].map((item, i) => (
+              {['Todo lo del Plan Pro', 'App Android dedicada personalizada', 'Entrega de APK para compartir e instalar directo', 'Entrega de AAB listo para subir a Google Play Store', 'Reproductor tipo App Web instalable (PWA)', 'Streaming: $15.000 / mes desde mes 2', 'Sin cuotas de mantenimiento por la App'].map((item, i) => (
                 <li key={i} className={styles['summary__includes-item']}>
                   <span className={styles['summary__includes-dot']} />
                   {item}

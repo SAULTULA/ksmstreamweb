@@ -676,7 +676,7 @@ export async function createServiceRequest(requestData) {
 
   let planName = 'Plan Pro';
   if (requestData.plan === 'basic') planName = 'Plan Básico';
-  else if (requestData.plan === 'advance') planName = 'Plan Advance';
+  else if (requestData.plan === 'pro') planName = 'Plan Pro';
   else if (requestData.plan) planName = requestData.plan;
 
   const newRequest = {
@@ -688,7 +688,6 @@ export async function createServiceRequest(requestData) {
     city: requestData.ciudad || requestData.city || '',
     plan: planName,
     domain: requestData.dominio || requestData.domain || '',
-    advance_financing: requestData.advanceFinanciacion || requestData.advance_financing || '',
     has_android: requestData.android === 'si' || !!requestData.has_android,
     android_financing: requestData.androidFinanciacion || requestData.android_financing || '',
     total_initial_estimated: Number(requestData.totalEstimated || requestData.total_initial_estimated || 0),
@@ -710,7 +709,7 @@ export async function createServiceRequest(requestData) {
   // Enviar notificación a Telegram
   const totalFmt = Number(newRequest.total_initial_estimated).toLocaleString('es-AR');
   const androidTxt = newRequest.has_android
-    ? `Sí (${newRequest.android_financing === 'unico' ? 'Pago único $100.000' : 'Financiado en cuota'} - APK Directo)`
+    ? `Sí (${newRequest.android_financing === 'unico' ? 'Pago único $100.000 promo' : 'Financiado en cuota'} - Entrega APK y AAB Play Store)`
     : 'No';
 
   const tgMessage = `🔔 <b>NUEVA SOLICITUD DE ALTA - KSM STREAMING</b>
@@ -721,7 +720,7 @@ export async function createServiceRequest(requestData) {
 ✉️ <b>Email:</b> ${newRequest.email || 'No especificado'}
 📍 <b>Ciudad:</b> ${newRequest.city || 'No especificada'}
 
-📦 <b>Plan:</b> <b>${newRequest.plan}</b>${newRequest.advance_financing ? ` (${newRequest.advance_financing === 'unico' ? 'Desarrollo pago único' : 'Desarrollo prorrateado'})` : ''}
+📦 <b>Plan:</b> <b>${newRequest.plan}</b>
 ${newRequest.domain ? `🌐 <b>Dominio:</b> www.${newRequest.domain}.com\n` : ''}📱 <b>App Android:</b> ${androidTxt}
 💰 <b>Primer pago estimado:</b> <b>$${totalFmt} ARS</b>
 ━━━━━━━━━━━━━━━━━━━━

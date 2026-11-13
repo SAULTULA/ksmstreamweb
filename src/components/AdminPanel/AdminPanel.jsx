@@ -198,8 +198,8 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
       owner_name: '',
       phone: '',
       email: '',
-      plan: 'Plan Pro con Dominio',
-      monthly_fee: 10000,
+      plan: 'Plan Pro',
+      monthly_fee: 15000,
       due_day: 5,
       status: 'al_dia',
       notes: '',
@@ -1319,13 +1319,18 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
                 <label className={styles['admin-form-modal__label']}>Paquete / Plan Contratado</label>
                 <select
                   value={editingClient.plan}
-                  onChange={(e) => setEditingClient({ ...editingClient, plan: e.target.value })}
+                  onChange={(e) => {
+                    const selectedPlan = e.target.value;
+                    let fee = editingClient.monthly_fee;
+                    if (selectedPlan === 'Plan Básico') fee = 8000;
+                    else if (selectedPlan === 'Plan Pro' || selectedPlan === 'Plan Pro + App Android') fee = 15000;
+                    setEditingClient({ ...editingClient, plan: selectedPlan, monthly_fee: fee });
+                  }}
                   className={styles['admin-form-modal__select']}
                 >
                   <option value="Plan Básico">Plan Básico ($8.000 / mes)</option>
-                  <option value="Plan Pro con Dominio">Plan Pro con Dominio ($10.000 / mes)</option>
-                  <option value="Plan Advance (Web Avanzada)">Plan Advance (Web Avanzada) ($12.500 / mes)</option>
-                  <option value="Plan Pro + App Android">Plan Pro + App Android ($10.000 / mes)</option>
+                  <option value="Plan Pro">Plan Pro ($15.000 / mes)</option>
+                  <option value="Plan Pro + App Android">Plan Pro + App Android ($15.000 / mes)</option>
                   <option value="Personalizado">Personalizado</option>
                 </select>
               </div>

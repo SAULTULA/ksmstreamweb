@@ -6,34 +6,34 @@
 
 A continuación se detallan los planes mensuales de streaming disponibles y los pagos correspondientes:
 
-| Característica / Plan | Plan Básico | Plan Pro | Plan Advance |
-| ----- | ----- | ----- | ----- |
-| **Pago Inicial (Desarrollo / Alta)** | **$15.000 ARS** | **$25.000 ARS** | **$250.000 ARS** *(Prorrateable en cuotas)* |
-| **Abono Mensual (A partir del Mes 2)** | **$8.000 ARS** | **$10.000 ARS** | **$12.500 ARS** |
-| **Streaming Audio HD (Servidor)** | Sí | Sí | Sí |
-| **Sitio / Reproductor Web** | Estándar HTML5 | Personalizado a Medida | Creación de Web con Funciones Avanzadas |
-| **Dominio Propio** | No (Utiliza URL genérica) | Incluido en el Pago Inicial (1 año) | Incluido en el Pago Inicial (1 año) |
-| **Soporte Técnico Directo** | Vía WhatsApp | Vía WhatsApp | Prioritario Vía WhatsApp |
+| Característica / Plan | Plan Básico | Plan Pro |
+| ----- | ----- | ----- |
+| **Abono Mensual** | **$8.000 ARS** | **$15.000 ARS** |
+| **Costo de Alta** | Sin costo de alta | Sin costo de alta |
+| **Streaming Audio HD 128 kbps** | Sí | Sí |
+| **Oyentes Simultáneos** | Ilimitados | Ilimitados |
+| **Sitio / Reproductor Web** | Estándar HTML5 + PWA | Personalizado a Medida + PWA |
+| **Panel de Control** | SonicPanel HD | SonicPanel HD |
+| **Soporte Técnico Directo** | Vía WhatsApp | Prioritario Vía WhatsApp |
 
-## 2. Módulo Adicional: Aplicación Móvil Android (Instalación Directa APK)
+## 2. Módulo Adicional: Aplicación Móvil Android (Promoción APK + AAB)
 
-La app para Android se ofrece como un desarrollo opcional e independiente del abono de streaming:
+La app para Android se ofrece en promoción como desarrollo personalizado e independiente:
 
-* **Desarrollo de App Android (Instalación directa vía APK):** **$100.000 ARS** (pago único de desarrollo personalizado; se entrega archivo APK funcional listo para instalar y usar en 3 días hábiles).
+* **Promoción Desarrollo App Android (Entrega APK + AAB):** **$100.000 ARS** (pago único promocional). Se entrega:
+  * **Archivo APK:** Para compartir directamente con oyentes (por WhatsApp, web o redes) e instalar en cualquier celular sin intermediarios.
+  * **Paquete AAB (Android App Bundle):** Optimizado y firmado, listo para que el cliente lo suba y publique en su cuenta de Google Play Store si lo desea.
+  * Entrega lista y funcional en 3 días hábiles.
 
 * **Financiación / Modalidad Flexible:** Se puede coordinar el pago único de la App o bien prorratear/sumar un valor negociado dentro de la cuota mensual de la radio.
 
-* **Abono Mensual de Streaming:** El abono mensual de streaming continúa en su valor habitual (ej: $10.000 ARS/mes en Plan Pro). La App no requiere costos extra de mantenimiento mensual por sí misma.
+* **Abono Mensual de Streaming:** El abono mensual de streaming continúa en su valor habitual (ej: $15.000 ARS/mes en Plan Pro). La App no requiere costos extra de mantenimiento mensual por sí misma.
 
 ## 3. Resumen del Primer Pago por Plan
 
-* **Plan Básico:** **$15.000 ARS** *(Alta + Primer Mes sin dominio propio)*. Luego $8.000 ARS/mes desde el mes 2.
-
-* **Plan Pro:** **$25.000 ARS** *(Alta + Primer Mes + Registro de Dominio Propio)*. Luego $10.000 ARS/mes desde el mes 2.
-
-* **Plan Advance:** **$250.000 ARS** *(Desarrollo Web con funciones avanzadas + Alta + Primer Mes + Dominio Propio)*. Luego $12.500 ARS/mes desde el mes 2. *(Opción de prorratear el costo de desarrollo en la cuota mensual)*.
-
-* **Plan Pro + App Android:** **$125.000 ARS** *(Plan Pro + App Android de pago único)*. Luego **$10.000 ARS/mes** desde el mes 2.
+* **Plan Básico:** **$8.000 ARS** *(Primer mes de streaming sin costo de alta)*.
+* **Plan Pro:** **$15.000 ARS** *(Primer mes de streaming sin costo de alta)*.
+* **Plan Pro + App Android:** **$115.000 ARS** *(Plan Pro $15.000 + App Android $100.000 de pago único)*. Luego **$15.000 ARS/mes** desde el mes 2.
 
 ## 4. Ficha de Alta para la Contratación del Servicio
 
@@ -42,13 +42,9 @@ La app para Android se ofrece como un desarrollo opcional e independiente del ab
 ### DATOS GENERALES DEL CLIENTE Y RADIO
 
 * **Nombre de la Emisora:** \____________________________________\_
-
 * **Nombre del Titular / Responsable:** \_________________________\_
-
 * **Teléfono / WhatsApp:** \_____________________________________\_
-
 * **Correo Electrónico:** \______________________________________\_
-
 * **Ciudad / Provincia:** \______________________________________\_
 
 ### SELECCIÓN DEL PLAN DE STREAMING
@@ -56,33 +52,22 @@ La app para Android se ofrece como un desarrollo opcional e independiente del ab
 Marque con una **X** la opción elegida:
 
 * [ ] **PLAN BÁSICO**
-  * Pago Inicial (Alta + Mes 1): $15.000 ARS
-  * Abono Mensual (Mes 2 en adelante): $8.000 ARS
+  * Abono Mensual: $8.000 ARS (Sin costo de alta)
 
-* [ ] **PLAN PRO (Incluye Dominio Propio)**
-  * Pago Inicial (Alta + Mes 1 + Dominio): $25.000 ARS
-  * Abono Mensual (Mes 2 en adelante): $10.000 ARS
-  * *Dominio deseado:* `www.`______________________`.com / .com.ar`
-
-* [ ] **PLAN ADVANCE (Web Funciones Avanzadas + Dominio)**
-  * Desarrollo Web Avanzada: $250.000 ARS
-    * [ ] Pago único de desarrollo al iniciar
-    * [ ] Prorratear/financiar desarrollo en cuota mensual acordada
-  * Abono Mensual (Mes 2 en adelante): $12.500 ARS
-  * *Dominio deseado:* `www.`______________________`.com / .com.ar`
+* [ ] **PLAN PRO ⭐**
+  * Abono Mensual: $15.000 ARS (Sin costo de alta)
 
 ### MÓDULO ADICIONAL APP ANDROID
 
-* [ ] **Sí, deseo agregar la Aplicación Android Dedicada ($100.000 ARS - Instalación APK)**
-  * [ ] Pago único inicial junto con el alta
+* [ ] **Sí, deseo agregar la Promoción App Android Dedicada ($100.000 ARS - Entrega APK y AAB para Play Store)**
+  * [ ] Pago único inicial al contratar
   * [ ] Financiar / Incluir monto acordado en cuota mensual
 
 * [ ] **No por el momento**
 
 ### RESUMEN DEL PRIMER PAGO A CANCELAR
 
-1. Pago Inicial del Plan Elegido (Básico $15.000 / Pro $25.000 / Advance $250.000): $ \__________\_ ARS
-
+1. Abono Primer Mes del Plan Elegido (Básico $8.000 / Pro $15.000): $ \__________\_ ARS
 2. Adicional App Android (Si aplica pago único $100.000): $ \__________\_ ARS
 
 **TOTAL A ABONAR EN EL PRIMER PAGO:** **$ \__________\_ ARS**
@@ -90,9 +75,4 @@ Marque con una **X** la opción elegida:
 ## 5. Términos y Condiciones Resumidos del Servicio
 
 1. **Abonos Mensuales:** El cobro del abono mensual vence del 1 al 5 de cada mes por adelantado.
-
-2. **Dominio Propio (Plan Pro y Advance):** El registro del dominio queda a nombre del cliente y posee vigencia de 1 año.
-
-3. **Desarrollo de App Android (Instalación APK):** El archivo APK funcional se entrega en 3 días hábiles tras recibir el logo y material gráfico para su instalación directa. No requiere publicación en tienda ni abonos de mantenimiento extra.
-
-4. **Desarrollo Web Avanzada (Plan Advance):** El valor de desarrollo es de $250.000 ARS (con opción de pago único o prorrateado en la cuota mensual). El abono mensual a partir del mes 2 es de $12.500 ARS.
+2. **Desarrollo de App Android (APK y AAB):** Se entregan archivos ejecutables APK (para compartir libremente) y AAB (listo para Google Play Store) en 3 días hábiles tras recibir el logo y material gráfico. No requiere abonos de mantenimiento extra.

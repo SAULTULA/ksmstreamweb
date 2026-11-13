@@ -5,8 +5,7 @@ import styles from './SignupForm.module.css';
 
 const PLAN_PRICES = {
   basic: { alta: 0, mensual: 8000 },
-  pro: { alta: 25000, mensual: 10000 },
-  advance: { alta: 250000, mensual: 12500 },
+  pro: { alta: 0, mensual: 15000 },
 };
 
 const ANDROID_PRICE = 100000;
@@ -19,8 +18,6 @@ export default function SignupForm() {
     email: '',
     ciudad: '',
     plan: 'pro',
-    dominio: '',
-    advanceFinanciacion: 'unico',
     android: 'no',
     androidFinanciacion: 'unico',
   });
@@ -37,11 +34,9 @@ export default function SignupForm() {
   const calculateNumericTotal = () => {
     let base = 0;
     if (form.plan === 'basic') {
-      base = PLAN_PRICES.basic.mensual; // Sin alta, se paga solo el primer mes
+      base = PLAN_PRICES.basic.mensual;
     } else if (form.plan === 'pro') {
-      base = PLAN_PRICES.pro.alta;
-    } else if (form.plan === 'advance') {
-      base = form.advanceFinanciacion === 'unico' ? PLAN_PRICES.advance.alta : PLAN_PRICES.advance.mensual;
+      base = PLAN_PRICES.pro.mensual;
     }
     const app = form.android === 'si' && form.androidFinanciacion === 'unico' ? ANDROID_PRICE : 0;
     return base + app;
@@ -55,9 +50,7 @@ export default function SignupForm() {
     if (form.plan === 'basic') {
       return 'Plan Básico ($8.000 ARS/mes · sin costo de alta)';
     } else if (form.plan === 'pro') {
-      return 'Plan Pro ($25.000 ARS alta con Dominio · $10.000/mes)';
-    } else if (form.plan === 'advance') {
-      return `Plan Advance ($250.000 ARS desarrollo [${form.advanceFinanciacion === 'unico' ? 'Pago único' : 'Prorrateado en cuota'}] · $12.500/mes desde mes 2)`;
+      return 'Plan Pro ($15.000 ARS/mes · sin costo de alta)';
     }
     return form.plan;
   };
@@ -65,7 +58,7 @@ export default function SignupForm() {
   const buildWAMessage = () => {
     const planLabel = getPlanLabel();
     const androidLabel = form.android === 'si'
-      ? `Sí (${form.androidFinanciacion === 'unico' ? 'pago único $100.000 ARS' : 'financiado en cuota'} - Instalación APK)`
+      ? `Sí (${form.androidFinanciacion === 'unico' ? 'pago único $100.000 ARS' : 'financiado en cuota'} - Entrega APK y AAB Play Store)`
       : 'No';
 
     const mensajeArr = [
@@ -78,7 +71,6 @@ export default function SignupForm() {
       `*Ciudad/Provincia:* ${form.ciudad || '—'}`,
       ``,
       `*Plan elegido:* ${planLabel}`,
-      (form.plan === 'pro' || form.plan === 'advance') && form.dominio ? `*Dominio deseado:* www.${form.dominio}.com.ar` : null,
       ``,
       `*App Android:* ${androidLabel}`,
       ``,
@@ -157,19 +149,13 @@ export default function SignupForm() {
                 <div className={styles['signup__success-row']}>
                   <span className={styles['signup__success-row-label']}>Plan Seleccionado:</span>
                   <span className={styles['signup__success-row-val']}>
-                    {form.plan === 'advance' ? 'Plan Advance' : form.plan === 'pro' ? 'Plan Pro' : 'Plan Básico'}
+                    {form.plan === 'pro' ? 'Plan Pro' : 'Plan Básico'}
                   </span>
                 </div>
-                {form.dominio && (
-                  <div className={styles['signup__success-row']}>
-                    <span className={styles['signup__success-row-label']}>Dominio:</span>
-                    <span className={styles['signup__success-row-val']}>www.{form.dominio}.com.ar</span>
-                  </div>
-                )}
                 <div className={styles['signup__success-row']}>
                   <span className={styles['signup__success-row-label']}>App Android:</span>
                   <span className={styles['signup__success-row-val']}>
-                    {form.android === 'si' ? 'Sí (Instalación APK)' : 'No'}
+                    {form.android === 'si' ? 'Sí (Entrega APK / AAB Play Store)' : 'No'}
                   </span>
                 </div>
                 <div className={styles['signup__success-row']}>
@@ -313,85 +299,10 @@ export default function SignupForm() {
                 />
                 <label htmlFor="plan-pro" className={styles['signup__plan-label']}>
                   <span className={styles['signup__plan-name']}>Plan Pro ⭐</span>
-                  <span className={styles['signup__plan-price']}>Alta: $25.000 ARS · Mensual: $10.000 ARS</span>
-                </label>
-              </div>
-
-              <div className={styles['signup__plan-option']}>
-                <input
-                  type="radio"
-                  id="plan-advance"
-                  name="plan"
-                  value="advance"
-                  className={styles['signup__plan-input']}
-                  checked={form.plan === 'advance'}
-                  onChange={handleChange}
-                />
-                <label htmlFor="plan-advance" className={`${styles['signup__plan-label']} ${styles['signup__plan-label--advance']}`}>
-                  <span className={styles['signup__plan-name']}>Plan Advance 🚀</span>
-                  <span className={styles['signup__plan-price']}>Desarrollo: $250.000 ARS · Mensual: $12.500 ARS</span>
+                  <span className={styles['signup__plan-price']}>$15.000 ARS / mes · Sin costo de alta</span>
                 </label>
               </div>
             </div>
-
-            {form.plan === 'advance' && (
-              <div className={styles['signup__suboptions']}>
-                <span className={styles['signup__suboptions-title']}>Modalidad de Pago del Desarrollo Web ($250.000 ARS)</span>
-                <div className={styles['signup__android-option']}>
-                  <input
-                    type="radio"
-                    id="advance-unico"
-                    name="advanceFinanciacion"
-                    value="unico"
-                    className={styles['signup__android-input']}
-                    checked={form.advanceFinanciacion === 'unico'}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="advance-unico" className={styles['signup__android-label']}>
-                    <span className={styles['signup__android-radio-indicator']} />
-                    Pago único de desarrollo al contratar ($250.000 ARS)
-                  </label>
-                </div>
-                <div className={styles['signup__android-option']}>
-                  <input
-                    type="radio"
-                    id="advance-prorrateado"
-                    name="advanceFinanciacion"
-                    value="prorrateado"
-                    className={styles['signup__android-input']}
-                    checked={form.advanceFinanciacion === 'prorrateado'}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="advance-prorrateado" className={styles['signup__android-label']}>
-                    <span className={styles['signup__android-radio-indicator']} />
-                    Prorratear / Financiar desarrollo en cuota mensual acordada
-                  </label>
-                </div>
-              </div>
-            )}
-
-            {(form.plan === 'pro' || form.plan === 'advance') && (
-              <div className={styles['signup__fields-grid']}>
-                <div className={`${styles['signup__field']} ${styles['signup__field-full']}`}>
-                  <label className={styles['signup__label']} htmlFor="signup-dominio">
-                    Dominio deseado ({form.plan === 'advance' ? 'Plan Advance' : 'Plan Pro'})
-                  </label>
-                  <div className={styles['signup__domain-group']}>
-                    <span className={styles['signup__domain-prefix']}>www.</span>
-                    <input
-                      id="signup-dominio"
-                      name="dominio"
-                      type="text"
-                      className={styles['signup__domain-input']}
-                      placeholder="miradio"
-                      value={form.dominio}
-                      onChange={handleChange}
-                    />
-                    <span className={styles['signup__domain-suffix']}>.com.ar</span>
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* --- App Android --- */}
             <p className={styles['signup__section-title']}>
@@ -412,7 +323,7 @@ export default function SignupForm() {
                 />
                 <label htmlFor="android-si" className={styles['signup__android-label']}>
                   <span className={styles['signup__android-radio-indicator']} />
-                  Sí, deseo agregar la App Android Dedicada ($100.000 ARS - Instalación APK)
+                  Sí, deseo agregar la Promoción App Android ($100.000 ARS - Entrega APK y AAB Play Store)
                 </label>
               </div>
 
@@ -473,12 +384,10 @@ export default function SignupForm() {
               <div>
                 <p className={styles['signup__total-label']}>Total estimado — Primer Pago</p>
                 <p className={styles['signup__total-note']}>
-                  {form.plan === 'advance'
-                    ? `Plan Advance (${form.advanceFinanciacion === 'unico' ? 'Pago único desarrollo' : 'Prorrateado en cuota mensual'})`
-                    : form.plan === 'pro'
-                    ? 'Plan Pro'
+                  {form.plan === 'pro'
+                    ? 'Plan Pro · Primer mes de streaming'
                     : 'Plan Básico · Primer mes de streaming'}
-                  {form.android === 'si' && form.androidFinanciacion === 'unico' ? ' + App Android' : ''}
+                  {form.android === 'si' && form.androidFinanciacion === 'unico' ? ' + Promoción App Android (APK/AAB)' : ''}
                 </p>
               </div>
               <span className={styles['signup__total-amount']}>$ {totalPrimerPago()} ARS</span>

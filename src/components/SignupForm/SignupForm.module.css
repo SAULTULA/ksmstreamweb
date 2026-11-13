@@ -128,7 +128,7 @@
 /* Plan select */
 .signup__plan-options {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-xl);
 }
@@ -167,12 +167,6 @@
   box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.25);
 }
 
-.signup__plan-input:checked + .signup__plan-label--advance {
-  border-color: var(--color-secondary);
-  background: rgba(157, 78, 221, 0.08);
-  box-shadow: 0 0 0 2px rgba(157, 78, 221, 0.25);
-}
-
 .signup__plan-name {
   font-size: var(--font-size-base);
   font-weight: 700;
@@ -182,26 +176,6 @@
 .signup__plan-price {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-}
-
-.signup__suboptions {
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
-  margin-bottom: var(--spacing-xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
-
-.signup__suboptions-title {
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  color: var(--color-text-main);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--spacing-2xs);
 }
 
 /* Android option */
@@ -264,53 +238,6 @@
 .signup__android-input:checked + .signup__android-label .signup__android-radio-indicator {
   border-color: var(--color-secondary);
   background: var(--color-secondary);
-}
-
-/* Domain field */
-.signup__domain-group {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--color-bg-elevated);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.signup__domain-group:focus-within {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.15);
-}
-
-.signup__domain-prefix {
-  padding: 0.7rem 0.8rem;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-dim);
-  background: rgba(255, 255, 255, 0.03);
-  border-right: 1px solid var(--color-border);
-  white-space: nowrap;
-  font-family: var(--font-family-mono);
-}
-
-.signup__domain-input {
-  flex: 1;
-  padding: 0.7rem 0.8rem;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--color-text-main);
-  font-size: var(--font-size-sm);
-}
-
-.signup__domain-suffix {
-  padding: 0.7rem 0.8rem;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-dim);
-  background: rgba(255, 255, 255, 0.03);
-  border-left: 1px solid var(--color-border);
-  white-space: nowrap;
-  font-family: var(--font-family-mono);
 }
 
 /* Total box */

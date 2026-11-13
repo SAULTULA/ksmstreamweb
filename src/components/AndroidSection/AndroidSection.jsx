@@ -3,14 +3,15 @@ import { Smartphone, CheckCircle2, Clock, Banknote, Play, MessageCircle } from '
 import styles from './AndroidSection.module.css';
 
 const appFeatures = [
-  'Diseño completamente personalizado con la identidad de tu radio',
-  'Reproductor integrado con carátula, artista y título del programa',
-  'Entrega de APK funcional en 3 días hábiles (listo para instalar y usar)',
-  'Instalación directa en cualquier celular Android mediante archivo APK',
-  'Sin cuotas mensuales adicionales por la aplicación móvil',
+  'Diseño completamente personalizado con la identidad y colores de tu radio',
+  'Reproductor integrado con carátula, artista y título del programa en vivo',
+  'Entrega de archivo APK para compartir e instalar directo en cualquier celular',
+  'Entrega de paquete AAB (Android App Bundle) listo para publicar en Google Play Store',
+  'Entrega de archivos funcionales en 3 días hábiles (listos para usar)',
+  'Sin cuotas mensuales de mantenimiento por la aplicación',
 ];
 
-const WA_MSG = encodeURIComponent('Hola KSM Servicios! Me interesa agregar la App Android Dedicada ($100.000 ARS - Instalación APK). ¿Me podés dar más información?');
+const WA_MSG = encodeURIComponent('Hola KSM Servicios! Me interesa la promoción de la App Android ($100.000 ARS - Entrega APK y AAB para Play Store). ¿Me podés dar más información?');
 
 export default function AndroidSection() {
   return (
@@ -20,7 +21,7 @@ export default function AndroidSection() {
         <div className={styles['android__content']}>
           <div className={styles['android__tag']}>
             <Smartphone size={13} />
-            <span>Módulo Adicional Opcional</span>
+            <span>Promoción Especial App Móvil</span>
           </div>
 
           <h2 className={styles['android__title']}>
@@ -29,15 +30,17 @@ export default function AndroidSection() {
           </h2>
 
           <p className={styles['android__desc']}>
-            Llevá tu radio al bolsillo de tus oyentes con una aplicación propia instalable
-            directamente mediante archivo APK. Completamente personalizada con tu logo, colores y nombre de emisora.
+            Llevá tu radio al bolsillo de tus oyentes con una aplicación propia. Continúa nuestra promoción especial:
+            te entregamos el archivo APK para que lo compartas directamente con tus oyentes (por WhatsApp, web o redes)
+            y el archivo AAB listo para que lo subas y publiques en Google Play Store si lo deseás. Completamente
+            personalizada con tu logo, colores y nombre de emisora.
           </p>
 
           <div className={styles['android__price-box']}>
             <div className={styles['android__price-row']}>
               <div className={styles['android__price-label']}>
-                <span className={styles['android__price-badge']}>Desarrollo App Android (Instalación APK)</span>
-                <span className={styles['android__price-sublabel']}>Pago único de desarrollo. Luego abono habitual del plan de streaming.</span>
+                <span className={styles['android__price-badge']}>Promoción App Android (Entrega APK + AAB)</span>
+                <span className={styles['android__price-sublabel']}>Pago único promocional de desarrollo. Luego solo el abono habitual del streaming.</span>
               </div>
               <span className={styles['android__price-value']}>$100.000 ARS</span>
             </div>
@@ -48,7 +51,7 @@ export default function AndroidSection() {
               <Banknote size={20} className={styles['android__financing-icon']} />
               <p className={styles['android__financing-text']}>
                 <strong>Financiación y Abono:</strong> podés coordinar el pago único al contratar,
-                o bien prorratear el desarrollo e incluirlo dentro de tu cuota mensual. Recordá que el abono mensual de streaming continúa en su valor habitual (ej: $10.000 ARS/mes en Plan Pro) a partir del mes 2.
+                o bien prorratear el desarrollo e incluirlo dentro de tu cuota mensual. Recordá que el abono mensual de streaming continúa en su valor habitual (ej: $15.000 ARS/mes en Plan Pro) a partir del mes 2.
               </p>
             </div>
           </div>
@@ -69,7 +72,7 @@ export default function AndroidSection() {
             className={styles['android__cta']}
           >
             <MessageCircle size={18} />
-            <span>Consultar por la App Android</span>
+            <span>Consultar por la Promoción App Android</span>
           </a>
         </div>
 
@@ -84,7 +87,7 @@ export default function AndroidSection() {
             />
             <div className={styles['android__delivery-chip']}>
               <Clock size={14} />
-              <span>APK funcional en 3 días hábiles</span>
+              <span>APK + AAB en 3 días hábiles</span>
             </div>
           </div>
         </div>

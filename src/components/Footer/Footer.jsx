@@ -33,9 +33,8 @@ const NAV_LINKS = [
 
 const SERVICE_LINKS = [
   { label: 'Streaming Básico', href: '#planes' },
-  { label: 'Streaming Pro con Dominio', href: '#planes' },
-  { label: 'Plan Advance con Web', href: '#planes' },
-  { label: 'App Android Dedicada', href: '#app-android' },
+  { label: 'Streaming Pro', href: '#planes' },
+  { label: 'App Android Dedicada (APK / AAB)', href: '#app-android' },
   { label: 'Panel SonicPanel HD', href: '#caracteristicas' },
   { label: 'Servidor Icecast V2', href: '#caracteristicas' },
 ];

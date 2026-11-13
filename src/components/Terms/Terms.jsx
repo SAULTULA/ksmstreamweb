@@ -88,7 +88,7 @@ export default function Terms() {
               <div className={styles['terms__section']}>
                 <h4 className={styles['terms__section-title']}>1. Identificación del Proveedor y Objeto</h4>
                 <p className={styles['terms__text']}>
-                  Los presentes Términos regulan la contratación de servicios de streaming de audio por internet, servidores Icecast V2 / SonicPanel, registro de dominios web, desarrollo de páginas web y aplicaciones móviles Android provistos por <strong>KSM Servicios</strong> (Titular: Saúl Tula), a través del sitio web <strong>streaming.ksmservicios.com.ar</strong> y su dominio principal <strong>ksmservicios.com.ar</strong>.
+                  Los presentes Términos regulan la contratación de servicios de streaming de audio por internet, servidores Icecast V2 / SonicPanel, reproductores web y aplicaciones móviles Android provistos por <strong>KSM Servicios</strong> (Titular: Saúl Tula), a través del sitio web <strong>streaming.ksmservicios.com.ar</strong> y su dominio principal <strong>ksmservicios.com.ar</strong>.
                 </p>
               </div>
 
@@ -108,28 +108,14 @@ export default function Terms() {
               </div>
 
               <div className={styles['terms__section']}>
-                <h4 className={styles['terms__section-title']}>3. Dominios Propios (Planes Pro y Advance)</h4>
+                <h4 className={styles['terms__section-title']}>3. Desarrollo de Aplicación Móvil Android (Archivos APK y AAB)</h4>
                 <p className={styles['terms__text']}>
-                  El registro del dominio solicitado (.com o .com.ar) se tramita a nombre de la emisora o titular indicado en la ficha de alta y posee una vigencia de doce (12) meses desde su activación. La renovación anual posterior correrá por cuenta del titular conforme a las tarifas de los organismos registradores correspondientes (ej. NIC Argentina / ICANN).
+                  El servicio de App Android contempla el diseño y compilación de una aplicación nativa dedicada con reproductor en vivo, carátula, metadatos y enlaces directos de contacto. KSM Servicios entrega al cliente tanto el archivo ejecutable APK (listo para instalación directa y para que la emisora lo comparta libremente por WhatsApp, su sitio web o redes sociales) como el paquete AAB (Android App Bundle) debidamente firmado y optimizado, listo para que el cliente lo suba y publique en su propia cuenta de desarrollador de Google Play Store si así lo desea. La entrega de ambos formatos se realiza en un plazo promedio de tres (3) días hábiles posteriores a la recepción de los materiales gráficos y datos de la emisora. No existen cuotas mensuales adicionales de mantenimiento por la aplicación móvil.
                 </p>
               </div>
 
               <div className={styles['terms__section']}>
-                <h4 className={styles['terms__section-title']}>4. Desarrollo de Aplicación Android (Instalación APK)</h4>
-                <p className={styles['terms__text']}>
-                  El servicio de App Android contempla el diseño y compilación de una aplicación nativa dedicada con reproductor en vivo, botones de redes y enlaces directos a WhatsApp. Se entrega el archivo ejecutable APK optimizado en un plazo promedio de tres (3) días hábiles posteriores a la recepción de los materiales gráficos y datos de la emisora. La distribución se realiza mediante descarga directa libre, sin dependencia de tiendas externas ni costos mensuales de publicación.
-                </p>
-              </div>
-
-              <div className={styles['terms__section']}>
-                <h4 className={styles['terms__section-title']}>5. Plan Advance (Desarrollo Web con Funciones Avanzadas)</h4>
-                <p className={styles['terms__text']}>
-                  El Plan Advance incluye el diseño y desarrollo de una plataforma web integral con funciones avanzadas por un arancel de desarrollo de $250.000 ARS (con opción de abonarse en un único pago o prorratearse en cuotas mensuales acordadas). A partir del segundo mes, el abono mensual de streaming de audio HD y mantenimiento técnico asciende a $12.500 ARS.
-                </p>
-              </div>
-
-              <div className={styles['terms__section']}>
-                <h4 className={styles['terms__section-title']}>6. Derechos de Autor y Responsabilidad de Contenidos</h4>
+                <h4 className={styles['terms__section-title']}>4. Derechos de Autor y Responsabilidad de Contenidos</h4>
                 <p className={styles['terms__text']}>
                   KSM Servicios provee exclusivamente la infraestructura de conectividad y transmisión de datos (carrier tecnológico). La titularidad, permisos, licencias de propiedad intelectual y pago de aranceles de derechos de autor por las transmisiones (tales como SADAIC, AADI CAPIF o entidades análogas) corresponden de manera exclusiva y excluyente a la emisora cliente.
                 </p>
@@ -161,7 +147,7 @@ export default function Terms() {
                   <li><strong>Nombre de la Emisora y Datos del Titular:</strong> Para identificación del servicio y asignación de puerto de streaming.</li>
                   <li><strong>Teléfono / WhatsApp:</strong> Para comunicación de soporte técnico prioritario, entrega de accesos y avisos de facturación.</li>
                   <li><strong>Correo Electrónico:</strong> Para envío de credenciales del panel SonicPanel y facturación.</li>
-                  <li><strong>Localidad y Provincia:</strong> Para geo-optimización de servidores y registro de dominios.</li>
+                  <li><strong>Localidad y Provincia:</strong> Para geo-optimización de servidores y latencia de transmisión.</li>
                 </ul>
               </div>
 
