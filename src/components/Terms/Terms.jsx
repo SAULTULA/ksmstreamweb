@@ -93,29 +93,65 @@ export default function Terms() {
               </div>
 
               <div className={styles['terms__section']}>
-                <h4 className={styles['terms__section-title']}>2. Modalidad de Cobro y Abonos Mensuales</h4>
+                <h4 className={styles['terms__section-title']}>2. Modalidad de Contratación de Promociones y Planes</h4>
                 <ul className={styles['terms__bullets']}>
                   <li>
-                    <strong>Vencimiento:</strong> Los abonos mensuales de streaming vencen del día 1 al día 5 de cada mes calendario por período adelantado.
+                    <strong>Promociones con 1 Año de Streaming:</strong> Las promociones anuales (Promo 1, Promo 2 y Promo 3) incluyen 12 meses de servicio de streaming (abono correspondiente a 10 meses con 2 meses adicionales 100% bonificados), desarrollo web bonificado, App Web PWA, subida, hosting y mantenimiento técnico durante el primer año.
+                  </li>
+                  <li>
+                    <strong>Condición de Pago Promo 1 (Web Modular - $200.000 ARS):</strong> Se abona el <strong>70% al iniciar el proyecto</strong> y el resto al finalizar, contra la entrega formal de la URL real, el sitio web completo y el servidor de streaming 100% conectados y operativos.
+                  </li>
+                  <li>
+                    <strong>Condición de Pago Promo 2 (Web Básico):</strong> Se abona en un único pago al contado de $170.000 ARS al contratar.
+                  </li>
+                  <li>
+                    <strong>Modalidad Financiada (Promo 3):</strong> Se abona en doce (12) cuotas fijas mensuales de $50.000 ARS. La primera cuota se abona al momento de iniciar el proyecto y las subsiguientes vencen del 1 al 5 de cada mes calendario.
                   </li>
                   <li>
                     <strong>Medios de Pago:</strong> Transferencia bancaria / CVU / CBU o tarjeta mediante pasarela Mercado Pago.
                   </li>
                   <li>
-                    <strong>Suspensión por falta de pago:</strong> En caso de no registrarse el pago antes del día 10 del mes, el servidor de transmisión podrá ser pausado temporalmente hasta la regularización de la cuota.
+                    <strong>Suspensión por falta de pago:</strong> En planes mensuales o cuotas financiadas, de no registrarse el pago antes del día 10 del mes, el servidor podrá pausarse temporalmente hasta la regularización.
                   </li>
                 </ul>
               </div>
 
               <div className={styles['terms__section']}>
-                <h4 className={styles['terms__section-title']}>3. Desarrollo de Aplicación Móvil Android (Archivos APK y AAB)</h4>
+                <h4 className={styles['terms__section-title']}>3. Renovación a partir del Segundo Año</h4>
                 <p className={styles['terms__text']}>
-                  El servicio de App Android contempla el diseño y compilación de una aplicación nativa dedicada con reproductor en vivo, carátula, metadatos y enlaces directos de contacto. KSM Servicios entrega al cliente tanto el archivo ejecutable APK (listo para instalación directa y para que la emisora lo comparta libremente por WhatsApp, su sitio web o redes sociales) como el paquete AAB (Android App Bundle) debidamente firmado y optimizado, listo para que el cliente lo suba y publique en su propia cuenta de desarrollador de Google Play Store si así lo desea. La entrega de ambos formatos se realiza en un plazo promedio de tres (3) días hábiles posteriores a la recepción de los materiales gráficos y datos de la emisora. No existen cuotas mensuales adicionales de mantenimiento por la aplicación móvil.
+                  Al cumplirse el primer año de servicio bonificado, el cliente continuará disfrutando del servicio abonando:
+                </p>
+                <ul className={styles['terms__bullets']}>
+                  <li>
+                    <strong>Streaming Anual Completo (12 meses):</strong> Valor anual ajustado según índice inflacionario anual (estimado de referencia entre $60.000 y $80.000 ARS).
+                  </li>
+                  <li>
+                    <strong>Mantenimiento Anual del Sitio Web:</strong> $50.000 ARS anuales, garantizando soporte técnico permanente, actualización del reproductor y hosting.
+                  </li>
+                </ul>
+              </div>
+
+              <div className={styles['terms__section']}>
+                <h4 className={styles['terms__section-title']}>4. Gestión y Titularidad de Dominios Web</h4>
+                <ul className={styles['terms__bullets']}>
+                  <li>
+                    <strong>Promociones al Contado (Promo 1 y Promo 2):</strong> El dominio web corre por cuenta del cliente (adquisición y titularidad). El cliente nos suministra los datos o accesos correspondientes y KSM Servicios se encarga exclusivamente de su delegación técnica y vinculación con los servidores de streaming y hosting sin costo adicional.
+                  </li>
+                  <li>
+                    <strong>Promoción Financiada en Cuotas (Promo 3):</strong> El dominio web permanece registrado y administrado a nombre de <strong>KSM Servicios</strong> durante el transcurso del plan financiado hasta la cancelación total de la última cuota (cuota 12). A partir de la cancelación definitiva, se procede a otorgar y transferir la titularidad del dominio a nombre exclusivo del cliente.
+                  </li>
+                </ul>
+              </div>
+
+              <div className={styles['terms__section']}>
+                <h4 className={styles['terms__section-title']}>5. Aditamento Opcional: Aplicación Móvil Android (Archivos APK y AAB)</h4>
+                <p className={styles['terms__text']}>
+                  El servicio de App Android es un módulo opcional que puede sumarse a cualquier promoción. Contempla el diseño y compilación de una aplicación nativa dedicada con reproductor en vivo, carátula, metadatos y enlaces directos de contacto. KSM Servicios entrega al cliente tanto el archivo ejecutable APK (listo para instalación directa y para que la emisora lo comparta libremente por WhatsApp, su sitio web o redes sociales) como el paquete AAB (Android App Bundle) debidamente firmado y optimizado, listo para que el cliente lo suba y publique en su propia cuenta de desarrollador de Google Play Store si así lo desea. La entrega de ambos formatos se realiza en un plazo promedio de tres (3) días hábiles posteriores a la recepción de los materiales gráficos y datos de la emisora. No existen cuotas mensuales adicionales de mantenimiento por la aplicación móvil.
                 </p>
               </div>
 
               <div className={styles['terms__section']}>
-                <h4 className={styles['terms__section-title']}>4. Derechos de Autor y Responsabilidad de Contenidos</h4>
+                <h4 className={styles['terms__section-title']}>6. Derechos de Autor y Responsabilidad de Contenidos</h4>
                 <p className={styles['terms__text']}>
                   KSM Servicios provee exclusivamente la infraestructura de conectividad y transmisión de datos (carrier tecnológico). La titularidad, permisos, licencias de propiedad intelectual y pago de aranceles de derechos de autor por las transmisiones (tales como SADAIC, AADI CAPIF o entidades análogas) corresponden de manera exclusiva y excluyente a la emisora cliente.
                 </p>

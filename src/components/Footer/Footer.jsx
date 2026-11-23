@@ -32,8 +32,9 @@ const NAV_LINKS = [
 ];
 
 const SERVICE_LINKS = [
-  { label: 'Streaming Básico', href: '#planes' },
-  { label: 'Streaming Pro', href: '#planes' },
+  { label: 'Web Modular Personalizada', href: '#planes' },
+  { label: 'Web Básico con Reproductor', href: '#planes' },
+  { label: 'Web Financiada (12 Cuotas)', href: '#planes' },
   { label: 'App Android Dedicada (APK / AAB)', href: '#app-android' },
   { label: 'Panel SonicPanel HD', href: '#caracteristicas' },
   { label: 'Servidor Icecast V2', href: '#caracteristicas' },

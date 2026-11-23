@@ -53,10 +53,9 @@
 
 .pricing__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 480px));
-  justify-content: center;
-  gap: var(--spacing-xl);
-  max-width: 1040px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  max-width: 1260px;
   margin: 0 auto;
 }
 
@@ -67,10 +66,10 @@
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 26px;
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.15);
@@ -83,22 +82,55 @@
   box-shadow: 0 28px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
-/* PRO highlight */
+/* PRO (Promo 1) highlight */
 .pricing__card--pro {
-  border-color: rgba(10, 132, 255, 0.5);
-  box-shadow: 0 0 35px rgba(10, 132, 255, 0.2), 0 20px 50px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  background: rgba(20, 24, 45, 0.72);
+  border-color: rgba(10, 132, 255, 0.55);
+  box-shadow: 0 0 35px rgba(10, 132, 255, 0.22), 0 20px 50px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background: rgba(20, 24, 48, 0.76);
 }
 
 .pricing__card--pro::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top right, rgba(10, 132, 255, 0.15), transparent 70%);
+  background: radial-gradient(circle at top right, rgba(10, 132, 255, 0.18), transparent 70%);
   pointer-events: none;
 }
 
-/* Recommended ribbon */
+/* FINANCED (Promo 3) highlight */
+.pricing__card--financed {
+  border-color: rgba(191, 90, 242, 0.5);
+  box-shadow: 0 0 35px rgba(191, 90, 242, 0.2), 0 20px 50px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background: rgba(28, 20, 48, 0.74);
+}
+
+.pricing__card--financed::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(191, 90, 242, 0.16), transparent 70%);
+  pointer-events: none;
+}
+
+/* Badges / Ribbons */
+.pricing__plan-badge {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .pricing__recommended-badge {
   position: absolute;
   top: var(--spacing-md);
@@ -117,22 +149,46 @@
   box-shadow: 0 4px 14px rgba(0, 122, 255, 0.4);
 }
 
+.pricing__finance-badge {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(180deg, #bf5af2 0%, #a855f7 100%);
+  border-radius: var(--radius-full);
+  color: #ffffff;
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 14px rgba(191, 90, 242, 0.4);
+}
+
 /* Plan Name */
 .pricing__plan-name {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   font-weight: 800;
   color: var(--color-text-main);
   letter-spacing: -0.01em;
+  padding-right: 2rem;
 }
 
 .pricing__plan-name--pro {
   color: #38bdf8;
 }
 
+.pricing__plan-name--financed {
+  color: #c084fc;
+}
+
 .pricing__plan-desc {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  margin-top: 0.2rem;
+  margin-top: 0.35rem;
+  line-height: 1.45;
 }
 
 /* Pricing block */
@@ -140,8 +196,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-2xs);
-  padding: var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.06);
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -149,7 +205,7 @@
 
 .pricing__first-payment-label {
   font-size: var(--font-size-xs);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text-dim);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -168,11 +224,11 @@
 }
 
 .pricing__amount {
-  font-size: var(--font-size-3xl);
+  font-size: clamp(1.6rem, 1.4rem + 1vw, 2.2rem);
   font-weight: 800;
   color: var(--color-text-main);
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .pricing__period {
@@ -181,42 +237,17 @@
   margin-top: 0.15rem;
 }
 
-.pricing__divider {
-  border: none;
-  border-top: 1px solid var(--color-border);
-  margin: var(--spacing-xs) 0;
-}
-
-.pricing__monthly-label {
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--color-text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.pricing__monthly-row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.pricing__monthly-amount {
-  font-size: var(--font-size-xl);
-  font-weight: 800;
-  color: var(--color-text-main);
-}
-
 .pricing__monthly-note {
   font-size: var(--font-size-xs);
-  color: var(--color-text-dim);
+  color: var(--color-success);
+  font-weight: 600;
 }
 
 /* Feature list */
 .pricing__feature-list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   list-style: none;
   flex: 1;
 }
@@ -227,16 +258,18 @@
   gap: var(--spacing-xs);
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.pricing__feature-item--highlight {
+  color: var(--color-text-main);
+  font-weight: 600;
 }
 
 .pricing__feature-icon {
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
   color: var(--color-success);
-}
-
-.pricing__feature-icon--no {
-  color: var(--color-text-dim);
 }
 
 /* CTA Button */
@@ -245,9 +278,9 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-xs);
-  padding: 0.95rem 1.6rem;
+  padding: 0.85rem 1.4rem;
   border-radius: 14px;
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: 700;
   text-align: center;
   transition: all var(--transition-base);
@@ -279,9 +312,205 @@
   box-shadow: 0 8px 26px rgba(0, 122, 255, 0.6);
 }
 
-@media (max-width: 980px) {
-  .pricing__grid {
+.pricing__cta--financed {
+  background: linear-gradient(180deg, #bf5af2 0%, #a855f7 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(191, 90, 242, 0.45);
+}
+
+.pricing__cta--financed:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 26px rgba(191, 90, 242, 0.6);
+}
+
+/* ===== MÓDULOS OPCIONALES SECTION ===== */
+.pricing__modules-section {
+  margin-top: var(--spacing-3xl);
+  padding: var(--spacing-2xl);
+  background: rgba(18, 15, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+}
+
+.pricing__modules-header {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.pricing__modules-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  padding: 0.25rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: rgba(191, 90, 242, 0.12);
+  border: 1px solid rgba(191, 90, 242, 0.3);
+  color: #c084fc;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pricing__modules-title {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+}
+
+.pricing__modules-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.pricing__modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+.pricing__module-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  transition: all var(--transition-base);
+}
+
+.pricing__module-card:hover {
+  border-color: rgba(191, 90, 242, 0.4);
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-3px);
+}
+
+.pricing__module-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(191, 90, 242, 0.15);
+  border: 1px solid rgba(191, 90, 242, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c084fc;
+}
+
+.pricing__module-name {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.pricing__module-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: 1.45;
+  flex: 1;
+}
+
+.pricing__module-pricing {
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-xs);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pricing__module-price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xs);
+}
+
+.pricing__module-price-label {
+  color: var(--color-text-dim);
+}
+
+.pricing__module-price-val {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+/* ===== RENOVACIÓN BOX ===== */
+.pricing__renewal-box {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  background: rgba(48, 209, 88, 0.05);
+  border: 1px solid rgba(48, 209, 88, 0.25);
+  border-radius: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+}
+
+.pricing__renewal-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(48, 209, 88, 0.12);
+  border: 1px solid rgba(48, 209, 88, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-success);
+  flex-shrink: 0;
+}
+
+.pricing__renewal-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.pricing__renewal-title {
+  font-size: var(--font-size-base);
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.pricing__renewal-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.pricing__renewal-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xs);
+}
+
+.pricing__renewal-item {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--spacing-sm);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pricing__renewal-item strong {
+  color: var(--color-text-main);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 1060px) {
+  .pricing__grid,
+  .pricing__modules-grid,
+  .pricing__renewal-items {
     grid-template-columns: 1fr;
-    max-width: 480px;
   }
 }

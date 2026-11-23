@@ -674,10 +674,15 @@ export async function createServiceRequest(requestData) {
   const id = `sol-${Date.now()}`;
   const now = new Date().toISOString();
 
-  let planName = 'Plan Pro';
-  if (requestData.plan === 'basic') planName = 'Plan Básico';
-  else if (requestData.plan === 'pro') planName = 'Plan Pro';
+  let planName = 'Promo 1: Web Modular Personalizada (Contado)';
+  if (requestData.plan === 'promo1') planName = 'Promo 1: Web Modular (Contado - $200.000)';
+  else if (requestData.plan === 'promo2') planName = 'Promo 2: Web Básico + PWA (Contado - $170.000)';
+  else if (requestData.plan === 'promo3') planName = 'Promo 3: Web Modular Financiada (12 cuotas $50.000)';
+  else if (requestData.plan === 'basic') planName = 'Plan Básico ($8.000/mes)';
+  else if (requestData.plan === 'pro') planName = 'Plan Pro ($15.000/mes)';
   else if (requestData.plan) planName = requestData.plan;
+
+  const modulesList = Array.isArray(requestData.modules) ? requestData.modules : [];
 
   const newRequest = {
     id,
@@ -687,6 +692,7 @@ export async function createServiceRequest(requestData) {
     email: requestData.email || '',
     city: requestData.ciudad || requestData.city || '',
     plan: planName,
+    modules: modulesList,
     domain: requestData.dominio || requestData.domain || '',
     has_android: requestData.android === 'si' || !!requestData.has_android,
     android_financing: requestData.androidFinanciacion || requestData.android_financing || '',
@@ -709,8 +715,9 @@ export async function createServiceRequest(requestData) {
   // Enviar notificación a Telegram
   const totalFmt = Number(newRequest.total_initial_estimated).toLocaleString('es-AR');
   const androidTxt = newRequest.has_android
-    ? `Sí (${newRequest.android_financing === 'unico' ? 'Pago único $100.000 promo' : 'Financiado en cuota'} - Entrega APK y AAB Play Store)`
+    ? `Sí (${newRequest.android_financing === 'unico' ? 'Pago único $100.000 promo' : 'Financiado'} - Entrega APK y AAB Play Store)`
     : 'No';
+  const modulesTxt = modulesList.length > 0 ? modulesList.join(', ') : 'Sin módulos extra';
 
   const tgMessage = `🔔 <b>NUEVA SOLICITUD DE ALTA - KSM STREAMING</b>
 ━━━━━━━━━━━━━━━━━━━━
@@ -720,8 +727,9 @@ export async function createServiceRequest(requestData) {
 ✉️ <b>Email:</b> ${newRequest.email || 'No especificado'}
 📍 <b>Ciudad:</b> ${newRequest.city || 'No especificada'}
 
-📦 <b>Plan:</b> <b>${newRequest.plan}</b>
-${newRequest.domain ? `🌐 <b>Dominio:</b> www.${newRequest.domain}.com\n` : ''}📱 <b>App Android:</b> ${androidTxt}
+📦 <b>Promoción / Plan:</b> <b>${newRequest.plan}</b>
+🧩 <b>Módulos opcionales:</b> ${modulesTxt}
+📱 <b>App Android (Aditamento):</b> ${androidTxt}
 💰 <b>Primer pago estimado:</b> <b>$${totalFmt} ARS</b>
 ━━━━━━━━━━━━━━━━━━━━
 👉 <i>Ingresá a tu Panel de Gestión KSM para revisar la ficha y dar de alta el servidor.</i>`;
