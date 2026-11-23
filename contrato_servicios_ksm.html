@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contrato de Prestación de Servicios — Stream KSM</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --accent: #f59e0b;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background-color: var(--bg-page);
+      line-height: 1.55;
+      font-size: 13.5px;
+      padding: 20px;
+    }
+
+    /* Toolbar de impresión y utilidades (no imprimible) */
+    .no-print-toolbar {
+      max-width: 900px;
+      margin: 0 auto 20px auto;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    .toolbar-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .toolbar-info p {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-print {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .btn-print:hover {
+      background: #0369a1;
+    }
+
+    .btn-save {
+      background: #10b981;
+      color: #ffffff;
+    }
+    .btn-save:hover {
+      background: #059669;
+    }
+
+    .btn-reset {
+      background: #475569;
+      color: #ffffff;
+    }
+    .btn-reset:hover {
+      background: #334155;
+    }
+
+    /* Contenedor tipo Hoja A4 */
+    .contract-page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      padding: 40px 48px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    /* Encabezado */
+    .contract-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+    }
+
+    .brand-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .contract-meta {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .contract-meta strong {
+      color: var(--text);
+    }
+
+    .doc-title-box {
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 12px;
+      background: #f0f9ff;
+      border: 1px dashed #bae6fd;
+      border-radius: 6px;
+    }
+
+    .doc-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0369a1;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .doc-subtitle {
+      font-size: 12px;
+      color: #0284c7;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* Cajas editables */
+    .editable-field {
+      display: inline-block;
+      min-width: 140px;
+      border-bottom: 1px dotted var(--primary);
+      color: #0f172a;
+      font-weight: 600;
+      padding: 1px 4px;
+      background-color: rgba(2, 132, 199, 0.04);
+      outline: none;
+      transition: background-color 0.2s;
+    }
+    .editable-field:hover, .editable-field:focus {
+      background-color: rgba(2, 132, 199, 0.12);
+      border-bottom: 1px solid var(--primary-dark);
+    }
+
+    /* Secciones de Datos de Partes */
+    .parties-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .party-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+      background: #fafafa;
+    }
+
+    .party-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 4px;
+    }
+
+    .party-row {
+      display: flex;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+    }
+
+    .party-row-label {
+      width: 110px;
+      font-weight: 600;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .party-row-val {
+      flex-grow: 1;
+      font-weight: 500;
+    }
+
+    /* Tabla y Opciones de Planes */
+    .plan-selector-box {
+      margin-bottom: 22px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .plan-selector-title {
+      background: #f1f5f9;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plans-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .plans-table th {
+      background: #f8fafc;
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .plans-table td {
+      padding: 10px 10px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    .plan-radio-row {
+      cursor: pointer;
+    }
+    .plan-radio-row:hover {
+      background: #f8fafc;
+    }
+
+    .plan-radio-cell {
+      text-align: center;
+      width: 40px;
+    }
+
+    .plan-badge-tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-promo1 { background: #e0f2fe; color: #0369a1; }
+    .badge-promo2 { background: #f1f5f9; color: #475569; }
+    .badge-promo3 { background: #f3e8ff; color: #7e22ce; }
+
+    /* Módulos y Aditamentos */
+    .addons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .addons-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      background: #ffffff;
+    }
+
+    .addons-card-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .checkbox-item input {
+      margin-top: 2px;
+      cursor: pointer;
+    }
+
+    .highlight-note {
+      font-size: 11px;
+      color: #b45309;
+      background: #fef3c7;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    /* Cláusulas Contractuales */
+    .clauses-container {
+      margin-bottom: 26px;
+    }
+
+    .clause {
+      margin-bottom: 14px;
+      text-align: justify;
+    }
+
+    .clause-num {
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-right: 4px;
+    }
+
+    .clause-title {
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      font-size: 12.5px;
+    }
+
+    .clause-text {
+      margin-top: 3px;
+      color: #334155;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* Bloque de Liquidación y Totales */
+    .settlement-box {
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      padding: 14px 18px;
+      background: #f0fdf4;
+      margin-bottom: 26px;
+    }
+
+    .settlement-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #166534;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .settlement-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      font-size: 12.5px;
+    }
+
+    .settlement-row.total-row {
+      border-top: 1px solid #bbf7d0;
+      padding-top: 6px;
+      margin-top: 6px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #15803d;
+    }
+
+    /* Firmas */
+    .signatures-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      margin-top: 36px;
+      padding-top: 20px;
+    }
+
+    .signature-card {
+      text-align: center;
+      border-top: 1px dashed #64748b;
+      padding-top: 10px;
+    }
+
+    .sig-role {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .sig-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 2px;
+    }
+
+    .sig-detail {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    /* Reglas para Impresión */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+        font-size: 11.5pt;
+      }
+
+      .no-print-toolbar {
+        display: none !important;
+      }
+
+      .contract-page {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .editable-field {
+        border-bottom: none;
+        background-color: transparent;
+      }
+
+      .clause {
+        page-break-inside: avoid;
+      }
+
+      .signatures-box {
+        page-break-inside: avoid;
+      }
+
+      @page {
+        size: A4;
+        margin: 15mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DE ACCIONES (NO SE IMPRIME) -->
+  <div class="no-print-toolbar">
+    <div class="toolbar-info">
+      <h2>Documento Oficial — Stream KSM</h2>
+      <p>Hacé clic sobre los campos subrayados o recuadros para editar nombres, precios y datos antes de imprimir o descargar.</p>
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-save" onclick="guardarBorrador()">💾 Guardar Borrador</button>
+      <button class="btn btn-reset" onclick="restablecerDefecto()">🔄 Restaurar Valores</button>
+      <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    </div>
+  </div>
+
+  <!-- PÁGINA DEL CONTRATO A4 -->
+  <div class="contract-page" id="contractContent">
+    
+    <!-- ENCABEZADO -->
+    <header class="contract-header">
+      <div>
+        <h1 class="brand-title">STREAM KSM</h1>
+        <p class="brand-subtitle">Servicios Profesionales de Streaming de Audio &amp; Desarrollo Web</p>
+      </div>
+      <div class="contract-meta">
+        <p><strong>Lugar:</strong> <span class="editable-field" contenteditable="true" id="c_lugar">Rosario del Tala, Entre Ríos</span></p>
+        <p><strong>Fecha:</strong> <span class="editable-field" contenteditable="true" id="c_fecha">23 de Noviembre de 2026</span></p>
+        <p><strong>Contrato N°:</strong> <span class="editable-field" contenteditable="true" id="c_numero">KSM-2026-084</span></p>
+      </div>
+    </header>
+
+    <!-- TÍTULO DEL DOCUMENTO -->
+    <div class="doc-title-box">
+      <h2 class="doc-title">Contrato de Prestación de Servicios de Streaming &amp; Sitio Web</h2>
+      <p class="doc-subtitle">Acuerdo Comercial, Términos Operativos y Ficha de Alta Técnica</p>
+    </div>
+
+    <!-- DATOS DE LAS PARTES -->
+    <section class="parties-grid">
+      <!-- PRESTADOR -->
+      <div class="party-card">
+        <h3 class="party-card-title">1. El Prestador del Servicio</h3>
+        <div class="party-row">
+          <span class="party-row-label">Proveedor:</span>
+          <span class="party-row-val"><strong>Stream KSM</strong></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Titular:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="p_titular">Saúl Tula</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Ubicación:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="p_localidad">Rosario del Tala, Entre Ríos</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Teléfono / Cel:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="p_telefono">11 6650-8379</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Web Oficial:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="p_web">streamksm.com.ar</span></span>
+        </div>
+      </div>
+
+      <!-- CLIENTE / EMISORA -->
+      <div class="party-card">
+        <h3 class="party-card-title">2. El Cliente / La Emisora</h3>
+        <div class="party-row">
+          <span class="party-row-label">Emisora / Radio:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="cli_emisora">Radio Comunitaria FM 102.5</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Titular / Resp.:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="cli_titular">Juan Carlos Rodríguez</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">DNI / CUIT:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="cli_dni">28.456.789 / 20-28456789-4</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Teléfono / WApp:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="cli_telefono">+54 9 3445 00-0000</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Email:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="cli_email">radiofm@ejemplo.com</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Localidad / Prov:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="cli_ciudad">Rosario del Tala, Entre Ríos</span></span>
+        </div>
+        <div class="party-row">
+          <span class="party-row-label">Dominio Web:</span>
+          <span class="party-row-val"><span class="editable-field" contenteditable="true" id="cli_dominio">laradiofm.com.ar</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECCIÓN DE PLAN / PROMOCIÓN -->
+    <section class="plan-selector-box">
+      <div class="plan-selector-title">3. Promoción de Streaming Contratada (Marcar con X o seleccionar)</div>
+      <table class="plans-table">
+        <thead>
+          <tr>
+            <th class="plan-radio-cell">Sel.</th>
+            <th>Promoción</th>
+            <th>Modalidad e Inversión</th>
+            <th>Condición de Pago &amp; Características Clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- PROMO 1 -->
+          <tr class="plan-radio-row">
+            <td class="plan-radio-cell">
+              <input type="radio" name="planSelect" id="opt_promo1" checked onchange="actualizarResumen()">
+            </td>
+            <td>
+              <span class="plan-badge-tag badge-promo1">Promo 1</span><br>
+              <strong>Web Modular Personalizada</strong>
+            </td>
+            <td>
+              <strong style="color: #0369a1; font-size: 13px;">$200.000 ARS</strong><br>
+              <span style="font-size: 11px; color: #64748b;">(1 año de stream: 10m + 2m GRATIS)</span>
+            </td>
+            <td>
+              <strong>Se abona 70% al iniciar y el resto al finalizar</strong> contra entrega de la URL real con todo conectado.<br>
+              <span style="font-size: 11px; color: #475569;">Desarrollo web a medida + App PWA + Dominio por cuenta del cliente (KSM lo delega gratis).</span>
+            </td>
+          </tr>
+
+          <!-- PROMO 2 -->
+          <tr class="plan-radio-row">
+            <td class="plan-radio-cell">
+              <input type="radio" name="planSelect" id="opt_promo2" onchange="actualizarResumen()">
+            </td>
+            <td>
+              <span class="plan-badge-tag badge-promo2">Promo 2</span><br>
+              <strong>Web Básico + PWA</strong>
+            </td>
+            <td>
+              <strong style="color: #334155; font-size: 13px;">$170.000 ARS</strong><br>
+              <span style="font-size: 11px; color: #64748b;">(Pago Único Contado)</span>
+            </td>
+            <td>
+              <strong>Pago único contado al contratar.</strong><br>
+              <span style="font-size: 11px; color: #475569;">Web básica con reproductor + PWA + 1 año de stream. Dominio por cuenta del cliente (KSM lo delega). Web fija (no ampliable con módulos).</span>
+            </td>
+          </tr>
+
+          <!-- PROMO 3 -->
+          <tr class="plan-radio-row">
+            <td class="plan-radio-cell">
+              <input type="radio" name="planSelect" id="opt_promo3" onchange="actualizarResumen()">
+            </td>
+            <td>
+              <span class="plan-badge-tag badge-promo3">Promo 3</span><br>
+              <strong>Web Modular Financiada</strong>
+            </td>
+            <td>
+              <strong style="color: #7e22ce; font-size: 13px;">12 cuotas de $50.000</strong><br>
+              <span style="font-size: 11px; color: #64748b;">(1ra cuota de $50.000 al iniciar)</span>
+            </td>
+            <td>
+              <strong>Financiación en 12 cuotas fijas mensuales de $50.000 ARS.</strong><br>
+              <span style="font-size: 11px; color: #475569;">Dominio a nombre de KSM Servicios hasta finalizar la cuota 12 (luego se transfiere al cliente). Módulos opcionales en 1 solo pago.</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- MÓDULOS OPCIONALES Y ADITAMENTO ANDROID -->
+    <section class="addons-grid">
+      <!-- MÓDULOS WEB MODULAR -->
+      <div class="addons-card">
+        <h4 class="addons-card-title">Módulos Opcionales Web Modular (Promos 1 y 3)</h4>
+        <label class="checkbox-item">
+          <input type="checkbox" id="mod_contador" onchange="actualizarResumen()">
+          <span><strong>Contador de Visitas en Vivo:</strong> +$50.000 (Promo 1) / +$80.000 (Promo 3)</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" id="mod_publicidad" onchange="actualizarResumen()">
+          <span><strong>Sectores para Publicidad:</strong> +$50.000 (Promo 1) / +$80.000 (Promo 3)</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" id="mod_feeds" onchange="actualizarResumen()">
+          <span><strong>Feeds Facebook / YouTube:</strong> +$150.000 (Promo 1) / +$180.000 (Promo 3)</span>
+        </label>
+        <div class="highlight-note">
+          ⚠️ <strong>En Promo 3:</strong> Los módulos se abonan en <strong>1 solo pago al iniciar</strong> (no se financian en cuotas).
+        </div>
+      </div>
+
+      <!-- ADITAMENTO ANDROID -->
+      <div class="addons-card">
+        <h4 class="addons-card-title">Aditamento Opcional: App Android Dedicada</h4>
+        <label class="checkbox-item">
+          <input type="checkbox" id="app_android" onchange="actualizarResumen()">
+          <span><strong>Sumar App Android Dedicada:</strong> +$100.000 ARS</span>
+        </label>
+        <p style="font-size: 11.5px; color: #475569; margin-top: 6px;">
+          • Incluye entrega de archivo <strong>APK</strong> (instalación directa y libre para compartir).<br>
+          • Incluye entrega de paquete <strong>AAB</strong> listo para Google Play Store.<br>
+          • Tiempo de entrega: <strong>3 días hábiles</strong>.<br>
+          • Sin costo de abono mensual por la app.
+        </p>
+      </div>
+    </section>
+
+    <!-- LIQUIDACIÓN DEL PRIMER PAGO / RESUMEN ECONÓMICO -->
+    <section class="settlement-box">
+      <h3 class="settlement-title">4. Resumen Económico del Contrato</h3>
+      <div class="settlement-row">
+        <span>Inversión Base de la Promoción:</span>
+        <strong id="res_plan_monto">$200.000 ARS (70% al iniciar / resto al entregar URL real)</strong>
+      </div>
+      <div class="settlement-row" id="row_res_modulos" style="display: none;">
+        <span>Módulos Opcionales Seleccionados (en 1 solo pago):</span>
+        <strong id="res_modulos_monto">$0 ARS</strong>
+      </div>
+      <div class="settlement-row" id="row_res_android" style="display: none;">
+        <span>Aditamento App Android (APK + AAB Play Store):</span>
+        <strong id="res_android_monto">$100.000 ARS</strong>
+      </div>
+      <div class="settlement-row total-row">
+        <span>Monto Inicial a Abonar:</span>
+        <strong id="res_total_monto">$200.000 ARS (Se abona 70% al iniciar y el resto al finalizar)</strong>
+      </div>
+    </section>
+
+    <!-- CLÁUSULAS CONTRACTUALES -->
+    <section class="clauses-container">
+      <h3 style="font-size: 13px; font-weight: 800; color: #0f172a; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">
+        5. Términos y Condiciones Contractuales
+      </h3>
+
+      <div class="clause">
+        <span class="clause-num">PRIMERA.</span>
+        <span class="clause-title">Objeto del Servicio:</span>
+        <p class="clause-text">
+          <strong>STREAM KSM</strong> (con sede en Rosario del Tala, Entre Ríos, web: <strong>streamksm.com.ar</strong>, Cel: <strong>11 6650-8379</strong>) se compromete a proveer al <strong>CLIENTE</strong> un servidor de transmisión de audio por internet (Streaming HD) con protocolo Icecast V2 / panel SonicPanel, oyentes simultáneos ilimitados, tráfico no medido, enlace HTTPS con certificado SSL, desarrollo de sitio web según la promoción seleccionada y aplicación web PWA autoinstalable.
+        </p>
+      </div>
+
+      <div class="clause">
+        <span class="clause-num">SEGUNDA.</span>
+        <span class="clause-title">Condiciones de Pago según Promoción:</span>
+        <p class="clause-text">
+          <strong>a) Promo 1 (Web Modular Personalizada — $200.000 ARS):</strong> Se abona el <strong>70% al iniciar</strong> las tareas de desarrollo y configuración del servidor, y el <strong>30% restante se cancela al finalizar</strong>, de forma simultánea a la entrega de la URL real, el sitio web y el streaming 100% operativos.<br>
+          <strong>b) Promo 2 (Web Básico + PWA — $170.000 ARS):</strong> Se abona en un único pago al contado al momento de contratar el servicio.<br>
+          <strong>c) Promo 3 (Web Modular Financiada):</strong> Se abona en <strong>12 cuotas mensuales y fijas de $50.000 ARS</strong>. La primera cuota se abona al iniciar el proyecto y las siguientes vencen del 1 al 5 de cada mes calendario.<br>
+          <strong>d) Módulos en Promo 3:</strong> Se deja constancia expresa de que en la Promo 3 los módulos opcionales no admiten financiamiento y se abonan en <strong>1 solo pago al iniciar</strong>.
+        </p>
+      </div>
+
+      <div class="clause">
+        <span class="clause-num">TERCERA.</span>
+        <span class="clause-title">Política y Titularidad de Dominios Web:</span>
+        <p class="clause-text">
+          <strong>a) En Promos al Contado (Promo 1 y Promo 2):</strong> El dominio web (.com, .com.ar, etc.) corre por cuenta y orden del cliente. El cliente suministra los datos o accesos correspondientes a STREAM KSM, y este realiza la delegación técnica e integración en los servidores sin costo adicional.<br>
+          <strong>b) En Promo Financiada (Promo 3):</strong> El dominio web permanece registrado y administrado formalmente a nombre de <strong>STREAM KSM</strong> durante el transcurso del plan en cuotas. Una vez abonada y acreditada la <strong>cuota número doce (12)</strong>, STREAM KSM transferirá y otorgará formalmente la titularidad del dominio a nombre exclusivo del cliente sin costo adicional de gestión.
+        </p>
+      </div>
+
+      <div class="clause">
+        <span class="clause-num">CUARTA.</span>
+        <span class="clause-title">Renovación a partir del Segundo Año:</span>
+        <p class="clause-text">
+          Al cumplirse el primer año de servicio bonificado (10 meses pagos + 2 meses gratis incluidos en todas las promos), el cliente abonará anualmente para continuar el servicio:
+          <strong>1) Stream anual completo (12 meses):</strong> Valor ajustado anualmente según índice inflacionario anual (estimado de referencia entre $60.000 y $80.000 ARS). 
+          <strong>2) Costo de mantenimiento anual:</strong> <strong>$50.000 ARS</strong> anuales (cobertura técnica del servidor, hosting web, actualizaciones y soporte prioritario).
+        </p>
+      </div>
+
+      <div class="clause">
+        <span class="clause-num">QUINTA.</span>
+        <span class="clause-title">Aditamento App Android (Entrega de APK y AAB):</span>
+        <p class="clause-text">
+          Si el cliente contrata el aditamento de App Android ($100.000 ARS), STREAM KSM diseñará y compilará una app nativa con reproductor HD y enlaces directos de contacto. STREAM KSM entregará al cliente el archivo <strong>APK</strong> (instalación libre para compartir) y el paquete <strong>AAB</strong> firmado y listo para Google Play Store dentro de los <strong>tres (3) días hábiles</strong> posteriores a recibir el material gráfico. La aplicación no tiene cargos mensuales de mantenimiento.
+        </p>
+      </div>
+
+      <div class="clause">
+        <span class="clause-num">SEXTA.</span>
+        <span class="clause-title">Derechos de Autor y Responsabilidad de Contenidos:</span>
+        <p class="clause-text">
+          STREAM KSM actúa como proveedor tecnológico de transmisión (carrier). La legalidad de la emisora, contenidos transmitidos y el pago de aranceles de derechos de autor (SADAIC, AADI CAPIF u organismos pertinentes) corresponden de manera exclusiva al cliente.
+        </p>
+      </div>
+    </section>
+
+    <!-- FIRMAS DE CONFORMIDAD -->
+    <footer class="signatures-box">
+      <div class="signature-card">
+        <div style="height: 50px;"></div>
+        <p class="sig-role">Por el Prestador</p>
+        <p class="sig-name">STREAM KSM</p>
+        <p class="sig-detail">Titular: Saúl Tula · Cel: 11 6650-8379</p>
+        <p class="sig-detail">Rosario del Tala, Entre Ríos · streamksm.com.ar</p>
+      </div>
+
+      <div class="signature-card">
+        <div style="height: 50px;"></div>
+        <p class="sig-role">Por el Cliente / Emisora</p>
+        <p class="sig-name"><span class="editable-field" contenteditable="true" id="sig_cliente_nom">Juan Carlos Rodríguez</span></p>
+        <p class="sig-detail">Firma y Aclaración del Titular</p>
+        <p class="sig-detail">DNI / CUIT: <span class="editable-field" contenteditable="true" id="sig_cliente_dni">28.456.789</span></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function actualizarResumen() {
+      const isPromo1 = document.getElementById('opt_promo1').checked;
+      const isPromo2 = document.getElementById('opt_promo2').checked;
+      const isPromo3 = document.getElementById('opt_promo3').checked;
+
+      const modContador = document.getElementById('mod_contador').checked;
+      const modPublicidad = document.getElementById('mod_publicidad').checked;
+      const modFeeds = document.getElementById('mod_feeds').checked;
+      const appAndroid = document.getElementById('app_android').checked;
+
+      const planMontoEl = document.getElementById('res_plan_monto');
+      const modRow = document.getElementById('row_res_modulos');
+      const modMontoEl = document.getElementById('res_modulos_monto');
+      const andRow = document.getElementById('row_res_android');
+      const totalMontoEl = document.getElementById('res_total_monto');
+
+      let planDesc = '';
+      let totalDesc = '';
+      let modulosTotal = 0;
+
+      if (isPromo1) {
+        planDesc = '$200.000 ARS (Se abona 70% al iniciar y el resto al finalizar con URL real)';
+        if (modContador) modulosTotal += 50000;
+        if (modPublicidad) modulosTotal += 50000;
+        if (modFeeds) modulosTotal += 150000;
+      } else if (isPromo2) {
+        planDesc = '$170.000 ARS (Pago único contado)';
+      } else if (isPromo3) {
+        planDesc = '12 cuotas fijas de $50.000 ARS (1ra cuota al iniciar)';
+        if (modContador) modulosTotal += 80000;
+        if (modPublicidad) modulosTotal += 80000;
+        if (modFeeds) modulosTotal += 180000;
+      }
+
+      planMontoEl.textContent = planDesc;
+
+      // Módulos
+      if (modulosTotal > 0 && !isPromo2) {
+        modRow.style.display = 'flex';
+        modMontoEl.textContent = '+$' + modulosTotal.toLocaleString('es-AR') + ' ARS (en 1 solo pago)';
+      } else {
+        modRow.style.display = 'none';
+      }
+
+      // Android
+      if (appAndroid) {
+        andRow.style.display = 'flex';
+      } else {
+        andRow.style.display = 'none';
+      }
+
+      // Total label
+      if (isPromo1) {
+        totalDesc = '$200.000 ARS (Se abona 70% al iniciar y el resto al finalizar)';
+        if (modulosTotal > 0 || appAndroid) {
+          totalDesc += ' + adicionales seleccionados en 1 pago';
+        }
+      } else if (isPromo2) {
+        totalDesc = '$170.000 ARS (Pago único contado)' + (appAndroid ? ' + $100.000 App Android' : '');
+      } else if (isPromo3) {
+        totalDesc = '$50.000 ARS (1ra cuota)' + (modulosTotal > 0 ? ' + $' + modulosTotal.toLocaleString('es-AR') + ' (módulos en 1 solo pago)' : '') + (appAndroid ? ' + $100.000 App Android' : '');
+      }
+
+      totalMontoEl.textContent = totalDesc;
+    }
+
+    function guardarBorrador() {
+      const data = {};
+      document.querySelectorAll('.editable-field').forEach(el => {
+        data[el.id] = el.innerText;
+      });
+      data.opt_promo1 = document.getElementById('opt_promo1').checked;
+      data.opt_promo2 = document.getElementById('opt_promo2').checked;
+      data.opt_promo3 = document.getElementById('opt_promo3').checked;
+      data.mod_contador = document.getElementById('mod_contador').checked;
+      data.mod_publicidad = document.getElementById('mod_publicidad').checked;
+      data.mod_feeds = document.getElementById('mod_feeds').checked;
+      data.app_android = document.getElementById('app_android').checked;
+
+      localStorage.setItem('ksm_contrato_borrador', JSON.stringify(data));
+      alert('✅ ¡Borrador guardado exitosamente en este navegador!');
+    }
+
+    function cargarBorrador() {
+      const saved = localStorage.getItem('ksm_contrato_borrador');
+      if (!saved) return;
+      try {
+        const data = JSON.parse(saved);
+        Object.keys(data).forEach(key => {
+          const el = document.getElementById(key);
+          if (el) {
+            if (el.type === 'radio' || el.type === 'checkbox') {
+              el.checked = data[key];
+            } else {
+              el.innerText = data[key];
+            }
+          }
+        });
+        actualizarResumen();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function restablecerDefecto() {
+      if (confirm('¿Restablecer los valores originales del contrato?')) {
+        localStorage.removeItem('ksm_contrato_borrador');
+        location.reload();
+      }
+    }
+
+    // Sincronizar nombre y DNI con la firma automáticamente
+    document.getElementById('cli_titular').addEventListener('input', (e) => {
+      document.getElementById('sig_cliente_nom').innerText = e.target.innerText;
+    });
+    document.getElementById('cli_dni').addEventListener('input', (e) => {
+      document.getElementById('sig_cliente_dni').innerText = e.target.innerText;
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      cargarBorrador();
+      actualizarResumen();
+    });
+  </script>
+</body>
+</html>
+

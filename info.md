@@ -41,3 +41,7 @@ Aditamento Opcional App Móvil Android Dedicada:
 Valor: $100.000 ARS.
 Entrega: Archivo APK + paquete AAB para Google Play Store en 3 días hábiles.
 Sin costos mensuales de mantenimiento por la app.
+
+
+
+redactar contrato para los tres planes 

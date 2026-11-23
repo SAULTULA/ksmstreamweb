@@ -9,6 +9,7 @@ import SignupForm from './components/SignupForm/SignupForm';
 import Terms from './components/Terms/Terms';
 import Footer from './components/Footer/Footer';
 import WhatsAppFAB from './components/WhatsAppFAB/WhatsAppFAB';
+import BeginnerPromoToast from './components/BeginnerPromoToast/BeginnerPromoToast';
 
 // Nuevos componentes de Gestión y Pagos
 import AdminLoginModal from './components/AdminPanel/AdminLoginModal';
@@ -119,6 +120,7 @@ export default function App() {
       </main>
       <Footer onOpenClientPortal={() => handleOpenClientPortal()} />
       <WhatsAppFAB />
+      <BeginnerPromoToast />
       <CookieNotice />
 
       {/* Modal de Login de Administrador */}
