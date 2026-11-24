@@ -53,9 +53,9 @@
 
 .pricing__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-lg);
-  max-width: 1260px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  max-width: 1380px;
   margin: 0 auto;
 }
 
@@ -94,6 +94,21 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at top right, rgba(10, 132, 255, 0.18), transparent 70%);
+  pointer-events: none;
+}
+
+/* MONTHLY (Plan Mensual PWA) highlight */
+.pricing__card--monthly {
+  border-color: rgba(48, 209, 88, 0.45);
+  box-shadow: 0 0 32px rgba(48, 209, 88, 0.16), 0 20px 50px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: rgba(18, 30, 26, 0.72);
+}
+
+.pricing__card--monthly::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(48, 209, 88, 0.16), transparent 70%);
   pointer-events: none;
 }
 
@@ -167,6 +182,24 @@
   box-shadow: 0 4px 14px rgba(191, 90, 242, 0.4);
 }
 
+.pricing__plan-badge--monthly {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  border-radius: var(--radius-full);
+  color: #ffffff;
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+}
+
 /* Plan Name */
 .pricing__plan-name {
   font-size: var(--font-size-md);
@@ -182,6 +215,10 @@
 
 .pricing__plan-name--financed {
   color: #c084fc;
+}
+
+.pricing__plan-name--monthly {
+  color: #34d399;
 }
 
 .pricing__plan-desc {
@@ -321,6 +358,17 @@
 .pricing__cta--financed:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 26px rgba(191, 90, 242, 0.6);
+}
+
+.pricing__cta--monthly {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45);
+}
+
+.pricing__cta--monthly:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 26px rgba(16, 185, 129, 0.6);
 }
 
 /* ===== MÓDULOS OPCIONALES SECTION ===== */
@@ -507,7 +555,13 @@
   margin-bottom: 0.2rem;
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 1200px) {
+  .pricing__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
   .pricing__grid,
   .pricing__modules-grid,
   .pricing__renewal-items {

@@ -1,6 +1,18 @@
 import React from 'react';
-import { CheckCircle2, Zap, Star, MessageCircle, ArrowRight, Layers, Sparkles, Calendar, PlusCircle, RefreshCw } from 'lucide-react';
+import { CheckCircle2, Zap, Star, MessageCircle, ArrowRight, Layers, Sparkles, Calendar, PlusCircle, RefreshCw, Smartphone } from 'lucide-react';
 import styles from './Pricing.module.css';
+
+const PLAN_MENSUAL_FEATURES = [
+  { text: 'Abono Mensual Mes a Mes (Sin permanencia obligatoria)', ok: true, highlight: true },
+  { text: 'App Web PWA instalable en cualquier dispositivo (Android, iOS, PC, Tablet)', ok: true, highlight: true },
+  { text: 'Servidor Icecast / Shoutcast SonicPanel HD', ok: true },
+  { text: 'Oyentes Simultáneos Ilimitados', ok: true },
+  { text: 'Tráfico de datos mensual no medido', ok: true },
+  { text: 'Reproductor web directo siempre disponible', ok: true },
+  { text: 'Certificado SSL Seguro (HTTPS)', ok: true },
+  { text: 'Estadísticas Gráficas de oyentes en tiempo real', ok: true },
+  { text: 'Soporte técnico y asistencia de configuración', ok: true },
+];
 
 const PROMO2_FEATURES = [
   { text: '1 Año de Streaming HD (Pagás 10 meses + 2 meses GRATIS)', ok: true, highlight: true },
@@ -68,6 +80,7 @@ const OPTIONAL_MODULES = [
   },
 ];
 
+const WA_MSG_MENSUAL = encodeURIComponent('Hola KSM Servicios! Quiero contratar el Plan Mensual de Streaming con App Web PWA instalable en cualquier dispositivo por $15.000 ARS al mes. ¿Me pueden asesorar?');
 const WA_MSG_PROMO1 = encodeURIComponent('Hola KSM Servicios! Quiero contratar la Promo 1: Web Modular Personalizada ($200.000 ARS - 70% al iniciar y resto contra entrega con URL real). ¿Me pueden asesorar?');
 const WA_MSG_PROMO2 = encodeURIComponent('Hola KSM Servicios! Quiero contratar la Promo 2: Web Básico + PWA al Contado ($170.000 ARS). ¿Me pueden asesorar?');
 const WA_MSG_PROMO3 = encodeURIComponent('Hola KSM Servicios! Quiero contratar la Promo 3: Web Modular Financiada en 12 cuotas de $50.000 ARS. ¿Me pueden asesorar?');
@@ -80,19 +93,65 @@ export default function Pricing() {
         <div className={styles['pricing__header']}>
           <div className={styles['pricing__tag']}>
             <Zap size={13} />
-            <span>Promociones Anuales de Streaming</span>
+            <span>Streaming de Audio Profesional</span>
           </div>
           <h2 className={styles['pricing__title']}>
-            Planes y Promociones con{' '}
-            <span className={styles['pricing__title-gradient']}>Web + 1 Año de Stream</span>
+            Plan Mensual y{' '}
+            <span className={styles['pricing__title-gradient']}>Promociones Anuales</span>
           </h2>
           <p className={styles['pricing__subtitle']}>
-            Pagás 10 meses y te llevás 2 meses GRATIS + desarrollo web y App PWA bonificados con hosting y mantenimiento incluido.
+            Elegí entre nuestro Plan Mensual con App Web PWA instalable en cualquier dispositivo o las Promociones Anuales con desarrollo web bonificado y 2 meses gratis.
           </p>
         </div>
 
         {/* ===== CARDS GRID ===== */}
         <div className={styles['pricing__grid']}>
+          {/* ===== PLAN MENSUAL: PWA UNIVERSAL ===== */}
+          <article className={`${styles['pricing__card']} ${styles['pricing__card--monthly']}`}>
+            <div className={styles['pricing__plan-badge--monthly']}>
+              <Smartphone size={12} />
+              <span>Abono Mensual</span>
+            </div>
+
+            <div>
+              <p className={`${styles['pricing__plan-name']} ${styles['pricing__plan-name--monthly']}`}>
+                Plan Mensual: Stream + App PWA
+              </p>
+              <p className={styles['pricing__plan-desc']}>
+                Emisión mes a mes sin contratos largos, con App Web PWA instalable en cualquier dispositivo.
+              </p>
+            </div>
+
+            <div className={styles['pricing__price-block']}>
+              <p className={styles['pricing__first-payment-label']}>Abono Mensual Recurrente</p>
+              <div className={styles['pricing__first-payment-amount']}>
+                <span className={styles['pricing__currency']}>$</span>
+                <span className={styles['pricing__amount']}>15.000</span>
+              </div>
+              <p className={styles['pricing__period']}>ARS / mes · Sin permanencia obligatoria</p>
+              <p className={styles['pricing__monthly-note']}>📱 App Web PWA instalable en celulares, tablets y computadoras</p>
+            </div>
+
+            <ul className={styles['pricing__feature-list']}>
+              {PLAN_MENSUAL_FEATURES.map((f, i) => (
+                <li key={i} className={`${styles['pricing__feature-item']} ${f.highlight ? styles['pricing__feature-item--highlight'] : ''}`}>
+                  <CheckCircle2 size={16} className={styles['pricing__feature-icon']} />
+                  <span>{f.text}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={`${WA_BASE}${WA_MSG_MENSUAL}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles['pricing__cta']} ${styles['pricing__cta--monthly']}`}
+            >
+              <MessageCircle size={17} />
+              <span>Contratar Plan Mensual ($15.000)</span>
+            </a>
+          </article>
+
           {/* ===== PROMO 2: WEB BÁSICO ===== */}
           <article className={styles['pricing__card']}>
             <div className={styles['pricing__plan-badge']}>

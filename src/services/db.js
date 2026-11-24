@@ -675,7 +675,8 @@ export async function createServiceRequest(requestData) {
   const now = new Date().toISOString();
 
   let planName = 'Promo 1: Web Modular Personalizada (Contado)';
-  if (requestData.plan === 'promo1') planName = 'Promo 1: Web Modular (Contado - $200.000)';
+  if (requestData.plan === 'mensual') planName = 'Plan Mensual: Stream + App PWA ($15.000 / mes)';
+  else if (requestData.plan === 'promo1') planName = 'Promo 1: Web Modular (Contado - $200.000)';
   else if (requestData.plan === 'promo2') planName = 'Promo 2: Web Básico + PWA (Contado - $170.000)';
   else if (requestData.plan === 'promo3') planName = 'Promo 3: Web Modular Financiada (12 cuotas $50.000)';
   else if (requestData.plan === 'basic') planName = 'Plan Básico ($8.000/mes)';

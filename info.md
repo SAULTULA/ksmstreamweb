@@ -1,3 +1,9 @@
+Plan Mensual: Stream + App Web PWA instalable en cualquier dispositivo — $15.000 ARS / mes
+Modalidad: Abono mensual recurrente (mes a mes, sin permanencia obligatoria).
+Incluye: Streaming HD con panel SonicPanel / Icecast V2 + oyentes simultáneos ilimitados + tráfico no medido + App Web PWA instalable en cualquier dispositivo (celulares Android/iOS, tablets y computadoras) + reproductor web directo + SSL HTTPS + estadísticas en tiempo real.
+
+---
+
 Promo 1: Web Modular Personalizada — $200.000
 Modalidad de pago: Se abona 70% al iniciar y el resto al finalizar con la entrega de la URL real y todo conectado.
 
@@ -41,7 +47,3 @@ Aditamento Opcional App Móvil Android Dedicada:
 Valor: $100.000 ARS.
 Entrega: Archivo APK + paquete AAB para Google Play Store en 3 días hábiles.
 Sin costos mensuales de mantenimiento por la app.
-
-
-
-redactar contrato para los tres planes 

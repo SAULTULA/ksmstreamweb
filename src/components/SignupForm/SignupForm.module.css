@@ -179,6 +179,12 @@
   box-shadow: 0 0 0 2px rgba(191, 90, 242, 0.35);
 }
 
+.signup__plan-input:checked + .signup__plan-label--monthly {
+  border-color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35);
+}
+
 .signup__plan-name {
   font-size: var(--font-size-sm);
   font-weight: 700;

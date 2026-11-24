@@ -96,6 +96,9 @@ export default function Terms() {
                 <h4 className={styles['terms__section-title']}>2. Modalidad de Contratación de Promociones y Planes</h4>
                 <ul className={styles['terms__bullets']}>
                   <li>
+                    <strong>Plan Mensual PWA ($15.000 ARS / mes):</strong> Abono mensual recurrente que brinda streaming HD SonicPanel y App Web PWA instalable en cualquier dispositivo (celulares Android/iOS, tablets y computadoras), sin contrato de permanencia obligatoria ni penalidades por cancelación.
+                  </li>
+                  <li>
                     <strong>Promociones con 1 Año de Streaming:</strong> Las promociones anuales (Promo 1, Promo 2 y Promo 3) incluyen 12 meses de servicio de streaming (abono correspondiente a 10 meses con 2 meses adicionales 100% bonificados), desarrollo web bonificado, App Web PWA, subida, hosting y mantenimiento técnico durante el primer año.
                   </li>
                   <li>

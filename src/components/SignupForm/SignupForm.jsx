@@ -4,6 +4,14 @@ import { createServiceRequest } from '../../services/db';
 import styles from './SignupForm.module.css';
 
 const PLAN_PRICES = {
+  mensual: {
+    id: 'mensual',
+    name: 'Plan Mensual: Stream + App PWA ($15.000 / mes)',
+    badge: 'Abono Mensual',
+    price: 15000,
+    priceLabel: '$15.000 ARS / mes · App Web PWA instalable en cualquier dispositivo',
+    allowsModules: false,
+  },
   promo1: {
     id: 'promo1',
     name: 'Promo 1: Web Modular Personalizada ($200.000 Contado)',
@@ -388,6 +396,22 @@ export default function SignupForm() {
               <div className={styles['signup__plan-option']}>
                 <input
                   type="radio"
+                  id="plan-mensual"
+                  name="plan"
+                  value="mensual"
+                  className={styles['signup__plan-input']}
+                  checked={form.plan === 'mensual'}
+                  onChange={handleChange}
+                />
+                <label htmlFor="plan-mensual" className={`${styles['signup__plan-label']} ${styles['signup__plan-label--monthly']}`}>
+                  <span className={styles['signup__plan-name']}>Plan Mensual PWA 📱</span>
+                  <span className={styles['signup__plan-price']}>$15.000 ARS / mes · App Web PWA instalable en cualquier dispositivo</span>
+                </label>
+              </div>
+
+              <div className={styles['signup__plan-option']}>
+                <input
+                  type="radio"
                   id="plan-promo1"
                   name="plan"
                   value="promo1"
@@ -572,7 +596,9 @@ export default function SignupForm() {
               <div>
                 <p className={styles['signup__total-label']}>Total estimado — Primer Pago</p>
                 <p className={styles['signup__total-note']}>
-                  {form.plan === 'promo3'
+                  {form.plan === 'mensual'
+                    ? 'Plan Mensual PWA ($15.000 / mes · Sin permanencia obligatoria)'
+                    : form.plan === 'promo3'
                     ? 'Promo 3 Financiada (1ra cuota de $50.000)'
                     : form.plan === 'promo2'
                     ? 'Promo 2: Web Básico Contado ($170.000)'

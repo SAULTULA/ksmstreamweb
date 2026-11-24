@@ -54,9 +54,9 @@
 /* Cards grid */
 .summary__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
   gap: var(--spacing-md);
-  max-width: 1280px;
+  max-width: 1380px;
   margin: 0 auto;
 }
 
@@ -79,6 +79,11 @@
 .summary__card--pro {
   border-color: rgba(10, 132, 255, 0.4);
   box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(10, 132, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.summary__card--monthly {
+  border-color: rgba(48, 209, 88, 0.45);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(48, 209, 88, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .summary__card--financed {
@@ -137,6 +142,12 @@
   color: var(--color-primary);
 }
 
+.summary__card-icon--monthly {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
 .summary__card-icon--pro {
   background: rgba(10, 132, 255, 0.18);
   border: 1px solid rgba(10, 132, 255, 0.35);
@@ -184,6 +195,10 @@
 
 .summary__amount--pro {
   color: #38bdf8;
+}
+
+.summary__amount--monthly {
+  color: #34d399;
 }
 
 .summary__amount--purple {

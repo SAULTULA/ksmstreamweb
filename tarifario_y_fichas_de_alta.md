@@ -1,25 +1,25 @@
 # Propuesta Comercial y Fichas de Alta
 
-## Servicio de Streaming de Audio para Radios Online (Promociones Web + 1 Año)
+## Servicio de Streaming de Audio para Radios Online (Plan Mensual & Promociones Web + 1 Año)
 
 ---
 
-## 1. Tarifario Comercial de Promociones
+## 1. Tarifario Comercial de Planes y Promociones
 
-A continuación se detallan las promociones anuales de streaming disponibles:
+A continuación se detallan los planes mensuales y las promociones anuales de streaming disponibles:
 
-| Característica / Promoción | Promo 1: Web Modular Personalizada | Promo 2: Web Básico + PWA | Promo 3: Web Modular Financiada |
-| :--- | :--- | :--- | :--- |
-| **Inversión Total / Modalidad** | **$200.000 ARS** (Se abona 70% al iniciar y el resto al finalizar) | **$170.000 ARS** (Contado) | **$50.000 ARS** (1ra cuota de 12) |
-| **Condición de Pago** | **70% al iniciar el proyecto** y el resto al finalizar con URL real y todo conectado | Pago único al contratar | 12 cuotas fijas de $50.000 / mes |
-| **Período de Streaming** | 1 Año (10m pagados + 2m GRATIS) | 1 Año (10m pagados + 2m GRATIS) | 1 Año (10m pagados + 2m GRATIS) |
-| **Desarrollo Web** | Personalizado a Medida (Bonificado) | Básico con Reproductor (Bonificado) | Personalizado a Medida (Bonificado) |
-| **App Web PWA** | Sí, instalable (Bonificado) | Sí, instalable (Bonificado) | Sí, instalable (Bonificado) |
-| **Dominio Web** | Por cuenta del cliente (delegación técnica incluida) | Por cuenta del cliente (delegación técnica incluida) | A nombre de KSM hasta cancelar cuota 12 (luego a nombre del cliente) |
-| **Hosting y Mantenimiento Año 1** | Incluido | Incluido | Incluido |
-| **Capacidad de Expansión** | Modular (admite módulos opcionales) | Fija (no ampliable con módulos) | Modular (admite módulos opcionales) |
-| **Oyentes Simultáneos** | Ilimitados | Ilimitados | Ilimitados |
-| **Servidor y Panel** | SonicPanel HD / Icecast V2 | SonicPanel HD / Icecast V2 | SonicPanel HD / Icecast V2 |
+| Característica / Plan | Plan Mensual PWA | Promo 1: Web Modular Personalizada | Promo 2: Web Básico + PWA | Promo 3: Web Modular Financiada |
+| :--- | :--- | :--- | :--- | :--- |
+| **Inversión / Modalidad** | **$15.000 ARS / mes** | **$200.000 ARS** (70% al iniciar / resto al entregar) | **$170.000 ARS** (Contado) | **$50.000 ARS** (1ra cuota de 12) |
+| **Condición de Pago** | Abono mensual recurrente (sin permanencia obligatoria) | **70% al iniciar el proyecto** y el resto al finalizar con URL real y todo conectado | Pago único al contratar | 12 cuotas fijas de $50.000 / mes |
+| **Período de Streaming** | Mensual renovable mes a mes | 1 Año (10m pagados + 2m GRATIS) | 1 Año (10m pagados + 2m GRATIS) | 1 Año (10m pagados + 2m GRATIS) |
+| **App Web PWA** | **Sí, instalable en cualquier dispositivo** (Android, iOS, PC, Tablet) | Sí, instalable (Bonificado) | Sí, instalable (Bonificado) | Sí, instalable (Bonificado) |
+| **Desarrollo Web** | Reproductor Web PWA autoinstalable directo | Personalizado a Medida (Bonificado) | Básico con Reproductor (Bonificado) | Personalizado a Medida (Bonificado) |
+| **Dominio Web** | Subdominio o enlace directo provisto por KSM | Por cuenta del cliente (delegación técnica incluida) | Por cuenta del cliente (delegación técnica incluida) | A nombre de KSM hasta cancelar cuota 12 (luego a nombre del cliente) |
+| **Hosting y Mantenimiento** | Incluido en el abono mensual | Incluido Año 1 | Incluido Año 1 | Incluido Año 1 |
+| **Capacidad de Expansión** | Fija (Reproductor PWA directo) | Modular (admite módulos opcionales) | Fija (no ampliable con módulos) | Modular (admite módulos opcionales) |
+| **Oyentes Simultáneos** | Ilimitados | Ilimitados | Ilimitados | Ilimitados |
+| **Servidor y Panel** | SonicPanel HD / Icecast V2 | SonicPanel HD / Icecast V2 | SonicPanel HD / Icecast V2 | SonicPanel HD / Icecast V2 |
 
 ---
 
@@ -39,16 +39,21 @@ A continuación se detallan las promociones anuales de streaming disponibles:
 
 ---
 
-## 3. Renovación a partir del Segundo Año (Aplica a todas las promociones)
+## 3. Renovación a partir del Segundo Año (Aplica a las promociones anuales)
 
 Al vencer el primer año de servicio bonificado (tanto en la **Promo 1**, como en la **Promo 3** y la **Promo 2**), el cliente abona anualmente:
 
 1. **Stream anual completo (12 meses):** Precio que se ajusta anualmente según inflación (estimado de referencia entre **$60.000 y $80.000 ARS**).
 2. **Costo de mantenimiento anual:** **$50.000 ARS** (cobertura técnica, hosting web, actualizaciones y soporte prioritario).
 
+*(El **Plan Mensual PWA** abona únicamente su cuota mensual de **$15.000 ARS** mes a mes).*
+
 ---
 
 ## 4. Política y Gestión de Dominios Web
+
+* **Plan Mensual PWA:**
+  * Emite a través de enlace seguro HTTPS o subdominio provisto por KSM. Si el cliente posee dominio propio, se puede delegar para su reproductor PWA.
 
 * **Promo 1 (Web Modular) y Promo 2 (Web Básico Contado):**
   * El dominio corre **por cuenta del cliente** (registro y titularidad).
@@ -62,7 +67,7 @@ Al vencer el primer año de servicio bonificado (tanto en la **Promo 1**, como e
 
 ## 5. Aditamento Opcional: Aplicación Móvil Android (Promoción APK + AAB)
 
-La app para Android se ofrece como aditamento opcional para cualquier promoción:
+La app para Android se ofrece como aditamento opcional para cualquier plan o promoción:
 * **Desarrollo App Android Dedicada:** **$100.000 ARS** (pago único al contratar o financiado según acuerdo).
 * **Entrega:** Archivo APK (instalación directa y libre) + paquete AAB (listo para Google Play Store) en 3 días hábiles.
 * **Sin costos mensuales de mantenimiento por la app.**
@@ -81,14 +86,14 @@ La app para Android se ofrece como aditamento opcional para cualquier promoción
 * **Correo Electrónico:** \______________________________________\_
 * **Ciudad / Provincia:** \______________________________________\_
 * **Dominio Web (si posee o desea delegar):** \__________________\_
-  *(Nota: En Promos 1 y 2 corre por cuenta del cliente y lo delegamos; en Promo 3 permanece a nombre de KSM hasta cancelar la cuota 12, otorgándose luego a su nombre).*
 
-### SELECCIÓN DE LA PROMOCIÓN DE STREAMING
+### SELECCIÓN DEL PLAN O PROMOCIÓN
 
 Marque con una **X** la opción elegida:
 
+* [ ] **PLAN MENSUAL: Stream + App PWA** — $15.000 ARS / mes *(App Web PWA instalable en cualquier dispositivo, sin permanencia)*
 * [ ] **PROMO 1: Web Modular Personalizada** — $200.000 ARS *(Se abona 70% al iniciar y el resto al finalizar con la entrega de la URL real y todo conectado)*
-* [ ] **PROMO 2: Web Básico + PWA** — $170.000 ARS *(Pago único contado)*
+* [ ] **PROMO 2: Web Básico + PWA** — $170.000 ARS *(Pago único contado · 1 año stream)*
 * [ ] **PROMO 3: Web Modular Financiada** — 12 cuotas fijas de $50.000 ARS *(1ra cuota de $50.000 al iniciar)*
 
 ### MÓDULOS OPCIONALES WEB MODULAR (Para Promos 1 y 3)
@@ -108,8 +113,8 @@ Marque con una **X** la opción elegida:
 
 ### RESUMEN DEL PRIMER PAGO A CANCELAR
 
-1. Promoción Elegida: $ \__________\_ ARS *(En Promo 1 el valor es $200.000 ARS, abonando el 70% al iniciar y el resto al entregar; en Promo 2 es $170.000 ARS; en Promo 3 es $50.000 ARS [1ra cuota])*
+1. Inversión Inicial del Plan/Promo Elegida: $ \__________\_ ARS *(Plan Mensual: $15.000 ARS; Promo 1: $200.000 ARS [70% inicial]; Promo 2: $170.000 ARS; Promo 3: $50.000 ARS [1ra cuota])*
 2. Módulos Adicionales Seleccionados (en 1 solo pago): $ \__________\_ ARS
 3. Aditamento App Android ($100.000 si aplica pago único): $ \__________\_ ARS
 
-**TOTAL A ABONAR:** **$ \__________\_ ARS**
+**TOTAL A ABONAR EN EL PRIMER PAGO:** **$ \__________\_ ARS**

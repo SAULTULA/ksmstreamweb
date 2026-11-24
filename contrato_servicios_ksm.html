@@ -293,6 +293,7 @@
     .badge-promo1 { background: #e0f2fe; color: #0369a1; }
     .badge-promo2 { background: #f1f5f9; color: #475569; }
     .badge-promo3 { background: #f3e8ff; color: #7e22ce; }
+    .badge-mensual { background: #dcfce7; color: #15803d; }
 
     /* Módulos y Aditamentos */
     .addons-grid {
@@ -587,6 +588,25 @@
           </tr>
         </thead>
         <tbody>
+          <!-- PLAN MENSUAL PWA -->
+          <tr class="plan-radio-row">
+            <td class="plan-radio-cell">
+              <input type="radio" name="planSelect" id="opt_mensual" onchange="actualizarResumen()">
+            </td>
+            <td>
+              <span class="plan-badge-tag badge-mensual">Plan Mensual</span><br>
+              <strong>Stream + App Web PWA</strong>
+            </td>
+            <td>
+              <strong style="color: #10b981; font-size: 13px;">$15.000 ARS / mes</strong><br>
+              <span style="font-size: 11px; color: #64748b;">(Abono Mensual Recurrente)</span>
+            </td>
+            <td>
+              <strong>App Web PWA instalable en cualquier dispositivo</strong> (Android, iOS, PC, tablet).<br>
+              <span style="font-size: 11px; color: #475569;">Streaming HD SonicPanel, oyentes ilimitados, SSL y reproductor directo. Sin permanencia obligatoria.</span>
+            </td>
+          </tr>
+
           <!-- PROMO 1 -->
           <tr class="plan-radio-row">
             <td class="plan-radio-cell">
@@ -722,12 +742,13 @@
 
       <div class="clause">
         <span class="clause-num">SEGUNDA.</span>
-        <span class="clause-title">Condiciones de Pago según Promoción:</span>
+        <span class="clause-title">Condiciones de Pago según Plan o Promoción:</span>
         <p class="clause-text">
-          <strong>a) Promo 1 (Web Modular Personalizada — $200.000 ARS):</strong> Se abona el <strong>70% al iniciar</strong> las tareas de desarrollo y configuración del servidor, y el <strong>30% restante se cancela al finalizar</strong>, de forma simultánea a la entrega de la URL real, el sitio web y el streaming 100% operativos.<br>
-          <strong>b) Promo 2 (Web Básico + PWA — $170.000 ARS):</strong> Se abona en un único pago al contado al momento de contratar el servicio.<br>
-          <strong>c) Promo 3 (Web Modular Financiada):</strong> Se abona en <strong>12 cuotas mensuales y fijas de $50.000 ARS</strong>. La primera cuota se abona al iniciar el proyecto y las siguientes vencen del 1 al 5 de cada mes calendario.<br>
-          <strong>d) Módulos en Promo 3:</strong> Se deja constancia expresa de que en la Promo 3 los módulos opcionales no admiten financiamiento y se abonan en <strong>1 solo pago al iniciar</strong>.
+          <strong>a) Plan Mensual (Stream HD + App PWA — $15.000 ARS/mes):</strong> Se abona mes a mes de forma anticipada mediante transferencia o enlace de pago del 1 al 5 de cada período. No exige permanencia mínima obligatoria ni contrato anual.<br>
+          <strong>b) Promo 1 Anual (Web Modular Personalizada — $200.000 ARS):</strong> Se abona el <strong>70% al iniciar</strong> las tareas de desarrollo y configuración del servidor, y el <strong>30% restante se cancela al finalizar</strong>, de forma simultánea a la entrega de la URL real, el sitio web y el streaming 100% operativos.<br>
+          <strong>c) Promo 2 Anual (Web Básico + PWA — $170.000 ARS):</strong> Se abona en un único pago al contado al momento de contratar el servicio.<br>
+          <strong>d) Promo 3 Anual (Web Modular Financiada):</strong> Se abona en <strong>12 cuotas mensuales y fijas de $50.000 ARS</strong>. La primera cuota se abona al iniciar el proyecto y las siguientes vencen del 1 al 5 de cada mes calendario.<br>
+          <strong>e) Módulos en Promo 3:</strong> Se deja constancia expresa de que en la Promo 3 los módulos opcionales no admiten financiamiento y se abonan en <strong>1 solo pago al iniciar</strong>.
         </p>
       </div>
 
@@ -790,6 +811,7 @@
 
   <script>
     function actualizarResumen() {
+      const isMensual = document.getElementById('opt_mensual') ? document.getElementById('opt_mensual').checked : false;
       const isPromo1 = document.getElementById('opt_promo1').checked;
       const isPromo2 = document.getElementById('opt_promo2').checked;
       const isPromo3 = document.getElementById('opt_promo3').checked;
@@ -809,7 +831,9 @@
       let totalDesc = '';
       let modulosTotal = 0;
 
-      if (isPromo1) {
+      if (isMensual) {
+        planDesc = '$15.000 ARS / mes (Abono mensual sin permanencia obligatoria)';
+      } else if (isPromo1) {
         planDesc = '$200.000 ARS (Se abona 70% al iniciar y el resto al finalizar con URL real)';
         if (modContador) modulosTotal += 50000;
         if (modPublicidad) modulosTotal += 50000;
@@ -826,7 +850,7 @@
       planMontoEl.textContent = planDesc;
 
       // Módulos
-      if (modulosTotal > 0 && !isPromo2) {
+      if (modulosTotal > 0 && !isPromo2 && !isMensual) {
         modRow.style.display = 'flex';
         modMontoEl.textContent = '+$' + modulosTotal.toLocaleString('es-AR') + ' ARS (en 1 solo pago)';
       } else {
@@ -841,7 +865,9 @@
       }
 
       // Total label
-      if (isPromo1) {
+      if (isMensual) {
+        totalDesc = '$15.000 ARS (Primer mes de abono)' + (appAndroid ? ' + $100.000 App Android' : '');
+      } else if (isPromo1) {
         totalDesc = '$200.000 ARS (Se abona 70% al iniciar y el resto al finalizar)';
         if (modulosTotal > 0 || appAndroid) {
           totalDesc += ' + adicionales seleccionados en 1 pago';
@@ -860,6 +886,9 @@
       document.querySelectorAll('.editable-field').forEach(el => {
         data[el.id] = el.innerText;
       });
+      if (document.getElementById('opt_mensual')) {
+        data.opt_mensual = document.getElementById('opt_mensual').checked;
+      }
       data.opt_promo1 = document.getElementById('opt_promo1').checked;
       data.opt_promo2 = document.getElementById('opt_promo2').checked;
       data.opt_promo3 = document.getElementById('opt_promo3').checked;

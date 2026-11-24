@@ -21,6 +21,38 @@ export default function Summary() {
         </div>
 
         <div className={styles['summary__grid']}>
+          {/* Plan Mensual: Stream + App PWA */}
+          <div className={`${styles['summary__card']} ${styles['summary__card--monthly']}`}>
+            <div className={styles['summary__card-header']}>
+              <h3 className={styles['summary__card-plan']}>Plan Mensual PWA</h3>
+              <div className={`${styles['summary__card-icon']} ${styles['summary__card-icon--monthly']}`}>
+                <Smartphone size={20} />
+              </div>
+            </div>
+            <hr className={styles['summary__card-divider']} />
+            <div className={styles['summary__amount-row']}>
+              <span className={styles['summary__amount-label']}>Abono Mensual</span>
+              <span className={`${styles['summary__amount']} ${styles['summary__amount--monthly']}`}>$15.000 ARS</span>
+              <span className={styles['summary__amount-sub']}>Primer mes de servicio · Sin permanencia obligatoria</span>
+            </div>
+            <hr className={styles['summary__card-divider']} />
+            <p className={styles['summary__includes-label']}>Incluye:</p>
+            <ul className={styles['summary__includes-list']}>
+              {[
+                'Streaming HD SonicPanel mes a mes',
+                'App Web PWA instalable en cualquier dispositivo',
+                'Oyentes ilimitados y tráfico no medido',
+                'Reproductor web directo sin descargas',
+                'SSL Seguro y soporte técnico continuo',
+              ].map((item, i) => (
+                <li key={i} className={styles['summary__includes-item']}>
+                  <span className={styles['summary__includes-dot']} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Promo 2: Web Básico */}
           <div className={styles['summary__card']}>
             <div className={styles['summary__card-header']}>

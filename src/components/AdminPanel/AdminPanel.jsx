@@ -198,8 +198,8 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
       owner_name: '',
       phone: '',
       email: '',
-      plan: 'Promo 1: Web Modular ($200.000)',
-      monthly_fee: 0,
+      plan: 'Plan Mensual PWA ($15.000 / mes)',
+      monthly_fee: 15000,
       due_day: 5,
       status: 'al_dia',
       notes: '',
@@ -1323,18 +1323,17 @@ export default function AdminPanel({ isOpen, onClose, onOpenInvoice }) {
                     const selectedPlan = e.target.value;
                     let fee = editingClient.monthly_fee;
                     if (selectedPlan === 'Plan Básico') fee = 8000;
-                    else if (selectedPlan === 'Plan Pro' || selectedPlan === 'Plan Pro + App Android') fee = 15000;
+                    else if (selectedPlan.includes('15.000') || selectedPlan.includes('Mensual') || selectedPlan.includes('Plan Pro')) fee = 15000;
                     else if (selectedPlan === 'Promo 3: Web Modular Financiada (12 cuotas $50.000)') fee = 50000;
                     else if (selectedPlan.includes('Contado')) fee = 0;
                     setEditingClient({ ...editingClient, plan: selectedPlan, monthly_fee: fee });
                   }}
                   className={styles['admin-form-modal__select']}
                 >
+                  <option value="Plan Mensual PWA ($15.000 / mes)">Plan Mensual PWA ($15.000 / mes)</option>
                   <option value="Promo 1: Web Modular ($200.000)">Promo 1: Web Modular ($200.000)</option>
                   <option value="Promo 2: Web Básico Contado ($170.000)">Promo 2: Web Básico Contado ($170.000)</option>
                   <option value="Promo 3: Web Modular Financiada (12 cuotas $50.000)">Promo 3: Web Modular Financiada (12 cuotas $50.000)</option>
-                  <option value="Plan Pro ($15.000 / mes)">Plan Pro ($15.000 / mes)</option>
-                  <option value="Plan Básico ($8.000 / mes)">Plan Básico ($8.000 / mes)</option>
                   <option value="Personalizado">Personalizado</option>
                 </select>
               </div>
