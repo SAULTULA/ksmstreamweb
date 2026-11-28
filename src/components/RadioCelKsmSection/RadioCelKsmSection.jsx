@@ -119,7 +119,7 @@ export default function RadioCelKsmSection() {
             </a>
 
             <a
-              href="https://github.com/SAULTULA/radiocelapp/releases"
+              href="https://radiocelapp.ksmservicios.com.ar/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles['radiocel__cta-secondary']}
