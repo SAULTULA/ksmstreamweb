@@ -5,6 +5,8 @@ import Features from './components/Features/Features';
 import Pricing from './components/Pricing/Pricing';
 import Summary from './components/Summary/Summary';
 import AndroidSection from './components/AndroidSection/AndroidSection';
+import RadioCelKsmSection from './components/RadioCelKsmSection/RadioCelKsmSection';
+import RadioCelKsmLaunchFloat from './components/RadioCelKsmLaunchFloat/RadioCelKsmLaunchFloat';
 import SignupForm from './components/SignupForm/SignupForm';
 import Terms from './components/Terms/Terms';
 import Footer from './components/Footer/Footer';
@@ -115,12 +117,14 @@ export default function App() {
         <Pricing />
         <Summary />
         <AndroidSection />
+        <RadioCelKsmSection />
         <SignupForm />
         <Terms />
       </main>
       <Footer onOpenClientPortal={() => handleOpenClientPortal()} />
       <WhatsAppFAB />
       <BeginnerPromoToast />
+      <RadioCelKsmLaunchFloat />
       <CookieNotice />
 
       {/* Modal de Login de Administrador */}
