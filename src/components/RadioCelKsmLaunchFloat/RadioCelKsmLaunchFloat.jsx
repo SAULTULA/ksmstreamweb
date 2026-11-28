@@ -71,7 +71,7 @@ export default function RadioCelKsmLaunchFloat() {
       <div className={styles['launch-float__footer']}>
         <div className={styles['launch-float__info']}>
           <strong className={styles['launch-float__title']}>RadioCelKSM App</strong>
-          <span className={styles['launch-float__price']}>USD 35 · $42.000 ARS</span>
+          <span className={styles['launch-float__price']}>USD 35 · $50.000 ARS</span>
         </div>
         <button
           type="button"

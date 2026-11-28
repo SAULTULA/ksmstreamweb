@@ -13,7 +13,7 @@ const simplifiedFeatures = [
 ];
 
 const WA_MSG = encodeURIComponent(
-  'Hola KSM Servicios! Quiero consultar por la app RadioCelKSM (Versión Simplificada - USD 35 / $42.000 ARS) para emitir radio desde el celular.'
+  'Hola KSM Servicios! Quiero consultar por la app RadioCelKSM (Versión Simplificada - USD 35 / $50.000 ARS) para emitir radio desde el celular.'
 );
 
 export default function RadioCelKsmSection() {
@@ -84,7 +84,7 @@ export default function RadioCelKsmSection() {
               </div>
               <div className={styles['radiocel__prices']}>
                 <span className={styles['radiocel__price-usd']}>USD 35</span>
-                <span className={styles['radiocel__price-ars']}>$42.000 ARS aprox.</span>
+                <span className={styles['radiocel__price-ars']}>$50.000 ARS</span>
               </div>
             </div>
 
@@ -115,7 +115,7 @@ export default function RadioCelKsmSection() {
               className={styles['radiocel__cta']}
             >
               <MessageCircle size={18} />
-              <span>Solicitar Licencia (USD 35 / $42.000 ARS)</span>
+              <span>Solicitar Licencia (USD 35 / $50.000 ARS)</span>
             </a>
 
             <a
